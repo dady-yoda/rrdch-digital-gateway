@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Search, Menu, X, ChevronDown } from "lucide-react";
+import { ModeToggle } from "./mode-toggle";
 
 const departments = [
   "Oral Medicine & Radiology",
@@ -105,7 +106,7 @@ const NavigationBar = () => {
             ))}
           </div>
 
-          <div className="hidden lg:flex items-center">
+          <div className="hidden lg:flex items-center gap-4">
             <div className="flex items-center bg-primary-foreground/10 rounded overflow-hidden">
               <input
                 type="text"
@@ -117,16 +118,19 @@ const NavigationBar = () => {
                 <Search className="w-4 h-4" />
               </button>
             </div>
+            <ModeToggle />
           </div>
 
-          {/* Mobile toggle */}
-          <button
-            className="lg:hidden text-primary-foreground p-2"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="lg:hidden flex items-center gap-2">
+            <ModeToggle />
+            <button
+              className="text-primary-foreground p-2"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
           <span className="lg:hidden text-primary-foreground font-heading font-bold text-sm">RRDCH</span>
         </div>
       </div>

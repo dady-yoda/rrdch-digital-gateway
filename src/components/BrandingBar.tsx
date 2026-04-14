@@ -10,20 +10,14 @@ const accreditations = [
 
 const BrandingBar = () => {
   return (
-    <div className="bg-popover py-3 border-b border-border">
-      <div className="container mx-auto px-4 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-3">
-          <img src={logo} alt="RRDCH Logo" className="h-16 w-16 object-contain" />
-          <div>
-            <h1 className="font-heading text-lg font-bold text-primary leading-tight">
-              Rajarajeswari Dental College & Hospital
-            </h1>
-            <p className="text-xs text-muted-foreground">
-              Affiliated to RGUHS | Recognised by DCI | NAAC 'A+' Accredited
-            </p>
-          </div>
+    <div className="bg-popover py-4 border-b border-border">
+      <div className="container mx-auto px-4 relative flex items-center justify-center">
+        <a href="#" className="flex items-center justify-center w-full">
+          <img src={logo} alt="RRDCH Logo" className="h-20 md:h-28 lg:h-32 w-auto object-contain max-w-full" />
         </a>
-        <div className="hidden md:flex items-center gap-6">
+        
+        {/* Optional: Accreditations pushed to the far right on large screens */}
+        <div className="hidden xl:flex items-center gap-6 absolute right-4">
           {accreditations.map((item) => (
             <a
               key={item.label}
