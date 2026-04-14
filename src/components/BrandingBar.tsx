@@ -1,4 +1,5 @@
-import logo from "@/assets/logo.png";
+import logoBlack from "@/assets/RRDCH FULL BLACK.png";
+import logoWhite from "@/assets/RRDCH FULL WHITE.png";
 import { Shield, Award, GraduationCap, Globe } from "lucide-react";
 
 const accreditations = [
@@ -11,13 +12,13 @@ const accreditations = [
 const BrandingBar = () => {
   return (
     <div className="bg-popover py-4 border-b border-border">
-      <div className="container mx-auto px-4 relative flex items-center justify-center">
-        <a href="#" className="flex items-center justify-center w-full">
-          <img src={logo} alt="RRDCH Logo" className="h-20 md:h-28 lg:h-32 w-auto object-contain max-w-full" />
+      <div className="container mx-auto px-4 flex items-center justify-between">
+        <a href="#" className="flex items-center">
+          <img src={logoBlack} alt="RRDCH Logo" className="h-20 md:h-28 lg:h-32 w-auto object-contain max-w-[200px] md:max-w-[400px] lg:max-w-[600px] dark:hidden" />
+          <img src={logoWhite} alt="RRDCH Logo" className="h-20 md:h-28 lg:h-32 w-auto object-contain max-w-[200px] md:max-w-[400px] lg:max-w-[600px] hidden dark:block" />
         </a>
         
-        {/* Optional: Accreditations pushed to the far right on large screens */}
-        <div className="hidden xl:flex items-center gap-6 absolute right-4">
+        <div className="hidden lg:flex items-center gap-6">
           {accreditations.map((item) => (
             <a
               key={item.label}

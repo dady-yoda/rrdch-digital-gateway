@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Search, Menu, X, ChevronDown } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
+import StaggeredMenu from "./StaggeredMenu";
 
 const departments = [
   "Oral Medicine & Radiology",
@@ -37,23 +38,21 @@ const navItems = [
     label: "Departments",
     children: departments.map((d) => ({ label: d, href: "#" })),
   },
-  {
-    label: "Quick Links",
-    children: [
-      { label: "ERP", href: "https://rrdch.eduwizerp.com/", external: true },
-      { label: "ESI", href: "https://www.rrdch.org/e-s-i/", external: true },
-      { label: "Webmail", href: "https://outlook.office365.com/mail/", external: true },
-      { label: "NAAC", href: "https://www.rrdch.org/accreditation/naac/", external: true },
-      { label: "NIRF", href: "http://rrdch.org/career/", external: true },
-      { label: "Circulars", href: "https://www.rrdch.org/circulars/", external: true },
-      { label: "E-Content", href: "https://drive.google.com/drive/folders/1t7QoWpaW8v_9I00_kl8bjrlotHI8JC1x", external: true },
-      { label: "Online Fees", href: "https://rrdch.eduwizerp.com/", external: true },
-      { label: "Fee Terms", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2022/07/RRDCH_Online-Payment_Cancellation-Refund-Policy.pdf", external: true },
-      { label: "Newsletter", href: "https://www.rrdch.org/newsletter/", external: true },
-      { label: "Feedback", href: "https://www.rrdch.org/feedback/", external: true },
-      { label: "Career", href: "https://www.rrdch.org/career/", external: true },
-    ],
-  },
+const quickLinks = [
+  { label: "ERP", link: "https://rrdch.eduwizerp.com/", external: true },
+  { label: "ESI", link: "https://www.rrdch.org/e-s-i/", external: true },
+  { label: "Webmail", link: "https://outlook.office365.com/mail/", external: true },
+  { label: "NAAC", link: "https://www.rrdch.org/accreditation/naac/", external: true },
+  { label: "NIRF", link: "http://rrdch.org/career/", external: true },
+  { label: "Circulars", link: "https://www.rrdch.org/circulars/", external: true },
+  { label: "E-Content", link: "https://drive.google.com/drive/folders/1t7QoWpaW8v_9I00_kl8bjrlotHI8JC1x", external: true },
+  { label: "Online Fees", link: "https://rrdch.eduwizerp.com/", external: true },
+  { label: "Fee Terms", link: "https://www.rrdch.org/rrdch/wp-content/uploads/2022/07/RRDCH_Online-Payment_Cancellation-Refund-Policy.pdf", external: true },
+  { label: "Newsletter", link: "https://www.rrdch.org/newsletter/", external: true },
+  { label: "Feedback", link: "https://www.rrdch.org/feedback/", external: true },
+  { label: "Career", link: "https://www.rrdch.org/career/", external: true },
+];
+
   {
     label: "Accreditation",
     children: [
@@ -144,6 +143,18 @@ const NavigationBar = () => {
                 )}
               </div>
             ))}
+            <div className="ml-2 flex items-center h-full">
+              <StaggeredMenu 
+                position="right"
+                items={quickLinks}
+                displaySocials={false}
+                displayItemNumbering={false}
+                menuButtonColor="#ffffff"
+                openMenuButtonColor="#222"
+                changeMenuColorOnOpen={true}
+                colors={['#849a62', '#546B41']} 
+              />
+            </div>
           </div>
 
           <div className="hidden lg:flex items-center gap-4">
