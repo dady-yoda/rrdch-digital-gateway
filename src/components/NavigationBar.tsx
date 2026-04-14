@@ -38,17 +38,51 @@ const navItems = [
     children: departments.map((d) => ({ label: d, href: "#" })),
   },
   {
-    label: "Facilities",
+    label: "Quick Links",
     children: [
-      { label: "Library", href: "#" },
-      { label: "Auditorium", href: "#" },
-      { label: "Hostel", href: "#" },
-      { label: "Sports", href: "#" },
-      { label: "Cafeteria", href: "#" },
+      { label: "ERP", href: "https://rrdch.eduwizerp.com/", external: true },
+      { label: "ESI", href: "https://www.rrdch.org/e-s-i/", external: true },
+      { label: "Webmail", href: "https://outlook.office365.com/mail/", external: true },
+      { label: "NAAC", href: "https://www.rrdch.org/accreditation/naac/", external: true },
+      { label: "NIRF", href: "http://rrdch.org/career/", external: true },
+      { label: "Circulars", href: "https://www.rrdch.org/circulars/", external: true },
+      { label: "E-Content", href: "https://drive.google.com/drive/folders/1t7QoWpaW8v_9I00_kl8bjrlotHI8JC1x", external: true },
+      { label: "Online Fees", href: "https://rrdch.eduwizerp.com/", external: true },
+      { label: "Fee Terms", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2022/07/RRDCH_Online-Payment_Cancellation-Refund-Policy.pdf", external: true },
+      { label: "Newsletter", href: "https://www.rrdch.org/newsletter/", external: true },
+      { label: "Feedback", href: "https://www.rrdch.org/feedback/", external: true },
+      { label: "Career", href: "https://www.rrdch.org/career/", external: true },
     ],
   },
-  { label: "News & Events", href: "#" },
-  { label: "Alumni", href: "#" },
+  {
+    label: "Accreditation",
+    children: [
+      { label: "NAAC", href: "https://www.rrdch.org/accreditation/naac/", external: true },
+      { label: "NABH", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2025/07/NABH-accredited.pdf", external: true },
+      { label: "ISO", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2026/02/ISO-certificate-of-registration-12.05.2027.pdf", external: true },
+      { label: "IAO", href: "https://www.iao.org/India-Karnataka/RajaRajeswari-Dental-College-And-Hospital", external: true },
+      { label: "RCPS", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2021/07/RCPSG.pdf", external: true },
+      { label: "SLMC", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2021/07/SLMC.pdf", external: true },
+      { label: "NIRF", href: "https://www.rrdch.org/nirf/", external: true },
+      { label: "AISHE", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2023/02/RRDCH-AISHE_Certificate-1.pdf", external: true },
+    ],
+  },
+  {
+    label: "Schedule",
+    children: [
+      { label: "Calendar of events", href: "https://www.rrdch.org/calendar-of-events/", external: true },
+      { label: "Timetable", href: "https://www.rrdch.org/time-table/", external: true },
+    ]
+  },
+  {
+    label: "Committee",
+    children: [
+      { label: "Anti-ragging", href: "https://www.rrdch.org/anti-ragging/", external: true }
+    ]
+  },
+  { label: "DCI", href: "https://www.rrdch.org/dci-mandatory/", external: true },
+  { label: "Recognitions", href: "https://www.rrdch.org/recognitions/", external: true },
+  { label: "Brochure", href: "#" },
   { label: "Contact Us", href: "#contact" },
 ];
 
@@ -70,6 +104,8 @@ const NavigationBar = () => {
               >
                 <a
                   href={item.href || "#"}
+                  target={(item as any).external ? "_blank" : undefined}
+                  rel={(item as any).external ? "noopener noreferrer" : undefined}
                   className="flex items-center gap-1 px-3 py-2 text-sm font-heading font-medium text-primary-foreground hover:bg-secondary/30 rounded transition-colors"
                 >
                   {item.label}
@@ -83,6 +119,8 @@ const NavigationBar = () => {
                           <a
                             key={child.label}
                             href={child.href}
+                            target={(child as any).external ? "_blank" : undefined}
+                            rel={(child as any).external ? "noopener noreferrer" : undefined}
                             className="px-3 py-2 text-sm text-foreground hover:bg-muted rounded transition-colors"
                           >
                             {child.label}
@@ -94,6 +132,8 @@ const NavigationBar = () => {
                         <a
                           key={child.label}
                           href={child.href}
+                          target={(child as any).external ? "_blank" : undefined}
+                          rel={(child as any).external ? "noopener noreferrer" : undefined}
                           className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
                         >
                           {child.label}
@@ -142,6 +182,8 @@ const NavigationBar = () => {
             <div key={item.label}>
               <a
                 href={item.href || "#"}
+                target={(item as any).external ? "_blank" : undefined}
+                rel={(item as any).external ? "noopener noreferrer" : undefined}
                 className="block px-4 py-3 text-sm text-primary-foreground hover:bg-secondary/30 border-b border-primary-foreground/10 font-heading"
                 onClick={() => !item.children && setMobileOpen(false)}
               >
@@ -153,6 +195,8 @@ const NavigationBar = () => {
                     <a
                       key={child.label}
                       href={child.href}
+                      target={(child as any).external ? "_blank" : undefined}
+                      rel={(child as any).external ? "noopener noreferrer" : undefined}
                       className="block px-8 py-2 text-xs text-primary-foreground/80 hover:bg-secondary/20"
                       onClick={() => setMobileOpen(false)}
                     >

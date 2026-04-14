@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Youtube, Linkedin, Instagram, Twitter, ExternalLink, GraduationCap } from "lucide-react";
 
 const sisterConcerns = [
   { label: "RRMCH", href: "#" },
@@ -12,59 +12,98 @@ const Footer = () => {
     <footer className="bg-primary text-primary-foreground" id="contact">
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-3 gap-10">
-          {/* Contact */}
+          
+          {/* Contact & Address */}
           <div>
-            <h4 className="font-heading font-bold text-lg mb-4 text-accent">Contact Us</h4>
-            <div className="space-y-3 text-sm text-primary-foreground/80">
-              <div className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>No 14, Ramohalli Cross, Kumbalgodu, Bengaluru - 560074</span>
+            <div className="mb-6 bg-primary-foreground/10 p-4 rounded-lg border border-primary-foreground/20 shadow-sm animate-fade-in">
+              <div className="flex items-start gap-3">
+                <GraduationCap className="w-8 h-8 text-accent flex-shrink-0" />
+                <p className="text-sm font-medium leading-snug">
+                  <span className="text-accent font-bold uppercase tracking-wider text-xs block mb-1">Accreditation</span>
+                  Recognised by Royal College of Physicians and Surgeons of Glasgow, UK for part 1 & 2 MFDS
+                </p>
               </div>
-              <div className="flex items-center gap-2">
-                <Phone className="w-4 h-4 flex-shrink-0" />
-                <span>+91-80-2843 7150 / 7468 | +91 9901559955</span>
+            </div>
+
+            <h4 className="font-heading font-bold text-lg mb-4 text-accent border-b border-accent/30 pb-2 inline-block">Contact Us</h4>
+            <div className="space-y-4 text-sm text-primary-foreground/90">
+              <div className="flex items-start gap-3 group">
+                <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0 text-accent group-hover:scale-110 transition-transform" />
+                <div>
+                  <strong className="block mb-1">Rajarajeswari Dental College & Hospital</strong>
+                  No 14, Ramohalli Cross, Kumbalgodu,<br/>
+                  Bengaluru -560074, Karnataka, India.
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Mail className="w-4 h-4 flex-shrink-0" />
-                <span>principalrrdch@gmail.com</span>
+              <div className="flex items-start gap-3 group">
+                <Phone className="w-5 h-5 mt-0.5 flex-shrink-0 text-accent group-hover:scale-110 transition-transform" />
+                <div className="flex flex-col gap-1 tracking-wide">
+                  <span>+91-80-2843 7150</span>
+                  <span>+91-80-2843 7468</span>
+                  <span>+91 9901559955</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 group">
+                <Mail className="w-5 h-5 flex-shrink-0 text-accent group-hover:scale-110 transition-transform" />
+                <a href="mailto:principalrrdch@gmail.com" className="hover:text-accent transition-colors underline-offset-4 hover:underline">
+                  principalrrdch@gmail.com
+                </a>
               </div>
             </div>
           </div>
 
-          {/* Links */}
+          {/* Quick External Connections */}
           <div>
-            <h4 className="font-heading font-bold text-lg mb-4 text-accent">Quick Links</h4>
-            <ul className="space-y-2 text-sm text-primary-foreground/80">
-              <li><a href="#" className="hover:text-accent transition-colors">Dental College Blog</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">Google Workshop</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">NAAC Documents</a></li>
-              <li><a href="#" className="hover:text-accent transition-colors">Mandatory Disclosure</a></li>
+            <h4 className="font-heading font-bold text-lg mb-4 text-accent border-b border-accent/30 pb-2 inline-block">Explore More</h4>
+            <ul className="space-y-3 text-sm text-primary-foreground/90">
+              <li>
+                <a href="#" className="flex items-center gap-2 hover:text-accent transition-colors group">
+                  <ExternalLink className="w-4 h-4 text-accent/70 group-hover:text-accent transition-colors" />
+                  Google workshop link
+                </a>
+              </li>
+              <li>
+                <a href="#" className="flex items-center gap-2 hover:text-accent transition-colors group">
+                  <ExternalLink className="w-4 h-4 text-accent/70 group-hover:text-accent transition-colors" />
+                  Dental college blog
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Accreditation + Social */}
+          {/* Social Links */}
           <div>
-            <h4 className="font-heading font-bold text-lg mb-4 text-accent">Accreditation</h4>
+            <h4 className="font-heading font-bold text-lg mb-4 text-accent border-b border-accent/30 pb-2 inline-block">Connect With Us</h4>
             <p className="text-sm text-primary-foreground/80 mb-4">
-              Recognised by Royal College of Physicians and Surgeons of Glasgow, UK for Part 1 & 2 MFDS.
+              Stay updated with the latest news, events, and announcements from RRDCH on our social platforms.
             </p>
-            <h4 className="font-heading font-bold text-lg mb-3 text-accent">Follow Us</h4>
-            <div className="flex gap-4 text-sm">
-              {["Facebook", "YouTube", "LinkedIn", "Instagram"].map((s) => (
-                <a key={s} href="#" className="text-primary-foreground/60 hover:text-accent transition-colors" aria-label={s}>
-                  {s.slice(0, 2)}
-                </a>
-              ))}
+            <div className="flex flex-wrap gap-4 mt-2">
+              <a href="#" className="bg-primary-foreground/10 p-2.5 rounded-full hover:bg-accent hover:text-primary transition-all duration-300 hover:-translate-y-1" aria-label="Facebook">
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a href="#" className="bg-primary-foreground/10 p-2.5 rounded-full hover:bg-accent hover:text-primary transition-all duration-300 hover:-translate-y-1" aria-label="YouTube">
+                <Youtube className="w-5 h-5" />
+              </a>
+              <a href="#" className="bg-primary-foreground/10 p-2.5 rounded-full hover:bg-accent hover:text-primary transition-all duration-300 hover:-translate-y-1" aria-label="LinkedIn">
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a href="#" className="bg-primary-foreground/10 p-2.5 rounded-full hover:bg-accent hover:text-primary transition-all duration-300 hover:-translate-y-1" aria-label="Instagram">
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a href="#" className="bg-primary-foreground/10 p-2.5 rounded-full hover:bg-accent hover:text-primary transition-all duration-300 hover:-translate-y-1" aria-label="Twitter">
+                <Twitter className="w-5 h-5" />
+              </a>
             </div>
           </div>
         </div>
 
         {/* Sister Concerns */}
-        <div className="mt-10 pt-6 border-t border-primary-foreground/20">
-          <p className="text-xs text-primary-foreground/60 mb-2 font-heading">Rajarajeswari Group of Institutions:</p>
-          <div className="flex flex-wrap gap-4">
+        <div className="mt-12 pt-6 border-t border-primary-foreground/20">
+          <p className="text-xs text-primary-foreground/60 mb-3 font-heading uppercase tracking-wider font-semibold">Rajarajeswari Group of Institutions</p>
+          <div className="flex flex-wrap gap-x-6 gap-y-3">
             {sisterConcerns.map((s) => (
-              <a key={s.label} href={s.href} className="text-sm text-primary-foreground/70 hover:text-accent transition-colors">
+              <a key={s.label} href={s.href} className="text-sm font-medium text-primary-foreground/80 hover:text-accent transition-colors flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent/60"></span>
                 {s.label}
               </a>
             ))}
@@ -73,10 +112,15 @@ const Footer = () => {
       </div>
 
       {/* Copyright */}
-      <div className="border-t border-primary-foreground/10 py-3">
-        <p className="text-center text-xs text-primary-foreground/50">
-          © 2013-2026 RRDCH. All Rights Reserved. Site Hosted, Designed and Maintained by RRDCH.
-        </p>
+      <div className="bg-primary-foreground/5 border-t border-primary-foreground/10 py-5">
+        <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-3">
+          <p className="text-xs text-primary-foreground/70 font-medium tracking-wide">
+            @2013 RRDCH. All Rights Reserved.
+          </p>
+          <p className="text-xs text-primary-foreground/70 tracking-wide text-center md:text-right">
+            Site Hosted, Designed and Maintained by <span className="font-semibold text-accent">RRDCH</span>
+          </p>
+        </div>
       </div>
     </footer>
   );

@@ -2,10 +2,10 @@ import logo from "@/assets/logo.png";
 import { Shield, Award, GraduationCap, Globe } from "lucide-react";
 
 const accreditations = [
-  { icon: Shield, label: "NABH", href: "#" },
-  { icon: Award, label: "ISO", href: "#" },
-  { icon: GraduationCap, label: "RCPSG", href: "#" },
-  { icon: Globe, label: "SLMC", href: "#" },
+  { icon: Shield, label: "NABH", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2025/07/NABH-accredited.pdf" },
+  { icon: Award, label: "ISO", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2026/02/ISO-certificate-of-registration-12.05.2027.pdf" },
+  { icon: GraduationCap, label: "RCPSG", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2021/07/RCPSG.pdf" },
+  { icon: Globe, label: "SLMC", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2021/07/SLMC.pdf" },
 ];
 
 const BrandingBar = () => {
