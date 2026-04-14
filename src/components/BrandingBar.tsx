@@ -1,6 +1,9 @@
 import logoBlack from "@/assets/RRDCH FULL BLACK.png";
 import logoWhite from "@/assets/RRDCH FULL WHITE.png";
-import { Shield, Award, GraduationCap, Globe } from "lucide-react";
+import nabhLogo from "@/assets/NABH-Logo.webp";
+import isoLogo from "@/assets/iso-logo.png";
+import rcpsgLogo from "@/assets/RCPSG.png";
+import slmcLogo from "@/assets/SLMC.png";
 import StaggeredMenu from "./StaggeredMenu";
 
 const quickLinks = [
@@ -19,10 +22,10 @@ const quickLinks = [
 ];
 
 const accreditations = [
-  { icon: Shield, label: "NABH", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2025/07/NABH-accredited.pdf" },
-  { icon: Award, label: "ISO", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2026/02/ISO-certificate-of-registration-12.05.2027.pdf" },
-  { icon: GraduationCap, label: "RCPSG", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2021/07/RCPSG.pdf" },
-  { icon: Globe, label: "SLMC", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2021/07/SLMC.pdf" },
+  { image: nabhLogo, label: "NABH", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2025/07/NABH-accredited.pdf" },
+  { image: isoLogo, label: "ISO", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2026/02/ISO-certificate-of-registration-12.05.2027.pdf" },
+  { image: rcpsgLogo, label: "RCPSG", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2021/07/RCPSG.pdf" },
+  { image: slmcLogo, label: "SLMC", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2021/07/SLMC.pdf" },
 ];
 
 const BrandingBar = () => {
@@ -41,10 +44,10 @@ const BrandingBar = () => {
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center gap-1 text-muted-foreground hover:text-primary transition-colors"
+              className="flex flex-col items-center gap-1 text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-105"
               aria-label={`${item.label} Accreditation`}
             >
-              <item.icon className="w-8 h-8" />
+              <img src={item.image} alt={`${item.label} Logo`} className="h-14 w-auto object-contain mix-blend-multiply dark:mix-blend-normal bg-transparent" />
               <span className="text-[10px] font-heading font-semibold">{item.label}</span>
             </a>
           ))}
