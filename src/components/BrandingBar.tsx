@@ -1,6 +1,22 @@
 import logoBlack from "@/assets/RRDCH FULL BLACK.png";
 import logoWhite from "@/assets/RRDCH FULL WHITE.png";
 import { Shield, Award, GraduationCap, Globe } from "lucide-react";
+import StaggeredMenu from "./StaggeredMenu";
+
+const quickLinks = [
+  { label: "ERP", link: "https://rrdch.eduwizerp.com/", external: true },
+  { label: "ESI", link: "https://www.rrdch.org/e-s-i/", external: true },
+  { label: "Webmail", link: "https://outlook.office365.com/mail/", external: true },
+  { label: "NAAC", link: "https://www.rrdch.org/accreditation/naac/", external: true },
+  { label: "NIRF", link: "http://rrdch.org/career/", external: true },
+  { label: "Circulars", link: "https://www.rrdch.org/circulars/", external: true },
+  { label: "E-Content", link: "https://drive.google.com/drive/folders/1t7QoWpaW8v_9I00_kl8bjrlotHI8JC1x", external: true },
+  { label: "Online Fees", link: "https://rrdch.eduwizerp.com/", external: true },
+  { label: "Fee Terms", link: "https://www.rrdch.org/rrdch/wp-content/uploads/2022/07/RRDCH_Online-Payment_Cancellation-Refund-Policy.pdf", external: true },
+  { label: "Newsletter", link: "https://www.rrdch.org/newsletter/", external: true },
+  { label: "Feedback", link: "https://www.rrdch.org/feedback/", external: true },
+  { label: "Career", link: "https://www.rrdch.org/career/", external: true },
+];
 
 const accreditations = [
   { icon: Shield, label: "NABH", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2025/07/NABH-accredited.pdf" },
@@ -32,6 +48,18 @@ const BrandingBar = () => {
               <span className="text-[10px] font-heading font-semibold">{item.label}</span>
             </a>
           ))}
+          <div className="ml-4 flex items-center h-full z-[100]">
+            <StaggeredMenu 
+              position="right"
+              items={quickLinks}
+              displaySocials={false}
+              displayItemNumbering={false}
+              menuButtonColor="#546B41"
+              openMenuButtonColor="#222"
+              changeMenuColorOnOpen={true}
+              colors={['#849a62', '#546B41']} 
+            />
+          </div>
         </div>
       </div>
     </div>
