@@ -4,6 +4,15 @@
 
 .ch-section {
   width: 100%;
+  padding: 4rem 1rem;
+  box-sizing: border-box;
+}
+
+/* Constrain to the same container width as the rest of the page */
+.ch-container {
+  max-width: 80rem; /* matches Tailwind's container at xl */
+  margin: 0 auto;
+  width: 100%;
 }
 
 /* The grid container carries the background image */
@@ -16,6 +25,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
+  border-radius: 0.5rem;
+  overflow: hidden;
 }
 
 /* Dark layer under everything so text is legible */

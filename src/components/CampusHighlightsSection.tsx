@@ -16,10 +16,11 @@ const CampusHighlightsSection = () => {
 
   return (
     <section className="ch-section">
-      <div
-        className="ch-grid"
-        style={{ backgroundImage: `url(${heroCampus})` }}
-      >
+      <div className="ch-container">
+        <div
+          className="ch-grid"
+          style={{ backgroundImage: `url(${heroCampus})` }}
+        >
         {/* Darken overlay — lightens on hover cell */}
         <div className="ch-base-overlay" />
 
@@ -36,6 +37,7 @@ const CampusHighlightsSection = () => {
             <span className="ch-cell-label">{cell.label}</span>
           </a>
         ))}
+        </div>
       </div>
     </section>
   );
