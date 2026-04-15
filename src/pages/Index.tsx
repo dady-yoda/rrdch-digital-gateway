@@ -3,9 +3,8 @@ import PillNav from "@/components/PillNav";
 import HeroSection from "@/components/HeroSection";
 import LeadershipSection from "@/components/LeadershipSection";
 import AcademicsSection from "@/components/AcademicsSection";
-import UpdatesSection from "@/components/UpdatesSection";
-import MultimediaSection from "@/components/MultimediaSection";
 import Footer from "@/components/Footer";
+import CampusHighlightsSection from "@/components/CampusHighlightsSection";
 import logo from "@/assets/RRDCH FULL BLACK.png";
 
 const departments = [
@@ -102,8 +101,7 @@ const Index = () => {
         <HeroSection />
         <LeadershipSection />
         <AcademicsSection />
-        <UpdatesSection />
-        <MultimediaSection />
+        <CampusHighlightsSection />
       </main>
       <Footer />
     </div>

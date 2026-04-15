@@ -1,9 +1,12 @@
+import { useState } from "react";
 import chairmanImg from "@/assets/chairman.jpg";
 import collegeImg from "@/assets/college-img.jpg";
 import hospitalImg from "@/assets/hospital.jpg";
 import FadeInSection from "./FadeInSection";
 
 const LeadershipSection = () => {
+  const [collegeExpanded, setCollegeExpanded] = useState(false);
+
   return (
     <section className="py-16 bg-background">
       <div className="container mx-auto px-4">

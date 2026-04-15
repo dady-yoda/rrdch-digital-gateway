@@ -1,0 +1,119 @@
+/* ============================================================
+   CampusHighlightsSection — Full-width grid overlay on one image
+   ============================================================ */
+
+.ch-section {
+  width: 100%;
+  padding: 4rem 1rem;
+  box-sizing: border-box;
+}
+
+/* Constrain to the same container width as the rest of the page */
+.ch-container {
+  max-width: 80rem; /* matches Tailwind's container at xl */
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* The grid container carries the background image */
+.ch-grid {
+  position: relative;
+  width: 100%;
+  height: 560px;
+  background-size: cover;
+  background-position: center 30%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+/* Dark layer under everything so text is legible */
+.ch-base-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 30, 14, 0.42);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Each grid cell ── */
+.ch-cell {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.28s ease;
+
+  /* Thin white divider lines via box-shadow on inner edge */
+  border: 0.5px solid rgba(255, 255, 255, 0.35);
+}
+
+/* Subtle dark tint per cell (transparent by default) */
+.ch-cell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(84, 107, 65, 0);
+  transition: background 0.28s ease;
+}
+
+/* Hovered cell — lift with a green tint */
+.ch-cell--active::before {
+  background: rgba(84, 107, 65, 0.55);
+}
+
+/* Non-hovered siblings darken slightly */
+.ch-cell--dimmed::before {
+  background: rgba(10, 14, 8, 0.38);
+}
+
+/* The caption label */
+.ch-cell-label {
+  position: relative;
+  z-index: 3;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  transition: color 0.22s ease, transform 0.22s ease;
+
+  /* Underline that slides in on hover */
+  text-decoration: none;
+}
+
+.ch-cell-label::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  background: #dcccac;
+  margin: 6px auto 0;
+  transition: width 0.28s ease;
+  border-radius: 2px;
+}
+
+.ch-cell--active .ch-cell-label {
+  color: #fff8ec;
+  transform: translateY(-3px);
+}
+
+.ch-cell--active .ch-cell-label::after {
+  width: 60%;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .ch-grid {
+    height: auto;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 140px);
+  }
+}

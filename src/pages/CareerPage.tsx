@@ -1,5 +1,6 @@
 import PageLayout from "@/components/PageLayout";
 import PageHero from "@/components/PageHero";
+import SpotlightCard from "@/components/SpotlightCard";
 import { Briefcase, MapPin, Clock, ExternalLink, Mail, Download } from "lucide-react";
 
 const openings = [
@@ -115,9 +116,10 @@ const CareerPage = () => (
       </h2>
       <div className="space-y-4">
         {openings.map((job, i) => (
-          <div
+          <SpotlightCard
             key={i}
             className="bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
+            spotlightColor="rgba(84, 107, 65, 0.18)"
           >
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
               <div className="flex-1">
@@ -147,7 +149,7 @@ const CareerPage = () => (
                 Apply Now
               </a>
             </div>
-          </div>
+          </SpotlightCard>
         ))}
       </div>
     </section>

@@ -1,5 +1,6 @@
 import PageLayout from "@/components/PageLayout";
 import PageHero from "@/components/PageHero";
+import SpotlightCard from "@/components/SpotlightCard";
 import { Calendar, Clock, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -33,10 +34,10 @@ const SchedulePage = () => (
         {scheduleOptions.map((opt) => {
           const Icon = opt.icon;
           return (
+            <SpotlightCard key={opt.title} className="rounded-2xl border border-border" spotlightColor="rgba(84, 107, 65, 0.2)">
             <Link
-              key={opt.title}
               to={opt.href}
-              className="group bg-card border border-border rounded-2xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-start"
+              className="group bg-card rounded-2xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col items-start"
             >
               <div className={`w-14 h-14 rounded-xl ${opt.color} flex items-center justify-center mb-5 shadow`}>
                 <Icon className="w-7 h-7 text-primary-foreground" />
@@ -51,6 +52,7 @@ const SchedulePage = () => (
                 View {opt.title} <ChevronRight className="w-4 h-4" />
               </div>
             </Link>
+            </SpotlightCard>
           );
         })}
       </div>
