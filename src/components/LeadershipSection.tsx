@@ -65,10 +65,7 @@ const LeadershipSection = () => {
               <Users className="w-10 h-10 text-secondary mb-4" />
               <h3 className="font-heading text-xl font-bold text-primary mb-3">The Hospital</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Our 200-chair dental hospital caters to over 500 patients daily, providing students with
-                unparalleled clinical exposure. With 9 specialised departments, advanced diagnostic equipment,
-                and a dedicated implant center, the hospital ensures students gain hands-on experience with
-                real-world dental care from their very first year.
+                Dental Hospital and Training Dental clinics in all departments have 250 modern dental units / chairs. An average 450 to 500 patients are treated in these clinics daily. Each department is staffed with more than required number of full time and dedicated teachers who are well qualified and experienced in their fields of speciality. Medical College and Hospital and Training RajaRajeswari Medical College and Hospital is a 1000 bedded Medical College Hospital, recognized for undergraduate and postgraduate training by Medical Council of India. All medical subjects are taught at the Medical College for the Dental students and students attend Medical and Surgical clinics at the Medical College & Hospital.
               </p>
             </SpotlightCard>
           </FadeInSection>

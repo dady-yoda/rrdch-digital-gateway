@@ -152,7 +152,7 @@ const PillNav = ({
     if (!tl) return;
     activeTweenRefs.current[i]?.kill();
     activeTweenRefs.current[i] = tl.tweenTo(tl.duration(), {
-      duration: 0.3,
+      duration: 0.6,
       ease,
       overwrite: 'auto'
     });
@@ -163,7 +163,7 @@ const PillNav = ({
     if (!tl) return;
     activeTweenRefs.current[i]?.kill();
     activeTweenRefs.current[i] = tl.tweenTo(0, {
-      duration: 0.2,
+      duration: 0.45,
       ease,
       overwrite: 'auto'
     });

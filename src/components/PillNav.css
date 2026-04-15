@@ -1,11 +1,7 @@
 /* ─── PillNav Container ─── */
 
 .pill-nav-container {
-  position: absolute;
-  top: 1em;
   z-index: 99;
-  left: 50%;
-  transform: translateX(-50%);
 }
 
 @media (max-width: 768px) {
