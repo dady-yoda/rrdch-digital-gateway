@@ -28,11 +28,12 @@ const LeadershipSection = () => {
                 Chairman's Message
               </h2>
               <blockquote className="border-l-4 border-accent pl-6 text-muted-foreground leading-relaxed italic">
-                "Our vision is to create an institution of excellence that produces skilled dental professionals
-                who serve society with compassion and competence. Rajarajeswari Dental College & Hospital has
-                been at the forefront of dental education and research, nurturing talent and fostering innovation
-                since its inception. We are committed to providing world-class infrastructure, experienced faculty,
-                and a learning environment that inspires students to achieve their fullest potential."
+                "It is my pleasure to congratulate you on your enrolling yourself as a student in our group of institutions, which are well known for the discipline, quality education and personality development. 
+                Our Students have excelled not only in academic activities by obtaining many university ranks, but also have proved their mettle by taking part in circular, co-curricular and extra curricular activities. 
+                Presently, a knowledge explosion is being ushered in to present era especially information technology domain. We are working with a progressive & futuristic vision of India, to bring about paradigm shift in arts, 
+                science, engineering & technology which will bring progress and prosperity to our country. We are convinced that “character is the crown and glory of life”. We believe in quality education, progress through discipline, 
+                knowledge through devotion and satisfaction through services to the student community.<br/>
+                We are dedicated to meet the challenges of the new millennium, in the field of medical and technical higher education so as to make our country a highly industrialized and healthy modern nation."
               </blockquote>
             </div>
           </div>
