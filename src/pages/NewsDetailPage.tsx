@@ -1,5 +1,4 @@
 import { useParams, Link } from "react-router-dom";
-import { useEffect } from "react";
 import PageLayout from "@/components/PageLayout";
 import PageHero from "@/components/PageHero";
 import { Calendar, ArrowLeft, Tag, ArrowUpRight } from "lucide-react";
@@ -8,11 +7,6 @@ import { newsItems, categoryMeta } from "@/data/newsData";
 const NewsDetailPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const item = newsItems.find((n) => n.slug === slug);
-
-  // Scroll to top whenever the article slug changes
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
-  }, [slug]);
 
   if (!item) {
     return (

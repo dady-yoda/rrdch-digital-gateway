@@ -5,6 +5,7 @@ import LeadershipSection from "@/components/LeadershipSection";
 import AcademicsSection from "@/components/AcademicsSection";
 import UpdatesSection from "@/components/UpdatesSection";
 import MultimediaSection from "@/components/MultimediaSection";
+import CampusHighlightsSection from "@/components/CampusHighlightsSection";
 import Footer from "@/components/Footer";
 import logo from "@/assets/RRDCH FULL BLACK.png";
 
@@ -102,6 +103,7 @@ const Index = () => {
         <HeroSection />
         <LeadershipSection />
         <AcademicsSection />
+        <CampusHighlightsSection />
         <UpdatesSection />
         <MultimediaSection />
       </main>
