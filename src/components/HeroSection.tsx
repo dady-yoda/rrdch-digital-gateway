@@ -1,34 +1,12 @@
 import { useState, useEffect } from "react";
-import heroRank from "@/assets/rank.jpg";
-import heroRank2 from "@/assets/rank2.jpg";
-import heroDelegates1 from "@/assets/delegates1.jpg";
-import heroDelegates2 from "@/assets/delegates2.jpg";
-import heroAnnualConvocation from "@/assets/annual convocation.jpg";
-import heroRussia from "@/assets/russia.jpg";
-import heroFaculty from "@/assets/faculty.jpg";
-import heroStudents from "@/assets/students.jpg";
-import heroInauguration1 from "@/assets/inauguration1.jpg";
-import heroInauguration2 from "@/assets/inauguration2.jpg";
-import heroInauguration3 from "@/assets/inauguration3.jpg";
-import heroInauguration4 from "@/assets/inauguration4.jpg";
-import heroInauguration5 from "@/assets/inauguration5.jpg";
-import heroInauguration6 from "@/assets/inauguration6.jpg";
+import heroCampus from "@/assets/hero-campus.jpg";
+import heroClinical from "@/assets/hero-clinical.jpg";
+import heroGraduation from "@/assets/hero-graduation.jpg";
 
 const slides = [
-  { src: heroRank, alt: "Top-ranking students of RRDCH being recognized for academic excellence", caption: "Celebrating Academic Toppers and Achievers" },
-  { src: heroRank2, alt: "High-achieving students of RRDCH recognized as rank holders", caption: "Where Talent Meets Achievement" },
-  { src: heroDelegates1, alt: "RRDCH representatives with international delegates during an official meeting", caption: "Strengthening Global Academic Partnerships" },
-  { src: heroDelegates2, alt: "Formal meeting between RRDCH officials and international delegates at a conference table", caption: "Fostering International Collaboration in Dental Education" },
-  { src: heroAnnualConvocation, alt: "Annual convocation ceremony at RRDCH", caption: "Milestones Achieved" },
-  { src: heroRussia, alt: "Academic partnership interaction between RRDCH and Kursk State Medical University, Russia", caption: "Bridging Global Excellence in Healthcare Education" },
-  { src: heroFaculty, alt: "Experienced faculty members at RRDCH", caption: "Guided by Expert Faculty" },
-  { src: heroStudents, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
-  { src: heroInauguration1, alt: "Dignitaries lighting the ceremonial lamp during an inauguration event at RRDCH", caption: "Marking Auspicious Beginnings with Tradition" },
-  { src: heroInauguration2, alt: "Faculty and dignitaries in academic robes participating in lamp lighting ceremony", caption: "Upholding Academic Traditions and Values" },
-  { src: heroInauguration3, alt: "Dignitaries presenting an award to a student during a formal ceremony at RRDCH", caption: "Recognizing Excellence and Achievement" },
-  { src: heroInauguration4, alt: "Felicitation ceremony honoring a distinguished guest at RRDCH event", caption: "Honoring Distinguished Contributions" },
-  { src: heroInauguration5, alt: "Dignitaries presenting a bouquet during a felicitation ceremony at RRDCH", caption: "Celebrating Leadership and Service" },
-  { src: heroInauguration6, alt: "Graduation ceremony with students receiving awards on stage at RRDCH convocation", caption: "Celebrating Academic Milestones" },
+  { src: heroCampus, alt: "RRDCH Campus aerial view", caption: "A Premier Dental Institution in Bengaluru" },
+  { src: heroClinical, alt: "Clinical training at RRDCH", caption: "World-Class Clinical Training" },
+  { src: heroGraduation, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
 ];
 
 const tickerItems = [
