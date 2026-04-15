@@ -27,6 +27,7 @@ import FeeTermsPage from "./pages/FeeTermsPage.tsx";
 import BrochurePage from "./pages/BrochurePage.tsx";
 import NewsPage from "./pages/NewsPage.tsx";
 import NewsDetailPage from "./pages/NewsDetailPage.tsx";
+import GalleryPage from "./pages/GalleryPage.tsx";
 import ScrollToTop from "@/components/ScrollToTop";
 
 const queryClient = new QueryClient();
@@ -72,6 +73,7 @@ const App = () => {
                 <Route path="/brochure" element={<BrochurePage />} />
                 <Route path="/news" element={<NewsPage />} />
                 <Route path="/news/:slug" element={<NewsDetailPage />} />
+                <Route path="/gallery" element={<GalleryPage />} />
                 {/* Catch-all */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

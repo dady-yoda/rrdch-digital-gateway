@@ -8,7 +8,7 @@ const cells = [
   { id: "awards",           label: "Awards & Recognitions", link: "/recognitions" },
   { id: "facilities",       label: "Campus Facilities",     link: "#" },
   { id: "maps",             label: "Maps",                  link: "https://maps.google.com/?q=Rajarajeswari+Dental+College+Bangalore", isExternal: true },
-  { id: "campus-tour",      label: "Gallery",               link: "https://www.rrdch.org/video-gallery/", isExternal: true },
+  { id: "campus-tour",      label: "Gallery",               link: "/gallery" },
 ];
 
 const CampusHighlightsSection = () => {
