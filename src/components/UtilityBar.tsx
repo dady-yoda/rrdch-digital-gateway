@@ -1,24 +1,47 @@
 import { Phone, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
-const utilityLinks1 = [
+interface UtilityLink {
+  label: string;
+  href: string;
+  external: boolean;
+}
+
+const utilityLinks1: UtilityLink[] = [
   { label: "ERP", href: "https://rrdch.eduwizerp.com/", external: true },
-  { label: "ESI", href: "https://www.rrdch.org/e-s-i/", external: true },
-  { label: "DCI", href: "#", external: false },
-  { label: "Brochure", href: "#", external: false },
-  { label: "Recognitions", href: "#", external: false },
-  { label: "Feedback", href: "#", external: false },
-  { label: "Career", href: "#", external: false },
+  { label: "ESI", href: "/esi", external: false },
+  { label: "DCI", href: "/dci", external: false },
+  { label: "Brochure", href: "/brochure", external: false },
+  { label: "Recognitions", href: "/recognitions", external: false },
+  { label: "Feedback", href: "/feedback", external: false },
+  { label: "Career", href: "/career", external: false },
 ];
 
-const utilityLinks2 = [
-  { label: "Webmail", href: "#", external: true },
-  { label: "NAAC", href: "#", external: false },
-  { label: "NIRF", href: "#", external: false },
-  { label: "Circulars", href: "#", external: false },
-  { label: "E-Content", href: "#", external: true },
+const utilityLinks2: UtilityLink[] = [
+  { label: "Webmail", href: "https://outlook.office365.com/mail/", external: true },
+  { label: "NAAC", href: "/accreditation/naac", external: false },
+  { label: "NIRF", href: "/accreditation/nirf", external: false },
+  { label: "Circulars", href: "/circulars", external: false },
+  { label: "E-Content", href: "https://drive.google.com/drive/folders/1t7QoWpaW8v_9I00_kl8bjrlotHI8JC1x", external: true },
   { label: "Online Fees", href: "https://rrdch.eduwizerp.com/", external: true },
-  { label: "Fee Terms", href: "#", external: false },
+  { label: "Fee Terms", href: "/fee-terms", external: false },
 ];
+
+const UtilityBarLink = ({ link }: { link: UtilityLink }) => {
+  const cls = "hover:text-primary transition-colors font-medium";
+  if (link.external) {
+    return (
+      <a href={link.href} target="_blank" rel="noopener noreferrer" className={cls}>
+        {link.label}
+      </a>
+    );
+  }
+  return (
+    <Link to={link.href} className={cls}>
+      {link.label}
+    </Link>
+  );
+};
 
 const UtilityBar = () => {
   return (
@@ -38,30 +61,14 @@ const UtilityBar = () => {
           </div>
           <div className="flex items-center gap-3">
             {utilityLinks1.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                target={link.external ? "_blank" : undefined}
-                rel={link.external ? "noopener noreferrer" : undefined}
-                className="hover:text-primary transition-colors font-medium"
-              >
-                {link.label}
-              </a>
+              <UtilityBarLink key={link.label} link={link} />
             ))}
           </div>
         </div>
         {/* Row 2 */}
         <div className="flex items-center justify-end py-1 gap-3">
           {utilityLinks2.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              target={link.external ? "_blank" : undefined}
-              rel={link.external ? "noopener noreferrer" : undefined}
-              className="hover:text-primary transition-colors font-medium"
-            >
-              {link.label}
-            </a>
+            <UtilityBarLink key={link.label} link={link} />
           ))}
         </div>
       </div>

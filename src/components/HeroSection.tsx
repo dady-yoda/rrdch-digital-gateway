@@ -28,7 +28,7 @@ const HeroSection = () => {
   return (
     <section>
       {/* Carousel */}
-      <div className="relative w-full h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+      <div className="relative w-full h-[400px] sm:h-[500px] md:h-[650px] lg:h-[800px] overflow-hidden">
         {slides.map((slide, i) => (
           <div
             key={i}

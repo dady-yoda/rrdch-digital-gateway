@@ -37,7 +37,11 @@
   border: none;
   cursor: pointer;
   color: #fff;
-  font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   line-height: 1;
   overflow: visible;
   padding: 0.5rem 1rem;
@@ -172,9 +176,12 @@
 
 .sm-socials-title {
   margin: 0;
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--sm-accent, #ff0000);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sm-accent, #546B41);
 }
 
 .sm-socials-list {
@@ -214,9 +221,10 @@
 }
 
 .sm-socials-link {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: #111;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #222;
   text-decoration: none;
   position: relative;
   padding: 2px 0;
@@ -249,12 +257,13 @@
 
 .sm-panel-item {
   position: relative;
-  color: #000;
-  font-weight: 600;
-  font-size: 2rem;
+  color: #1a1a1a;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 1.65rem;
   cursor: pointer;
   line-height: 1;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
   text-transform: uppercase;
   transition:
     background 0.25s,
