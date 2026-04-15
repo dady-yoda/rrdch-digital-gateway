@@ -8,17 +8,19 @@ import StaggeredMenu from "./StaggeredMenu";
 
 const quickLinks = [
   { label: "ERP", link: "https://rrdch.eduwizerp.com/", external: true },
-  { label: "ESI", link: "https://www.rrdch.org/e-s-i/", external: true },
+  { label: "ESI", link: "/esi", external: false },
   { label: "Webmail", link: "https://outlook.office365.com/mail/", external: true },
-  { label: "NAAC", link: "https://www.rrdch.org/accreditation/naac/", external: true },
-  { label: "NIRF", link: "http://rrdch.org/career/", external: true },
-  { label: "Circulars", link: "https://www.rrdch.org/circulars/", external: true },
+  { label: "NAAC", link: "/accreditation/naac", external: false },
+  { label: "NIRF", link: "/accreditation/nirf", external: false },
+  { label: "Circulars", link: "/circulars", external: false },
   { label: "E-Content", link: "https://drive.google.com/drive/folders/1t7QoWpaW8v_9I00_kl8bjrlotHI8JC1x", external: true },
   { label: "Online Fees", link: "https://rrdch.eduwizerp.com/", external: true },
-  { label: "Fee Terms", link: "https://www.rrdch.org/rrdch/wp-content/uploads/2022/07/RRDCH_Online-Payment_Cancellation-Refund-Policy.pdf", external: true },
-  { label: "Newsletter", link: "https://www.rrdch.org/newsletter/", external: true },
-  { label: "Feedback", link: "https://www.rrdch.org/feedback/", external: true },
-  { label: "Career", link: "https://www.rrdch.org/career/", external: true },
+  { label: "Fee Terms", link: "/fee-terms", external: false },
+  { label: "Newsletter", link: "/newsletter", external: false },
+  { label: "Brochure", link: "/brochure", external: false },
+  { label: "Career", link: "/career", external: false },
+  { label: "Feedback", link: "/feedback", external: false },
+  { label: "Contact Us", link: "/#contact", external: false },
 ];
 
 const accreditations = [
