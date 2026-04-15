@@ -1,5 +1,6 @@
 import PageLayout from "@/components/PageLayout";
 import PageHero from "@/components/PageHero";
+import SpotlightCard from "@/components/SpotlightCard";
 import { Award, ExternalLink, FileDown } from "lucide-react";
 
 const accreditations = [
@@ -100,9 +101,10 @@ const AccreditationPage = () => (
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {accreditations.map((acc) => (
-          <div
+          <SpotlightCard
             key={acc.name}
             className="bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col"
+            spotlightColor="rgba(84, 107, 65, 0.2)"
           >
             <div className="flex items-start justify-between mb-4">
               <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-heading font-bold text-sm">
@@ -137,7 +139,7 @@ const AccreditationPage = () => (
                 </>
               )}
             </a>
-          </div>
+          </SpotlightCard>
         ))}
       </div>
     </section>

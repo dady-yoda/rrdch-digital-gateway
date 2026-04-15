@@ -1,5 +1,6 @@
 import { useState } from "react";
 import FadeInSection from "./FadeInSection";
+import SpotlightCard from "./SpotlightCard";
 import { Calendar, ArrowUpRight, Newspaper, GraduationCap, Activity, Star, AlertCircle } from "lucide-react";
 
 /* ─── Real data sourced from https://www.rrdch.org/news-and-events/ ─── */
@@ -197,11 +198,12 @@ const UpdatesSection = () => {
             const meta = categoryMeta[item.category];
             return (
               <FadeInSection key={`${item.href}-${i}`}>
+                <SpotlightCard className="rounded-xl border border-border hover:shadow-lg hover:border-primary/30 transition-all duration-300 h-full" spotlightColor="rgba(84, 107, 65, 0.15)">
                 <a
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex flex-col bg-card rounded-xl p-5 border border-border hover:shadow-lg hover:border-primary/30 transition-all duration-300 h-full"
+                  className="group flex flex-col bg-card rounded-xl p-5 h-full"
                 >
                   {/* Badge + arrow */}
                   <div className="flex items-center justify-between mb-3">
@@ -228,6 +230,7 @@ const UpdatesSection = () => {
                     {item.date}
                   </div>
                 </a>
+                </SpotlightCard>
               </FadeInSection>
             );
           })}

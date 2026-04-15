@@ -1,5 +1,6 @@
 import chairmanImg from "@/assets/chairman.jpg";
 import FadeInSection from "./FadeInSection";
+import SpotlightCard from "./SpotlightCard";
 import { Building2, Users } from "lucide-react";
 
 const LeadershipSection = () => {
@@ -46,7 +47,7 @@ const LeadershipSection = () => {
         {/* College & Hospital Cards */}
         <div className="grid md:grid-cols-2 gap-8">
           <FadeInSection>
-            <div className="bg-card rounded-lg p-8 border border-border shadow-sm hover:shadow-md transition-shadow">
+            <SpotlightCard className="bg-card rounded-lg p-8 border border-border shadow-sm hover:shadow-md transition-shadow" spotlightColor="rgba(84, 107, 65, 0.18)">
               <Building2 className="w-10 h-10 text-secondary mb-4" />
               <h3 className="font-heading text-xl font-bold text-primary mb-3">The College</h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -57,10 +58,10 @@ const LeadershipSection = () => {
                 RajaRajeswari Dental College & Hospital is situated at a sprawling 5 acre campus on the Bangalore-Mysore Highway at 19 kms from Vidhana Soudha. The Lush green campus has 4 lakh Sq. feet of modern 
                 building which houses the Dental Institute, its 10 speciality dental clinics, supporting labs and class rooms and residential accommodation for staff and students.
               </p>
-            </div>
+            </SpotlightCard>
           </FadeInSection>
           <FadeInSection>
-            <div className="bg-card rounded-lg p-8 border border-border shadow-sm hover:shadow-md transition-shadow">
+            <SpotlightCard className="bg-card rounded-lg p-8 border border-border shadow-sm hover:shadow-md transition-shadow" spotlightColor="rgba(84, 107, 65, 0.18)">
               <Users className="w-10 h-10 text-secondary mb-4" />
               <h3 className="font-heading text-xl font-bold text-primary mb-3">The Hospital</h3>
               <p className="text-muted-foreground leading-relaxed">
@@ -69,7 +70,7 @@ const LeadershipSection = () => {
                 and a dedicated implant center, the hospital ensures students gain hands-on experience with
                 real-world dental care from their very first year.
               </p>
-            </div>
+            </SpotlightCard>
           </FadeInSection>
         </div>
       </div>

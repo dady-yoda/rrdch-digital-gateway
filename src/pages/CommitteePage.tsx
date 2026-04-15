@@ -1,5 +1,6 @@
 import PageLayout from "@/components/PageLayout";
 import PageHero from "@/components/PageHero";
+import SpotlightCard from "@/components/SpotlightCard";
 import { Users, ChevronRight, ShieldAlert } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -82,12 +83,13 @@ const CommitteePage = () => (
         {committees.map((c) => {
           const Icon = c.icon;
           const CardContent = (
-            <div
+            <SpotlightCard
               className={`bg-card border rounded-xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full ${
                 c.highlight
                   ? "border-primary/40 ring-1 ring-primary/20"
                   : "border-border"
               }`}
+              spotlightColor={c.highlight ? "rgba(84, 107, 65, 0.22)" : "rgba(84, 107, 65, 0.12)"}
             >
               <div className="flex items-start gap-4 mb-4">
                 <div
@@ -111,7 +113,7 @@ const CommitteePage = () => (
                   View Details <ChevronRight className="w-4 h-4" />
                 </div>
               )}
-            </div>
+            </SpotlightCard>
           );
 
           return c.href !== "#" && c.internal ? (

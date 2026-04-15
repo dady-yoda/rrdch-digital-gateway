@@ -1,5 +1,6 @@
 import PageLayout from "@/components/PageLayout";
 import PageHero from "@/components/PageHero";
+import SpotlightCard from "@/components/SpotlightCard";
 import { BookOpen, Download, ExternalLink, Calendar } from "lucide-react";
 
 const newsletters = [
@@ -75,9 +76,10 @@ const NewsletterPage = () => (
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {newsletters.map((nl) => (
-          <div
+          <SpotlightCard
             key={nl.issue}
             className="bg-card border border-border rounded-xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col"
+            spotlightColor="rgba(84, 107, 65, 0.18)"
           >
             {/* Header stripe */}
             <div
@@ -108,7 +110,7 @@ const NewsletterPage = () => (
                 <Download className="w-4 h-4" /> Download Issue
               </a>
             </div>
-          </div>
+          </SpotlightCard>
         ))}
       </div>
     </section>
