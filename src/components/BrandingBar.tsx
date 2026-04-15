@@ -4,6 +4,9 @@ import nabhLogo from "@/assets/NABH-Logo.webp";
 import isoLogo from "@/assets/iso-logo.png";
 import rcpsgLogo from "@/assets/RCPSG.png";
 import slmcLogo from "@/assets/SLMC.png";
+import rcpsgDarkLogo from "@/assets/RCPSG for dark mode.png";
+import gradientWhite from "@/assets/greadient white.svg";
+import gradientBlack from "@/assets/gradient black.svg";
 import StaggeredMenu from "./StaggeredMenu";
 
 const quickLinks = [
@@ -26,14 +29,16 @@ const quickLinks = [
 const accreditations = [
   { image: nabhLogo, label: "NABH", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2025/07/NABH-accredited.pdf" },
   { image: isoLogo, label: "ISO", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2026/02/ISO-certificate-of-registration-12.05.2027.pdf" },
-  { image: rcpsgLogo, label: "RCPSG", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2021/07/RCPSG.pdf" },
+  { image: rcpsgLogo, darkImage: rcpsgDarkLogo, label: "RCPSG", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2021/07/RCPSG.pdf" },
   { image: slmcLogo, label: "SLMC", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2021/07/SLMC.pdf" },
 ];
 
 const BrandingBar = () => {
   return (
-    <div className="bg-popover py-4 border-b border-border">
-      <div className="container mx-auto px-4 flex items-center justify-between">
+    <div className="relative z-[100] overflow-hidden">
+      <img src={gradientWhite} alt="" className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none dark:hidden" />
+      <img src={gradientBlack} alt="" className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none hidden dark:block" />
+      <div className="relative z-10 container mx-auto px-4 py-4 flex items-center justify-between">
         <a href="#" className="flex items-center">
           <img src={logoBlack} alt="RRDCH Logo" className="h-20 md:h-28 lg:h-32 w-auto object-contain max-w-[200px] md:max-w-[400px] lg:max-w-[600px] dark:hidden" />
           <img src={logoWhite} alt="RRDCH Logo" className="h-20 md:h-28 lg:h-32 w-auto object-contain max-w-[200px] md:max-w-[400px] lg:max-w-[600px] hidden dark:block" />
@@ -49,7 +54,10 @@ const BrandingBar = () => {
               className="flex flex-col items-center gap-1 text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-105"
               aria-label={`${item.label} Accreditation`}
             >
-              <img src={item.image} alt={`${item.label} Logo`} className="h-16 w-auto object-contain mix-blend-multiply dark:mix-blend-normal bg-transparent" />
+              <img src={item.image} alt={`${item.label} Logo`} className={`h-16 w-auto object-contain bg-transparent ${item.darkImage ? 'mix-blend-multiply dark:hidden' : 'mix-blend-multiply dark:mix-blend-normal'}`} />
+              {item.darkImage && (
+                <img src={item.darkImage} alt={`${item.label} Logo`} className="h-16 w-auto object-contain bg-transparent hidden dark:block" />
+              )}
             </a>
           ))}
           <div className="ml-4 flex items-center h-full z-[100]">

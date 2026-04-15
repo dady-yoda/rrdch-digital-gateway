@@ -1,0 +1,161 @@
+/* ─── Nav item pill animation styles ─── */
+
+.nav-pill-item {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--font-heading, inherit);
+  color: var(--color-primary-foreground, #fff);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s;
+  line-height: 1; /* critical: keeps height stable */
+}
+
+.nav-pill-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Rising circle ─ colour matches the nav item hover highlight */
+.nav-hover-circle {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  z-index: 1;
+  display: block;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Label wrapper must clip the sliding text */
+.nav-label-stack {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+  overflow: hidden;          /* clips the outgoing / incoming labels */
+  height: 1em;               /* exactly one line tall */
+  vertical-align: middle;
+  z-index: 2;
+}
+
+/* Base label ─ slides up on hover */
+.nav-pill-label {
+  display: inline-block;
+  line-height: 1;
+  will-change: transform;
+}
+
+/* Hover label ─ revealed from below */
+.nav-pill-label-hover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #fff;
+  z-index: 3;
+  display: inline-block;
+  will-change: transform, opacity;
+  white-space: nowrap;
+}
+
+/* ─── Search Dropdown ─── */
+
+.search-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-primary-foreground, #fff);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.search-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: scale(1.08);
+}
+
+.search-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+.search-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 100;
+  min-width: 320px;
+  animation: searchDropIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes searchDropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.search-dropdown-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.625rem 1rem;
+  background: var(--color-primary, #546B41);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+}
+
+.search-dropdown-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--color-primary-foreground, #fff);
+  font-size: 0.875rem;
+  font-family: var(--font-heading, inherit);
+  letter-spacing: 0.01em;
+}
+
+.search-dropdown-input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.search-dropdown-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-primary-foreground, #fff);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.search-dropdown-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.1);
+}
