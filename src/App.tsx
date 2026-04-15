@@ -25,6 +25,8 @@ import CareerPage from "./pages/CareerPage.tsx";
 import CircularsPage from "./pages/CircularsPage.tsx";
 import FeeTermsPage from "./pages/FeeTermsPage.tsx";
 import BrochurePage from "./pages/BrochurePage.tsx";
+import NewsPage from "./pages/NewsPage.tsx";
+import NewsDetailPage from "./pages/NewsDetailPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -66,6 +68,8 @@ const App = () => {
                 <Route path="/circulars" element={<CircularsPage />} />
                 <Route path="/fee-terms" element={<FeeTermsPage />} />
                 <Route path="/brochure" element={<BrochurePage />} />
+                <Route path="/news" element={<NewsPage />} />
+                <Route path="/news/:slug" element={<NewsDetailPage />} />
                 {/* Catch-all */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
