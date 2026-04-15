@@ -298,6 +298,17 @@
   animation: pillSubmenuIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Invisible bridge to keep hover alive while crossing the gap */
+.pill-submenu::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background: transparent;
+}
+
 .pill-submenu-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
