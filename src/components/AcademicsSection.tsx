@@ -30,10 +30,10 @@ const AcademicsSection = () => {
           </h2>
         </FadeInSection>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-10">
+        <div className="grid md:grid-cols-3 gap-6 mb-10 items-stretch">
           {courses.map((course) => (
-            <FadeInSection key={course.title}>
-              <SpotlightCard className="bg-popover rounded-lg p-6 border border-border hover:shadow-lg transition-shadow text-center group" spotlightColor="rgba(153, 173, 122, 0.2)">
+            <FadeInSection key={course.title} className="h-full">
+              <SpotlightCard className="bg-popover rounded-lg p-6 border border-border hover:shadow-lg transition-shadow text-center group h-full flex flex-col items-center justify-start" spotlightColor="rgba(153, 173, 122, 0.2)">
                 <course.icon className="w-12 h-12 text-secondary mx-auto mb-4 group-hover:scale-110 transition-transform" />
                 <h3 className="font-heading text-lg font-bold text-primary mb-2">{course.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{course.desc}</p>
