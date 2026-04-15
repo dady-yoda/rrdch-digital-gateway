@@ -28,11 +28,16 @@ const LeadershipSection = () => {
                 Chairman's Message
               </h2>
               <blockquote className="border-l-4 border-accent pl-6 text-muted-foreground leading-relaxed italic">
-                "Our vision is to create an institution of excellence that produces skilled dental professionals
-                who serve society with compassion and competence. Rajarajeswari Dental College & Hospital has
-                been at the forefront of dental education and research, nurturing talent and fostering innovation
-                since its inception. We are committed to providing world-class infrastructure, experienced faculty,
-                and a learning environment that inspires students to achieve their fullest potential."
+                "It is my pleasure to congratulate you on your enrolling yourself as a student in our group of institutions, 
+                which are well known for the discipline,quality education and personality development. Our Students have excelled
+                not only in academic activities by obtaining many university ranks, but also have proved their mettle by taking part 
+                in circular, co-curricular and extra curricular activities. Presently, a knowledge explosion is being ushered in to present era 
+                especially information technology domain. We are working with a progressive & futuristic vision of India, to bring about paradigm 
+                shift in arts,science, engineering & technology which will bring progress and prosperity to our country. We are convinced that 
+                “character is the crown and glory of life”. We believe in quality education, progress through discipline, knowledge through devotion
+                and satisfaction through services to the student community.<br/>
+                We are dedicated to meet the challenges of the new millennium, in the field of medical and technical higher education so as to make 
+                our country a highly industrialized and healthy modern nation."
               </blockquote>
             </div>
           </div>
@@ -45,10 +50,12 @@ const LeadershipSection = () => {
               <Building2 className="w-10 h-10 text-secondary mb-4" />
               <h3 className="font-heading text-xl font-bold text-primary mb-3">The College</h3>
               <p className="text-muted-foreground leading-relaxed">
-                Spread across a lush 5-acre campus, RRDCH offers state-of-the-art facilities including
-                modern lecture halls, advanced simulation labs, a well-stocked library with over 10,000 volumes,
-                and dedicated research centers. Our BDS, MDS, and Ph.D programmes are designed to produce
-                dental professionals of the highest caliber.
+                RajaRajeswari Dental College & Hospital was established in the year 1992 with just 40 admissions in BDS course. It was housed in a rented building measuring 40,000 Sq. Feet. Now it has progressed to 
+                a full- fledged Postgraduate Dental Institution with 100 BDS admissions and MDS courses in all specialties of Dental Surgery. In addition, PhD in Orthodontics, Periodontology and certificate course in 
+                Implantology are also offered in RRDCH. The college is recognized by DCI, Government of Karnataka and Government of India and is affiliated to Rajiv Gandhi University of Health Sciences, Karnataka. 
+                It is accredited by NAAC (National Assessment Accreditation Council)<br />
+                RajaRajeswari Dental College & Hospital is situated at a sprawling 5 acre campus on the Bangalore-Mysore Highway at 19 kms from Vidhana Soudha. The Lush green campus has 4 lakh Sq. feet of modern 
+                building which houses the Dental Institute, its 10 speciality dental clinics, supporting labs and class rooms and residential accommodation for staff and students.
               </p>
             </div>
           </FadeInSection>
