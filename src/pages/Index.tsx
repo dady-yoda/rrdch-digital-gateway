@@ -7,7 +7,6 @@ import UpdatesSection from "@/components/UpdatesSection";
 import MultimediaSection from "@/components/MultimediaSection";
 import CampusHighlightsSection from "@/components/CampusHighlightsSection";
 import Footer from "@/components/Footer";
-import ExploreBento from "@/components/ExploreBento";
 import logo from "@/assets/RRDCH FULL BLACK.png";
 
 const departments = [
@@ -107,7 +106,6 @@ const Index = () => {
         <CampusHighlightsSection />
         <UpdatesSection />
         <MultimediaSection />
-        <ExploreBento />
       </main>
       <Footer />
     </div>
