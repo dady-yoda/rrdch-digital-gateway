@@ -47,8 +47,7 @@ const BrandingBar = () => {
               className="flex flex-col items-center gap-1 text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-105"
               aria-label={`${item.label} Accreditation`}
             >
-              <img src={item.image} alt={`${item.label} Logo`} className="h-14 w-auto object-contain mix-blend-multiply dark:mix-blend-normal bg-transparent" />
-              <span className="text-[10px] font-heading font-semibold">{item.label}</span>
+              <img src={item.image} alt={`${item.label} Logo`} className="h-16 w-auto object-contain mix-blend-multiply dark:mix-blend-normal bg-transparent" />
             </a>
           ))}
           <div className="ml-4 flex items-center h-full z-[100]">
