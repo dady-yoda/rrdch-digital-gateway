@@ -1,12 +1,34 @@
 import { useState, useEffect } from "react";
-import heroCampus from "@/assets/hero-campus.jpg";
-import heroClinical from "@/assets/hero-clinical.jpg";
-import heroGraduation from "@/assets/hero-graduation.jpg";
+import heroRank from "@/assets/rank.jpg";
+import heroRank2 from "@/assets/rank2.jpg";
+import heroDelegates1 from "@/assets/delegates1.jpg";
+import heroDelegates2 from "@/assets/delegates2.jpg";
+import heroAnnualConvocation from "@/assets/annual convocation.jpg";
+import heroRussia from "@/assets/russia.jpg";
+import heroFaculty from "@/assets/delegates2.jpg";
+import heroStudents from "@/assets/students.jpg";
+import heroInauguration1 from "@/assets/inauguration1.jpg";
+import heroInauguration2 from "@/assets/inauguration2.jpg";
+import heroInauguration3 from "@/assets/inauguration3.jpg";
+import heroInauguration4 from "@/assets/inauguration4.jpg";
+import heroInauguration5 from "@/assets/inauguration5.jpg";
+import heroInauguration6 from "@/assets/inauguration6.jpg";
 
 const slides = [
-  { src: heroCampus, alt: "RRDCH Campus aerial view", caption: "A Premier Dental Institution in Bengaluru" },
-  { src: heroClinical, alt: "Clinical training at RRDCH", caption: "World-Class Clinical Training" },
-  { src: heroGraduation, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
+  { src: heroRank, alt: "RRDCH Campus aerial view", caption: "A Premier Dental Institution in Bengaluru" },
+  { src: heroRank2, alt: "Clinical training at RRDCH", caption: "World-Class Clinical Training" },
+  { src: heroDelegates1, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
+  { src: heroDelegates2, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
+  { src: heroAnnualConvocation, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
+  { src: heroRussia, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
+  { src: heroFaculty, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
+  { src: heroStudents, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
+  { src: heroInauguration1, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
+  { src: heroInauguration2, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
+  { src: heroInauguration3, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
+  { src: heroInauguration4, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
+  { src: heroInauguration5, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
+  { src: heroInauguration6, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
 ];
 
 const tickerItems = [
