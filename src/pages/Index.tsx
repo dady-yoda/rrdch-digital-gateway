@@ -85,7 +85,7 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <BrandingBar />
-      <div className="relative z-50">
+      <div className="sticky top-4 z-50 flex justify-center w-full">
         <PillNav
           logo={logo}
           logoAlt="RRDCH Logo"
