@@ -63,8 +63,8 @@ const navItems = [
     label: "Schedule",
     href: "#",
     children: [
-      { label: "Calendar of events", href: "https://www.rrdch.org/calendar-of-events/", external: true },
-      { label: "Timetable", href: "https://www.rrdch.org/time-table/", external: true },
+      { label: "Calendar of events", href: "/schedule/calendar", external: false },
+      { label: "Timetable", href: "/schedule/timetable", external: false },
     ],
   },
   {
