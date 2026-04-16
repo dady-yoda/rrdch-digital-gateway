@@ -37,6 +37,9 @@ import NewsDetailPage from "./pages/NewsDetailPage.tsx";
 import GalleryPage from "./pages/GalleryPage.tsx";
 import ImplantologyCoursePage from "./pages/ImplantologyCoursePage.tsx";
 import MfdsCoursePage from "./pages/MfdsCoursePage.tsx";
+import AboutUsPage from "./pages/AboutUsPage.tsx";
+import DepartmentsPage from "./pages/DepartmentsPage.tsx";
+import DepartmentDetailPage from "./pages/DepartmentDetailPage.tsx";
 
 // DMS pages
 import LoginPage from "./pages/LoginPage.tsx";
@@ -84,12 +87,14 @@ const App = () => {
                   <Route path="/schedule/timetable" element={<TimetablePage />} />
                   <Route path="/newsletter" element={<NewsletterPage />} />
                   <Route path="/feedback" element={<FeedbackPage />} />
-                  <Route path="/career" element={<CareerPage />} />
-                  <Route path="/circulars" element={<CircularsPage />} />
-                  <Route path="/fee-terms" element={<FeeTermsPage />} />
-                  <Route path="/brochure" element={<BrochurePage />} />
-                  <Route path="/news" element={<NewsPage />} />
-                  <Route path="/news/:slug" element={<NewsDetailPage />} />
+                  <Route path="/gallery" element={<GalleryPage />} />
+                  <Route path="/about-us" element={<AboutUsPage />} />
+                  <Route path="/about-us/trust" element={<AboutUsPage />} />
+                  <Route path="/about-us/management" element={<AboutUsPage />} />
+                  <Route path="/about-us/vision" element={<AboutUsPage />} />
+                  <Route path="/about-us/council" element={<AboutUsPage />} />
+                  <Route path="/departments" element={<DepartmentsPage />} />
+                  <Route path="/departments/:slug" element={<DepartmentDetailPage />} />
                   <Route path="/gallery" element={<GalleryPage />} />
                   <Route path="/implantology-course" element={<ImplantologyCoursePage />} />
                   <Route path="/mfds-course" element={<MfdsCoursePage />} />
