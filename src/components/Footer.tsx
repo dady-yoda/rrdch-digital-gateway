@@ -1,4 +1,5 @@
-import { Phone, Mail, MapPin, Facebook, Youtube, Linkedin, Instagram, Twitter, ExternalLink, GraduationCap } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Youtube, Linkedin, Instagram, Twitter, ExternalLink, GraduationCap, Lock } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const sisterConcerns = [
   { label: "RRMCH", href: "#" },
@@ -67,6 +68,15 @@ const Footer = () => {
                   <ExternalLink className="w-4 h-4 text-accent/70 group-hover:text-accent transition-colors" />
                   Dental college blog
                 </a>
+              </li>
+              <li>
+                <Link
+                  to="/login"
+                  className="flex items-center gap-2 hover:text-accent transition-colors group font-semibold"
+                >
+                  <Lock className="w-4 h-4 text-accent/70 group-hover:text-accent transition-colors" />
+                  Admin / Staff Login
+                </Link>
               </li>
             </ul>
           </div>

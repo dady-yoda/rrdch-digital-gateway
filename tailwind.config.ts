@@ -63,6 +63,8 @@ export default {
         },
         utility: "hsl(var(--utility-bg))",
         ticker: "hsl(var(--ticker-bg))",
+        navy: "#1e3a8a",
+        maroon: "#800000",
       },
       borderRadius: {
         lg: "var(--radius)",

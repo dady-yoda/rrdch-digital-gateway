@@ -5,7 +5,13 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/theme-provider";
+import { AuthProvider } from "@/lib/auth-context";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import LoadingScreen from "@/components/LoadingScreen";
+import ScrollToTop from "@/components/ScrollToTop";
+import FloatingCTA from "@/components/FloatingCTA";
+
+// Public pages
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import EsiPage from "./pages/EsiPage.tsx";
@@ -28,7 +34,12 @@ import BrochurePage from "./pages/BrochurePage.tsx";
 import NewsPage from "./pages/NewsPage.tsx";
 import NewsDetailPage from "./pages/NewsDetailPage.tsx";
 import GalleryPage from "./pages/GalleryPage.tsx";
-import ScrollToTop from "@/components/ScrollToTop";
+
+// DMS pages
+import LoginPage from "./pages/LoginPage.tsx";
+import BookingPage from "./pages/patient/BookingPage.tsx";
+import DoctorSchedulePage from "./pages/doctor/SchedulePage.tsx";
+import AdminManagementPage from "./pages/admin/ManagementPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -50,33 +61,70 @@ const App = () => {
             <Toaster />
             <Sonner />
             <BrowserRouter>
-              <ScrollToTop />
-              <Routes>
-                <Route path="/" element={<Index />} />
-                {/* Internal pages */}
-                <Route path="/esi" element={<EsiPage />} />
-                <Route path="/accreditation" element={<AccreditationPage />} />
-                <Route path="/accreditation/naac" element={<NaacPage />} />
-                <Route path="/accreditation/nirf" element={<NirfPage />} />
-                <Route path="/dci" element={<DciPage />} />
-                <Route path="/recognitions" element={<RecognitionsPage />} />
-                <Route path="/committee" element={<CommitteePage />} />
-                <Route path="/committee/anti-ragging" element={<AntiRaggingPage />} />
-                <Route path="/schedule" element={<SchedulePage />} />
-                <Route path="/schedule/calendar" element={<CalendarPage />} />
-                <Route path="/schedule/timetable" element={<TimetablePage />} />
-                <Route path="/newsletter" element={<NewsletterPage />} />
-                <Route path="/feedback" element={<FeedbackPage />} />
-                <Route path="/career" element={<CareerPage />} />
-                <Route path="/circulars" element={<CircularsPage />} />
-                <Route path="/fee-terms" element={<FeeTermsPage />} />
-                <Route path="/brochure" element={<BrochurePage />} />
-                <Route path="/news" element={<NewsPage />} />
-                <Route path="/news/:slug" element={<NewsDetailPage />} />
-                <Route path="/gallery" element={<GalleryPage />} />
-                {/* Catch-all */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              <AuthProvider>
+                <ScrollToTop />
+                <FloatingCTA />
+                <Routes>
+                  {/* ── Public ── */}
+                  <Route path="/" element={<Index />} />
+                  <Route path="/esi" element={<EsiPage />} />
+                  <Route path="/accreditation" element={<AccreditationPage />} />
+                  <Route path="/accreditation/naac" element={<NaacPage />} />
+                  <Route path="/accreditation/nirf" element={<NirfPage />} />
+                  <Route path="/dci" element={<DciPage />} />
+                  <Route path="/recognitions" element={<RecognitionsPage />} />
+                  <Route path="/committee" element={<CommitteePage />} />
+                  <Route path="/committee/anti-ragging" element={<AntiRaggingPage />} />
+                  <Route path="/schedule" element={<SchedulePage />} />
+                  <Route path="/schedule/calendar" element={<CalendarPage />} />
+                  <Route path="/schedule/timetable" element={<TimetablePage />} />
+                  <Route path="/newsletter" element={<NewsletterPage />} />
+                  <Route path="/feedback" element={<FeedbackPage />} />
+                  <Route path="/career" element={<CareerPage />} />
+                  <Route path="/circulars" element={<CircularsPage />} />
+                  <Route path="/fee-terms" element={<FeeTermsPage />} />
+                  <Route path="/brochure" element={<BrochurePage />} />
+                  <Route path="/news" element={<NewsPage />} />
+                  <Route path="/news/:slug" element={<NewsDetailPage />} />
+                  <Route path="/gallery" element={<GalleryPage />} />
+
+                  {/* ── DMS Auth ── */}
+                  <Route path="/login" element={<LoginPage />} />
+
+                  {/* ── Patient portal ── */}
+                  <Route
+                    path="/patient/booking"
+                    element={
+                      <ProtectedRoute allowedRoles={["patient"]}>
+                        <BookingPage />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  {/* ── Doctor portal ── */}
+                  <Route
+                    path="/doctor/schedule"
+                    element={
+                      <ProtectedRoute allowedRoles={["doctor"]}>
+                        <DoctorSchedulePage />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  {/* ── Admin portal ── */}
+                  <Route
+                    path="/admin/management"
+                    element={
+                      <ProtectedRoute allowedRoles={["admin"]}>
+                        <AdminManagementPage />
+                      </ProtectedRoute>
+                    }
+                  />
+
+                  {/* ── Catch-all ── */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </AuthProvider>
             </BrowserRouter>
           </TooltipProvider>
         </ThemeProvider>
@@ -86,3 +134,4 @@ const App = () => {
 };
 
 export default App;
+
