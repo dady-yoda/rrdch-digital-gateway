@@ -5,8 +5,7 @@ import { LanguageToggle } from "./language-toggle";
 import { gsap } from "gsap";
 import { Link } from "react-router-dom";
 import "./NavAnimation.css";
-
-
+import { departmentsData } from "@/data/departmentsData";
 
 interface NavChild {
   label: string;
@@ -44,20 +43,11 @@ const navItems: NavItem[] = [
   },
   {
     label: "Departments",
-    children: [
-      { label: "Oral Medicine & Radiology", href: "/department/oral-medicine-radiology" },
-      { label: "Prosthetics & Crown & Bridge", href: "/department/prosthetics-crown-bridge" },
-      { label: "Oral & Maxillofacial Surgery", href: "/department/oral-maxillofacial-surgery" },
-      { label: "Periodontology", href: "/department/periodontology" },
-      { label: "Pedodontics & Preventive Dentistry", href: "/department/pedodontics-preventive-dentistry" },
-      { label: "Conservative Dentistry & Endodontics", href: "/department/conservative-dentistry-endodontics" },
-      { label: "Orthodontics & Dentofacial Orthopedics", href: "/department/orthodontics-dento-facial-orthopedics" },
-      { label: "Public Health Dentistry", href: "/department/public-health-dentistry" },
-      { label: "Oral & Maxillofacial Pathology", href: "/department/oral-pathology-microbiology" },
-      { label: "Implantology", href: "/department/implantology" },
-      { label: "Research & Publication", href: "/department/research-publication" },
-      { label: "Orofacial Pain", href: "/department/orofacial-pain" },
-    ],
+    href: "/departments",
+    children: departmentsData.map((d) => ({ 
+      label: d.name, 
+      href: `/departments/${d.slug}` 
+    })),
   },
   {
     label: "Accreditation",

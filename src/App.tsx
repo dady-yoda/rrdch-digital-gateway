@@ -41,9 +41,10 @@ import BdsPage from "./pages/BdsPage.tsx";
 import MdsPage from "./pages/MdsPage.tsx";
 import PhdPage from "./pages/PhdPage.tsx";
 import DepartmentPage from "./pages/DepartmentPage.tsx";
+import DepartmentsPage from "./pages/DepartmentsPage.tsx";
 import DepartmentDetailPage from "./pages/DepartmentDetailPage.tsx";
 import CourseDetailPage from "./pages/CourseDetailPage.tsx";
-import AboutUsPage from "./pages/AboutUsPage.tsx";  // ✅ added
+import AboutUsPage from "./pages/AboutUsPage.tsx";
 
 // DMS pages
 import LoginPage from "./pages/LoginPage.tsx";
@@ -90,7 +91,7 @@ const App = () => {
                     <Route path="/schedule/timetable" element={<TimetablePage />} />
                     <Route path="/newsletter" element={<NewsletterPage />} />
                     <Route path="/feedback" element={<FeedbackPage />} />
-                    <Route path="/gallery" element={<GalleryPage />} />  {/* ✅ deduplicated */}
+                    <Route path="/gallery" element={<GalleryPage />} />
                     <Route path="/implantology-course" element={<ImplantologyCoursePage />} />
                     <Route path="/mfds-course" element={<MfdsCoursePage />} />
                     <Route path="/course/bds" element={<BdsPage />} />
@@ -99,11 +100,13 @@ const App = () => {
                     <Route path="/course/:id" element={<CourseDetailPage />} />
 
                     {/* ── About Us ── */}
-                    <Route path="/about-us" element={<AboutUsPage />} />  {/* ✅ deduplicated */}
-                    <Route path="/about-us/:tab" element={<AboutUsPage />} />  {/* ✅ covers /trust, /management, /vision, /council */}
+                    <Route path="/about-us" element={<AboutUsPage />} />
+                    <Route path="/about-us/:tab" element={<AboutUsPage />} />
 
                     {/* ── Departments ── */}
-                    <Route path="/department/:id" element={<DepartmentDetailPage />} />  {/* ✅ deduplicated, matches nav links */}
+                    <Route path="/departments" element={<DepartmentsPage />} />
+                    <Route path="/departments/:slug" element={<DepartmentDetailPage />} />
+                    <Route path="/department/:id" element={<DepartmentDetailPage />} />
 
                     {/* ── DMS Auth ── */}
                     <Route path="/login" element={<LoginPage />} />

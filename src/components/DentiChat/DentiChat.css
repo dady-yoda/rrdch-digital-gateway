@@ -1,0 +1,637 @@
+/* ═══════════════════════════════════════════════════════════
+   Denti AI Chat Widget — Premium Glassmorphism Dark Theme
+   RRDCH Digital Gateway
+═══════════════════════════════════════════════════════════ */
+
+/* ── Floating Button ──────────────────────────────────────── */
+.denti-float-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 22px;
+  height: 52px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #546B41 0%, #3d5030 100%);
+  border: 1.5px solid rgba(153, 173, 122, 0.35);
+  color: white;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  box-shadow: 0 8px 32px rgba(84, 107, 65, 0.5), 0 0 0 4px rgba(84, 107, 65, 0.12);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.denti-float-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.denti-float-btn:hover::before {
+  opacity: 1;
+}
+
+.denti-float-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(84, 107, 65, 0.6), 0 0 0 6px rgba(84, 107, 65, 0.18);
+}
+
+.denti-float-btn:active {
+  transform: translateY(0);
+}
+
+.denti-float-btn.is-open {
+  background: linear-gradient(135deg, #3d5030 0%, #2a3820 100%);
+  box-shadow: 0 6px 24px rgba(84, 107, 65, 0.4), 0 0 0 4px rgba(84, 107, 65, 0.2);
+}
+
+.denti-float-icon {
+  font-size: 19px;
+  display: inline-block;
+  animation: denti-tooth-wiggle 4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes denti-tooth-wiggle {
+  0%, 80%, 100% { transform: rotate(0deg) scale(1); }
+  20%          { transform: rotate(-12deg) scale(1.1); }
+  40%          { transform: rotate(12deg) scale(1.1); }
+  60%          { transform: rotate(-6deg) scale(1.05); }
+}
+
+.denti-float-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 12px;
+  height: 12px;
+  background: #4ade80;
+  border-radius: 50%;
+  border: 2px solid #0a100a;
+  animation: denti-badge-pulse 2s infinite;
+}
+
+@keyframes denti-badge-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5); }
+  50%       { box-shadow: 0 0 0 5px rgba(74, 222, 128, 0); }
+}
+
+/* ── Chat Window ──────────────────────────────────────────── */
+.denti-window {
+  position: fixed;
+  bottom: calc(52px + 1.5rem + 16px); /* above floating row */
+  right: 1.5rem;
+  width: 385px;
+  height: 560px;
+  background: rgba(7, 13, 7, 0.97);
+  border: 1px solid rgba(84, 107, 65, 0.38);
+  border-radius: 22px;
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(84, 107, 65, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 997;
+  transform-origin: bottom right;
+  animation: denti-window-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+@keyframes denti-window-in {
+  from { opacity: 0; transform: translateY(18px) scale(0.93); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+/* Full-screen on mobile */
+@media (max-width: 520px) {
+  .denti-window {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.denti-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  background: linear-gradient(135deg, #546B41 0%, #3b5028 100%);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.denti-header::after {
+  content: "🦷";
+  position: absolute;
+  right: 56px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 80px;
+  opacity: 0.06;
+  pointer-events: none;
+}
+
+.denti-header-info {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.denti-header-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+  flex-shrink: 0;
+}
+
+.denti-header-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.denti-header-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.72);
+  margin-top: 3px;
+}
+
+.denti-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 6px rgba(74, 222, 128, 0.8);
+  animation: denti-dot-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes denti-dot-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
+
+.denti-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.denti-close-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+}
+
+/* ── Messages Area ────────────────────────────────────────── */
+.denti-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(84, 107, 65, 0.35) transparent;
+}
+
+.denti-messages::-webkit-scrollbar {
+  width: 4px;
+}
+.denti-messages::-webkit-scrollbar-track { background: transparent; }
+.denti-messages::-webkit-scrollbar-thumb {
+  background: rgba(84, 107, 65, 0.38);
+  border-radius: 4px;
+}
+
+/* ── Message Row ─────────────────────────────────────────── */
+.denti-msg-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  animation: denti-msg-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.denti-msg-row.user {
+  flex-direction: row-reverse;
+}
+
+@keyframes denti-msg-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.denti-msg-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(84, 107, 65, 0.18);
+  border: 1.5px solid rgba(84, 107, 65, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.denti-msg-body {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  max-width: calc(100% - 42px);
+}
+
+.denti-msg-row.user .denti-msg-body {
+  align-items: flex-end;
+}
+
+/* ── Bubbles ─────────────────────────────────────────────── */
+.denti-bubble {
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 13.5px;
+  line-height: 1.55;
+  max-width: 290px;
+  word-wrap: break-word;
+}
+
+.denti-bubble.denti-side {
+  background: rgba(84, 107, 65, 0.13);
+  border: 1px solid rgba(84, 107, 65, 0.22);
+  color: rgba(255, 255, 255, 0.92);
+  border-bottom-left-radius: 5px;
+}
+
+.denti-bubble.user-side {
+  background: linear-gradient(135deg, #546B41, #3d5030);
+  color: #fff;
+  border-bottom-right-radius: 5px;
+}
+
+.denti-bubble p { margin: 0; }
+.denti-bubble p + p { margin-top: 3px; }
+
+/* ── Quick Reply Pills ───────────────────────────────────── */
+.denti-quick-replies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 290px;
+}
+
+.denti-qr-pill {
+  padding: 6px 13px;
+  border: 1.5px solid rgba(84, 107, 65, 0.55);
+  border-radius: 22px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.denti-qr-pill:hover {
+  background: rgba(84, 107, 65, 0.28);
+  border-color: rgba(84, 107, 65, 1);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* ── Doctor Cards ────────────────────────────────────────── */
+.denti-doc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  max-width: 290px;
+}
+
+.denti-doc-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(84, 107, 65, 0.25);
+  border-radius: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  width: 100%;
+  position: relative;
+  font-family: inherit;
+}
+
+.denti-doc-card:hover {
+  background: rgba(84, 107, 65, 0.16);
+  border-color: rgba(84, 107, 65, 0.55);
+  transform: translateY(-1px);
+}
+
+.denti-doc-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(84,107,65,0.3);
+}
+
+.denti-doc-info { flex: 1; min-width: 0; }
+
+.denti-doc-name {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.denti-doc-spec {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 2px 0 0;
+}
+
+.denti-doc-exp {
+  font-size: 11px;
+  color: rgba(153, 173, 122, 0.9);
+  margin: 1px 0 0;
+}
+
+.denti-doc-avail {
+  font-size: 10px;
+  background: rgba(74, 222, 128, 0.12);
+  color: #4ade80;
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(74, 222, 128, 0.28);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Slot Grid ───────────────────────────────────────────── */
+.denti-slot-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  max-width: 260px;
+}
+
+.denti-slot-btn {
+  padding: 8px 4px;
+  background: rgba(84, 107, 65, 0.1);
+  border: 1.5px solid rgba(84, 107, 65, 0.32);
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 11.5px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  text-align: center;
+}
+
+.denti-slot-btn:hover {
+  background: rgba(84, 107, 65, 0.32);
+  border-color: #546B41;
+  color: #fff;
+  transform: scale(1.04);
+}
+
+/* ── Booking Confirmation Card ───────────────────────────── */
+.denti-confirm-card {
+  background: linear-gradient(160deg, rgba(84,107,65,0.13), rgba(84,107,65,0.04));
+  border: 1.5px solid rgba(84, 107, 65, 0.42);
+  border-radius: 16px;
+  overflow: hidden;
+  max-width: 290px;
+}
+
+.denti-confirm-head {
+  background: linear-gradient(135deg, #546B41, #3d5030);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.denti-confirm-head span:first-child {
+  width: 22px;
+  height: 22px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.denti-confirm-token {
+  text-align: center;
+  padding: 9px 14px;
+  font-family: "Courier New", monospace;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #99AD7A;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid rgba(84,107,65,0.2);
+  background: rgba(84,107,65,0.06);
+}
+
+.denti-confirm-rows {
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.denti-confirm-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.denti-confirm-row .label {
+  color: rgba(255, 255, 255, 0.42);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.denti-confirm-row .val {
+  color: rgba(255, 255, 255, 0.9);
+  text-align: right;
+  font-weight: 600;
+}
+
+/* ── Status Card ─────────────────────────────────────────── */
+.denti-status-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(84, 107, 65, 0.3);
+  border-radius: 14px;
+  overflow: hidden;
+  max-width: 290px;
+}
+
+.denti-status-badge {
+  text-align: center;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.denti-status-badge[data-s="Confirmed"] { background: rgba(74,222,128,0.12); color: #4ade80; }
+.denti-status-badge[data-s="Completed"] { background: rgba(96,165,250,0.12); color: #60a5fa; }
+.denti-status-badge[data-s="Cancelled"] { background: rgba(248,113,113,0.12); color: #f87171; }
+.denti-status-badge[data-s="No-Show"]   { background: rgba(251,191,36,0.12);  color: #fbbf24; }
+
+.denti-status-not-found {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(248, 113, 113, 0.09);
+  border: 1px solid rgba(248, 113, 113, 0.28);
+  border-radius: 12px;
+  color: #f87171;
+  font-size: 12.5px;
+  max-width: 290px;
+}
+
+/* ── Typing Indicator ────────────────────────────────────── */
+.denti-typing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 11px 15px;
+  background: rgba(84, 107, 65, 0.12);
+  border: 1px solid rgba(84, 107, 65, 0.2);
+  border-radius: 18px;
+  border-bottom-left-radius: 5px;
+  width: 54px;
+}
+
+.denti-typing span {
+  width: 7px;
+  height: 7px;
+  background: rgba(153, 173, 122, 0.8);
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: denti-bounce 1.3s ease-in-out infinite;
+}
+.denti-typing span:nth-child(2) { animation-delay: 0.18s; }
+.denti-typing span:nth-child(3) { animation-delay: 0.36s; }
+
+@keyframes denti-bounce {
+  0%, 60%, 100% { transform: translateY(0);   opacity: 0.55; }
+  30%           { transform: translateY(-5px); opacity: 1; }
+}
+
+/* ── Input Bar ───────────────────────────────────────────── */
+.denti-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.025);
+  border-top: 1px solid rgba(84, 107, 65, 0.18);
+  flex-shrink: 0;
+}
+
+.denti-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.065);
+  border: 1.5px solid rgba(84, 107, 65, 0.28);
+  border-radius: 24px;
+  padding: 9px 16px;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 13.5px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.denti-input::placeholder {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.denti-input:focus {
+  border-color: rgba(84, 107, 65, 0.75);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.denti-send-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #546B41, #3d5030);
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.denti-send-btn:hover:not(:disabled) {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #648050, #546B41);
+  box-shadow: 0 4px 16px rgba(84,107,65,0.5);
+}
+
+.denti-send-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}

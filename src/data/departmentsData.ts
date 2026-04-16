@@ -1,12 +1,12 @@
-import {
-  Stethoscope,
-  Scissors,
-  Smile,
-  Settings,
-  Activity,
-  ShieldAlert,
-  Baby,
-  Microscope,
+import { 
+  Stethoscope, 
+  Scissors, 
+  Smile, 
+  Settings, 
+  Activity, 
+  ShieldAlert, 
+  Baby, 
+  Microscope, 
   Users2,
   LucideIcon
 } from "lucide-react";
@@ -19,6 +19,7 @@ export interface FacultyMember {
 
 export interface Department {
   id: string;
+  slug: string;
   name: string;
   icon: LucideIcon;
   overview: string;
@@ -27,11 +28,15 @@ export interface Department {
   faculty: FacultyMember[];
   facilities: string[];
   color: string;
+  hod?: string;
+  specialties?: string[];
+  researchFocus?: string;
 }
 
 export const departmentsData: Department[] = [
   {
     id: "oral-medicine-radiology",
+    slug: "oral-medicine",
     name: "Oral Medicine & Radiology",
     icon: Stethoscope,
     color: "hsl(100, 24%, 34%)",
@@ -57,10 +62,14 @@ export const departmentsData: Department[] = [
       "T-Scan for Occlusal Analysis",
       "Biopack for Orofacial Pain Diagnosis",
       "Intra-oral Cameras"
-    ]
+    ],
+    hod: "Dr. Poornima C.",
+    specialties: ["Digital Radiography (RVG)", "CBCT Scanning", "Oral Cancer Screening", "TMD Management"],
+    researchFocus: "Advanced molecular diagnostics for oral premalignant lesions."
   },
   {
     id: "oral-maxillofacial-surgery",
+    slug: "oral-surgery",
     name: "Oral & Maxillofacial Surgery",
     icon: Scissors,
     color: "hsl(95, 25%, 58%)",
@@ -85,10 +94,14 @@ export const departmentsData: Department[] = [
       "Intensive Care Unit (ICU)",
       "Laser Surgery Unit",
       "General Anesthesia Facility"
-    ]
+    ],
+    hod: "Dr. Lokesh V. R.",
+    specialties: ["Dental Implants", "Orthognathic Surgery", "Trauma Management", "Facial Aesthetics"],
+    researchFocus: "Bone regeneration techniques and minimally invasive facial surgery."
   },
   {
     id: "orthodontics",
+    slug: "orthodontics",
     name: "Orthodontics & Dentofacial Orthopedics",
     icon: Smile,
     color: "hsl(100, 24%, 34%)",
@@ -112,10 +125,14 @@ export const departmentsData: Department[] = [
       "Dry and Wet Labs",
       "Aligner Fabrication Tools",
       "Advanced Sterilization Room"
-    ]
+    ],
+    hod: "Dr. Akshai Shetty",
+    specialties: ["Invisalign/Clear Aligners", "Lingual Orthodontics", "Myofunctional Therapy", "Surgical Orthodontics"],
+    researchFocus: "Accelerated tooth movement and digital orthodontic planning."
   },
   {
     id: "prosthodontics",
+    slug: "prosthodontics",
     name: "Prosthodontics and Crown & Bridge",
     icon: Settings,
     color: "hsl(95, 25%, 58%)",
@@ -138,10 +155,14 @@ export const departmentsData: Department[] = [
       "Casting and Finishing Lab",
       "Dedicated Implant Clinic",
       "Phantom Head Simulation Lab"
-    ]
+    ],
+    hod: "Dr. Shwetha Poovani",
+    specialties: ["Complete Dentures", "Fixed Partial Dentures", "Dental Implants", "Maxillofacial Prosthetics"],
+    researchFocus: "CAD/CAM in prosthodontics and biocompatible restorative materials."
   },
   {
     id: "periodontics",
+    slug: "periodontics",
     name: "Periodontology",
     icon: Activity,
     color: "hsl(100, 24%, 34%)",
@@ -164,10 +185,14 @@ export const departmentsData: Department[] = [
       "Piezosurgery Unit",
       "Centrifuge for PRF preparation",
       "Digital Patient Database"
-    ]
+    ],
+    hod: "Dr. Savita S.",
+    specialties: ["Laser Periodontics", "Gum Grafting", "Flap Surgeries", "Regenerative Procedures"],
+    researchFocus: "Relationship between periodontal health and systemic diseases."
   },
   {
     id: "conservative-dentistry",
+    slug: "conservative-dentistry",
     name: "Conservative Dentistry & Endodontics",
     icon: ShieldAlert,
     color: "hsl(95, 25%, 58%)",
@@ -190,10 +215,14 @@ export const departmentsData: Department[] = [
       "Endodontic Rotary Systems",
       "Vitality Testers",
       "Advanced Ceramic Studio"
-    ]
+    ],
+    hod: "Dr. Geeta I. B.",
+    specialties: ["Root Canal Treatment", "Cosmetic Dentistry", "Endodontic Microsurgery", "Post & Core"],
+    researchFocus: "Latest innovations in endodontic file systems and irrigation."
   },
   {
     id: "pedodontics",
+    slug: "pedodontics",
     name: "Pedodontics & Preventive Dentistry",
     icon: Baby,
     color: "hsl(100, 24%, 34%)",
@@ -215,10 +244,14 @@ export const departmentsData: Department[] = [
       "Special Care Dentistry Unit",
       "Pre-clinical Pedodontic Lab",
       "Audiovisual Education Corner"
-    ]
+    ],
+    hod: "Dr. Navin Hadadi",
+    specialties: ["Preventive Dentistry", "Behavior Management", "Pediatric Root Canals", "Fluoride Therapy"],
+    researchFocus: "Minimal intervention dentistry in children."
   },
   {
     id: "oral-pathology",
+    slug: "oral-pathology",
     name: "Oral & Maxillofacial Pathology",
     icon: Microscope,
     color: "hsl(95, 25%, 58%)",
@@ -242,10 +275,14 @@ export const departmentsData: Department[] = [
       "Digital Imaging System",
       "Tissue Processing Unit",
       "Museum of Oral Pathologies"
-    ]
+    ],
+    hod: "Dr. Girish H. C.",
+    specialties: ["Histopathology", "Cytopathology", "Hematology", "Forensic Odontology"],
+    researchFocus: "Immuno-histochemical markers in oral cancer."
   },
   {
     id: "public-health-dentistry",
+    slug: "public-health",
     name: "Public Health Dentistry",
     icon: Users2,
     color: "hsl(100, 24%, 34%)",
@@ -267,6 +304,12 @@ export const departmentsData: Department[] = [
       "Epidemiological Kit",
       "Oral Health Education Museum",
       "Community Outreach Infrastructure"
-    ]
+    ],
+    hod: "Dr. Padma K. Bhat",
+    specialties: ["Community Outreach", "Dental Camps", "Epidemiological Surveys", "Tobacco Cessation"],
+    researchFocus: "Oral health status among various socio-economic groups in rural Bangalore."
   }
 ];
+
+// Alias export for components that use `departments`
+export const departments = departmentsData;
