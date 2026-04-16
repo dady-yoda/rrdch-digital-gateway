@@ -6,7 +6,13 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { AuthProvider } from "@/lib/auth-context";
+import ProtectedRoute from "@/components/ProtectedRoute";
 import LoadingScreen from "@/components/LoadingScreen";
+import ScrollToTop from "@/components/ScrollToTop";
+import FloatingCTA from "@/components/FloatingCTA";
+
+// Public pages
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import EsiPage from "./pages/EsiPage.tsx";
@@ -29,7 +35,13 @@ import BrochurePage from "./pages/BrochurePage.tsx";
 import NewsPage from "./pages/NewsPage.tsx";
 import NewsDetailPage from "./pages/NewsDetailPage.tsx";
 import GalleryPage from "./pages/GalleryPage.tsx";
-import ScrollToTop from "@/components/ScrollToTop";
+import AboutUsPage from "./pages/AboutUsPage.tsx";
+
+// DMS pages
+import LoginPage from "./pages/LoginPage.tsx";
+import BookingPage from "./pages/patient/BookingPage.tsx";
+import DoctorSchedulePage from "./pages/doctor/SchedulePage.tsx";
+import AdminManagementPage from "./pages/admin/ManagementPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -47,41 +59,83 @@ const App = () => {
       {!loaded && <LoadingScreen onComplete={handleLoadComplete} />}
       <QueryClientProvider client={queryClient}>
         <LanguageProvider>
-        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme" attribute="class">
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <ScrollToTop />
-              <Routes>
-                <Route path="/" element={<Index />} />
-                {/* Internal pages */}
-                <Route path="/esi" element={<EsiPage />} />
-                <Route path="/accreditation" element={<AccreditationPage />} />
-                <Route path="/accreditation/naac" element={<NaacPage />} />
-                <Route path="/accreditation/nirf" element={<NirfPage />} />
-                <Route path="/dci" element={<DciPage />} />
-                <Route path="/recognitions" element={<RecognitionsPage />} />
-                <Route path="/committee" element={<CommitteePage />} />
-                <Route path="/committee/anti-ragging" element={<AntiRaggingPage />} />
-                <Route path="/schedule" element={<SchedulePage />} />
-                <Route path="/schedule/calendar" element={<CalendarPage />} />
-                <Route path="/schedule/timetable" element={<TimetablePage />} />
-                <Route path="/newsletter" element={<NewsletterPage />} />
-                <Route path="/feedback" element={<FeedbackPage />} />
-                <Route path="/career" element={<CareerPage />} />
-                <Route path="/circulars" element={<CircularsPage />} />
-                <Route path="/fee-terms" element={<FeeTermsPage />} />
-                <Route path="/brochure" element={<BrochurePage />} />
-                <Route path="/news" element={<NewsPage />} />
-                <Route path="/news/:slug" element={<NewsDetailPage />} />
-                <Route path="/gallery" element={<GalleryPage />} />
-                {/* Catch-all */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
-        </ThemeProvider>
+          <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme" attribute="class">
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <AuthProvider>
+                  <ScrollToTop />
+                  <FloatingCTA />
+                  <Routes>
+                    {/* ── Public ── */}
+                    <Route path="/" element={<Index />} />
+                    <Route path="/esi" element={<EsiPage />} />
+                    <Route path="/accreditation" element={<AccreditationPage />} />
+                    <Route path="/accreditation/naac" element={<NaacPage />} />
+                    <Route path="/accreditation/nirf" element={<NirfPage />} />
+                    <Route path="/dci" element={<DciPage />} />
+                    <Route path="/recognitions" element={<RecognitionsPage />} />
+                    <Route path="/committee" element={<CommitteePage />} />
+                    <Route path="/committee/anti-ragging" element={<AntiRaggingPage />} />
+                    <Route path="/schedule" element={<SchedulePage />} />
+                    <Route path="/schedule/calendar" element={<CalendarPage />} />
+                    <Route path="/schedule/timetable" element={<TimetablePage />} />
+                    <Route path="/newsletter" element={<NewsletterPage />} />
+                    <Route path="/feedback" element={<FeedbackPage />} />
+                    <Route path="/career" element={<CareerPage />} />
+                    <Route path="/circulars" element={<CircularsPage />} />
+                    <Route path="/fee-terms" element={<FeeTermsPage />} />
+                    <Route path="/brochure" element={<BrochurePage />} />
+                    <Route path="/news" element={<NewsPage />} />
+                    <Route path="/news/:slug" element={<NewsDetailPage />} />
+                    <Route path="/gallery" element={<GalleryPage />} />
+                    <Route path="/about-us" element={<AboutUsPage />} />
+                    <Route path="/about-us/trust" element={<AboutUsPage />} />
+                    <Route path="/about-us/management" element={<AboutUsPage />} />
+                    <Route path="/about-us/vision" element={<AboutUsPage />} />
+                    <Route path="/about-us/council" element={<AboutUsPage />} />
+
+                    {/* ── DMS Auth ── */}
+                    <Route path="/login" element={<LoginPage />} />
+
+                    {/* ── Patient portal ── */}
+                    <Route
+                      path="/patient/booking"
+                      element={
+                        <ProtectedRoute allowedRoles={["patient"]}>
+                          <BookingPage />
+                        </ProtectedRoute>
+                      }
+                    />
+
+                    {/* ── Doctor portal ── */}
+                    <Route
+                      path="/doctor/schedule"
+                      element={
+                        <ProtectedRoute allowedRoles={["doctor"]}>
+                          <DoctorSchedulePage />
+                        </ProtectedRoute>
+                      }
+                    />
+
+                    {/* ── Admin portal ── */}
+                    <Route
+                      path="/admin/management"
+                      element={
+                        <ProtectedRoute allowedRoles={["admin"]}>
+                          <AdminManagementPage />
+                        </ProtectedRoute>
+                      }
+                    />
+
+                    {/* ── Catch-all ── */}
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </AuthProvider>
+              </BrowserRouter>
+            </TooltipProvider>
+          </ThemeProvider>
         </LanguageProvider>
       </QueryClientProvider>
     </>

@@ -3,6 +3,7 @@ import { Search, Menu, X, ChevronDown } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { LanguageToggle } from "./language-toggle";
 import { gsap } from "gsap";
+import { Link } from "react-router-dom";
 import "./NavAnimation.css";
 
 const departments = [
@@ -34,10 +35,11 @@ const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   {
     label: "About Us",
+    href: "/about-us",
     children: [
-      { label: "Trust", href: "#" },
-      { label: "Management", href: "#" },
-      { label: "Vision & Mission", href: "#" },
+      { label: "Trust", href: "/about-us/trust" },
+      { label: "Management", href: "/about-us/management" },
+      { label: "Vision & Mission", href: "/about-us/vision" },
     ],
   },
   {
@@ -203,10 +205,8 @@ const NavigationBar = () => {
                 onMouseEnter={() => item.children && setOpenDropdown(item.label)}
                 onMouseLeave={() => setOpenDropdown(null)}
               >
-                <a
-                  href={(item as any).href || "#"}
-                  target={(item as any).external ? "_blank" : undefined}
-                  rel={(item as any).external ? "noopener noreferrer" : undefined}
+                <Link
+                  to={(item as any).href || "#"}
                   className="nav-pill-item"
                   onMouseEnter={() => handleEnter(index)}
                   onMouseLeave={() => handleLeave(index)}
@@ -268,14 +268,14 @@ const NavigationBar = () => {
                             {child.label}
                           </a>
                         ) : (
-                          <a
+                          <Link
                             key={child.label}
-                            href={child.href}
+                            to={child.href}
                             className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
                             onClick={() => setOpenDropdown(null)}
                           >
                             {child.label}
-                          </a>
+                          </Link>
                         )
                       ))
                     )}
@@ -371,14 +371,14 @@ const NavigationBar = () => {
                         {child.label}
                       </a>
                     ) : (
-                      <a
+                      <Link
                         key={child.label}
-                        href={child.href}
+                        to={child.href}
                         className="block px-8 py-2 text-xs text-primary-foreground/80 hover:bg-secondary/20"
                         onClick={() => setMobileOpen(false)}
                       >
                         {child.label}
-                      </a>
+                      </Link>
                     )
                   ))}
                 </div>
