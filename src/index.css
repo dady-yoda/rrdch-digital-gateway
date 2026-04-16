@@ -76,21 +76,6 @@
   html {
     scroll-behavior: smooth;
   }
-  
-  /* Google Translate Override */
-  body {
-    top: 0px !important;
-  }
-  .goog-te-banner-frame.skiptranslate {
-    display: none !important;
-  }
-  #goog-gt-tt, .goog-te-balloon-frame {
-    display: none !important;
-  }
-  .goog-text-highlight {
-    background: none !important;
-    box-shadow: none !important;
-  }
 }
 
 @layer utilities {
@@ -110,4 +95,48 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* --- Google Translate Overrides --- */
+/* Placed at root to ensure highest CSS specificity */
+html, body {
+  top: 0px !important;
+  margin-top: 0px !important;
+  position: static !important;
+}
+
+/* Hide the main banner */
+.goog-te-banner-frame {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+}
+iframe.skiptranslate {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+}
+
+/* Sometimes the parent container wraps it */
+body > .skiptranslate {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+}
+
+/* Hide tooltips and highlights */
+#goog-gt-tt, .goog-te-balloon-frame {
+  display: none !important;
+  visibility: hidden !important;
+}
+.goog-text-highlight {
+  background: none !important;
+  box-shadow: none !important;
+}
+
+/* Modern translate bar classes */
+.VIpgJd-Zvi9od-ORHb-OEVmcd,
+.VIpgJd-Zvi9od-aZ2wEe-wOHMyf,
+.VIpgJd-Zvi9od-aZ2wEe-wOHMyf-ti6hGc {
+  display: none !important;
 }
