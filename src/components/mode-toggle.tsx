@@ -7,7 +7,7 @@ export function ModeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors hover:bg-primary-foreground/20 h-9 w-9 relative"
+      className="search-toggle-btn relative"
       aria-label="Toggle theme"
     >
       <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-primary-foreground" />
