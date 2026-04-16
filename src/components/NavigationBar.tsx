@@ -6,17 +6,7 @@ import { gsap } from "gsap";
 import { Link } from "react-router-dom";
 import "./NavAnimation.css";
 
-const departments = [
-  "Oral Medicine & Radiology",
-  "Oral & Maxillofacial Surgery",
-  "Orthodontics",
-  "Prosthodontics",
-  "Periodontics",
-  "Conservative Dentistry",
-  "Pedodontics",
-  "Oral Pathology",
-  "Public Health Dentistry",
-];
+import { departmentsData } from "@/data/departmentsData";
 
 interface NavChild {
   label: string;
@@ -46,15 +36,18 @@ const navItems: NavItem[] = [
   {
     label: "Courses",
     children: [
-      { label: "BDS", href: "#" },
-      { label: "MDS", href: "#" },
-      { label: "Ph.D", href: "#" },
-      { label: "Certificate in Implantology", href: "#" },
+      { label: "BDS", href: "/course/bds" },
+      { label: "MDS", href: "/course/mds" },
+      { label: "Ph.D", href: "/course/phd" },
+      { label: "Certificate in Implantology", href: "/course/implantology" },
     ],
   },
   {
     label: "Departments",
-    children: departments.map((d) => ({ label: d, href: "#" })),
+    children: departmentsData.map((d) => ({ 
+      label: d.name, 
+      href: `/department/${d.id}` 
+    })),
   },
   {
     label: "Accreditation",
@@ -244,14 +237,14 @@ const NavigationBar = () => {
                               {child.label}
                             </a>
                           ) : (
-                            <a
+                            <Link
                               key={child.label}
-                              href={child.href}
+                              to={child.href}
                               className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
                               onClick={() => setOpenDropdown(null)}
                             >
                               {child.label}
-                            </a>
+                            </Link>
                           )
                         ))}
                       </div>

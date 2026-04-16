@@ -7,43 +7,37 @@ import Footer from "@/components/Footer";
 import CampusHighlightsSection from "@/components/CampusHighlightsSection";
 import logo from "@/assets/RRDCH FULL BLACK.png";
 
-const departments = [
-  "Oral Medicine & Radiology",
-  "Oral & Maxillofacial Surgery",
-  "Orthodontics",
-  "Prosthodontics",
-  "Periodontics",
-  "Conservative Dentistry",
-  "Pedodontics",
-  "Oral Pathology",
-  "Public Health Dentistry",
-];
+import { departmentsData } from "@/data/departmentsData";
 
 const navItems = [
-  { label: "Home", href: "#" },
+  { label: "Home", href: "/" },
   {
     label: "About Us",
-    href: "#",
+    href: "/about-us",
     children: [
-      { label: "Trust", href: "#" },
-      { label: "Management", href: "#" },
-      { label: "Vision & Mission", href: "#" },
+      { label: "Trust", href: "/about-us/trust" },
+      { label: "Management", href: "/about-us/management" },
+      { label: "Vision & Mission", href: "/about-us/vision" },
+      { label: "Governing Council", href: "/about-us/council" },
     ],
   },
   {
     label: "Courses",
     href: "#",
     children: [
-      { label: "BDS", href: "#" },
-      { label: "MDS", href: "#" },
-      { label: "Ph.D", href: "#" },
-      { label: "Certificate in Implantology", href: "#" },
+      { label: "BDS", href: "/course/bds" },
+      { label: "MDS", href: "/course/mds" },
+      { label: "Ph.D", href: "/course/phd" },
+      { label: "Certificate in Implantology", href: "/course/implantology" },
     ],
   },
   {
     label: "Departments",
     href: "#",
-    children: departments.map((d) => ({ label: d, href: "#" })),
+    children: departmentsData.map((d) => ({ 
+      label: d.name, 
+      href: `/department/${d.id}` 
+    })),
   },
   {
     label: "Accreditation",
