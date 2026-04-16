@@ -1,5 +1,6 @@
 import FadeInSection from "./FadeInSection";
 import SpotlightCard from "./SpotlightCard";
+import { Link } from "react-router-dom";
 import { GraduationCap, BookOpen, FlaskConical, Stethoscope } from "lucide-react";
 
 const courses = [
@@ -44,20 +45,41 @@ const AcademicsSection = () => {
 
         {/* Special Courses Banner */}
         <FadeInSection>
-          <div className="bg-primary rounded-lg p-8 text-center">
-            <Stethoscope className="w-10 h-10 text-accent mx-auto mb-4" />
-            <h3 className="font-heading text-xl font-bold text-primary-foreground mb-2">
-              Special Programmes
-            </h3>
-            <p className="text-primary-foreground/80 mb-4">
-              One Year Certificate Course in Implantology (RGUHS Recognised) &bull; MFDS RCPS (Glasgow) Revision Course
-            </p>
-            <a
-              href="#"
-              className="inline-block bg-accent text-accent-foreground font-heading font-semibold px-6 py-2.5 rounded-md hover:opacity-90 transition-opacity"
-            >
-              Applications are Invited
-            </a>
+          <div className="bg-primary rounded-lg p-8">
+            <div className="text-center mb-8">
+              <Stethoscope className="w-10 h-10 text-accent mx-auto mb-4" />
+              <h3 className="font-heading text-2xl font-bold text-primary-foreground">
+                Special Programmes
+              </h3>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Program 1 */}
+              <div className="bg-primary-foreground/10 rounded-lg p-6 text-center border border-primary-foreground/20 flex flex-col justify-between items-center transition-colors hover:bg-primary-foreground/20 shadow-sm">
+                <p className="text-primary-foreground font-medium mb-6 leading-relaxed text-sm lg:text-base">
+                  Applications are invited for One Year Implantology Course (Rajiv Gandhi University of Health Sciences Recognized)
+                </p>
+                <Link
+                  to="/implantology-course"
+                  className="inline-block bg-accent text-accent-foreground font-heading font-semibold px-6 py-2.5 rounded-md hover:opacity-90 transition-opacity mt-auto"
+                >
+                  Apply Now
+                </Link>
+              </div>
+
+              {/* Program 2 */}
+              <div className="bg-primary-foreground/10 rounded-lg p-6 text-center border border-primary-foreground/20 flex flex-col justify-between items-center transition-colors hover:bg-primary-foreground/20 shadow-sm">
+                <p className="text-primary-foreground font-medium mb-6 leading-relaxed text-sm lg:text-base">
+                  Applications are invited for MFDS RCPS (Glasgow) Part 1 & 2 Revision Course & Examination
+                </p>
+                <Link
+                  to="/mfds-course"
+                  className="inline-block bg-accent text-accent-foreground font-heading font-semibold px-6 py-2.5 rounded-md hover:opacity-90 transition-opacity mt-auto"
+                >
+                  Apply now
+                </Link>
+              </div>
+            </div>
           </div>
         </FadeInSection>
       </div>

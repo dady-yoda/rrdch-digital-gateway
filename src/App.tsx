@@ -35,7 +35,8 @@ import BrochurePage from "./pages/BrochurePage.tsx";
 import NewsPage from "./pages/NewsPage.tsx";
 import NewsDetailPage from "./pages/NewsDetailPage.tsx";
 import GalleryPage from "./pages/GalleryPage.tsx";
-import AboutUsPage from "./pages/AboutUsPage.tsx";
+import ImplantologyCoursePage from "./pages/ImplantologyCoursePage.tsx";
+import MfdsCoursePage from "./pages/MfdsCoursePage.tsx";
 
 // DMS pages
 import LoginPage from "./pages/LoginPage.tsx";
@@ -58,43 +59,39 @@ const App = () => {
     <>
       {!loaded && <LoadingScreen onComplete={handleLoadComplete} />}
       <QueryClientProvider client={queryClient}>
-        <LanguageProvider>
-          <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme" attribute="class">
-            <TooltipProvider>
-              <Toaster />
-              <Sonner />
-              <BrowserRouter>
-                <AuthProvider>
-                  <ScrollToTop />
-                  <FloatingCTA />
-                  <Routes>
-                    {/* ── Public ── */}
-                    <Route path="/" element={<Index />} />
-                    <Route path="/esi" element={<EsiPage />} />
-                    <Route path="/accreditation" element={<AccreditationPage />} />
-                    <Route path="/accreditation/naac" element={<NaacPage />} />
-                    <Route path="/accreditation/nirf" element={<NirfPage />} />
-                    <Route path="/dci" element={<DciPage />} />
-                    <Route path="/recognitions" element={<RecognitionsPage />} />
-                    <Route path="/committee" element={<CommitteePage />} />
-                    <Route path="/committee/anti-ragging" element={<AntiRaggingPage />} />
-                    <Route path="/schedule" element={<SchedulePage />} />
-                    <Route path="/schedule/calendar" element={<CalendarPage />} />
-                    <Route path="/schedule/timetable" element={<TimetablePage />} />
-                    <Route path="/newsletter" element={<NewsletterPage />} />
-                    <Route path="/feedback" element={<FeedbackPage />} />
-                    <Route path="/career" element={<CareerPage />} />
-                    <Route path="/circulars" element={<CircularsPage />} />
-                    <Route path="/fee-terms" element={<FeeTermsPage />} />
-                    <Route path="/brochure" element={<BrochurePage />} />
-                    <Route path="/news" element={<NewsPage />} />
-                    <Route path="/news/:slug" element={<NewsDetailPage />} />
-                    <Route path="/gallery" element={<GalleryPage />} />
-                    <Route path="/about-us" element={<AboutUsPage />} />
-                    <Route path="/about-us/trust" element={<AboutUsPage />} />
-                    <Route path="/about-us/management" element={<AboutUsPage />} />
-                    <Route path="/about-us/vision" element={<AboutUsPage />} />
-                    <Route path="/about-us/council" element={<AboutUsPage />} />
+        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme" attribute="class">
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <AuthProvider>
+                <ScrollToTop />
+                <FloatingCTA />
+                <Routes>
+                  {/* ── Public ── */}
+                  <Route path="/" element={<Index />} />
+                  <Route path="/esi" element={<EsiPage />} />
+                  <Route path="/accreditation" element={<AccreditationPage />} />
+                  <Route path="/accreditation/naac" element={<NaacPage />} />
+                  <Route path="/accreditation/nirf" element={<NirfPage />} />
+                  <Route path="/dci" element={<DciPage />} />
+                  <Route path="/recognitions" element={<RecognitionsPage />} />
+                  <Route path="/committee" element={<CommitteePage />} />
+                  <Route path="/committee/anti-ragging" element={<AntiRaggingPage />} />
+                  <Route path="/schedule" element={<SchedulePage />} />
+                  <Route path="/schedule/calendar" element={<CalendarPage />} />
+                  <Route path="/schedule/timetable" element={<TimetablePage />} />
+                  <Route path="/newsletter" element={<NewsletterPage />} />
+                  <Route path="/feedback" element={<FeedbackPage />} />
+                  <Route path="/career" element={<CareerPage />} />
+                  <Route path="/circulars" element={<CircularsPage />} />
+                  <Route path="/fee-terms" element={<FeeTermsPage />} />
+                  <Route path="/brochure" element={<BrochurePage />} />
+                  <Route path="/news" element={<NewsPage />} />
+                  <Route path="/news/:slug" element={<NewsDetailPage />} />
+                  <Route path="/gallery" element={<GalleryPage />} />
+                  <Route path="/implantology-course" element={<ImplantologyCoursePage />} />
+                  <Route path="/mfds-course" element={<MfdsCoursePage />} />
 
                     {/* ── DMS Auth ── */}
                     <Route path="/login" element={<LoginPage />} />
