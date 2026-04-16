@@ -74,7 +74,7 @@ const navItems = [
       { label: "Anti-ragging", href: "https://www.rrdch.org/anti-ragging/", external: true },
     ],
   },
-  { label: "DCI", href: "https://www.rrdch.org/dci-mandatory/", external: true },
+  { label: "DCI", href: "/dci", external: false },
   { label: "Recognitions", href: "/recognitions", external: false },
   { label: "Contact Us", href: "#contact" },
 ];
