@@ -1,7 +1,9 @@
 import { useState, useRef, useLayoutEffect, useCallback, useEffect } from "react";
 import { Search, Menu, X, ChevronDown } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
+import { LanguageToggle } from "./language-toggle";
 import { gsap } from "gsap";
+import { Link } from "react-router-dom";
 import "./NavAnimation.css";
 
 const departments = [
@@ -33,10 +35,11 @@ const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   {
     label: "About Us",
+    href: "/about-us",
     children: [
-      { label: "Trust", href: "#" },
-      { label: "Management", href: "#" },
-      { label: "Vision & Mission", href: "#" },
+      { label: "Trust", href: "/about-us/trust" },
+      { label: "Management", href: "/about-us/management" },
+      { label: "Vision & Mission", href: "/about-us/vision" },
     ],
   },
   {
@@ -202,10 +205,8 @@ const NavigationBar = () => {
                 onMouseEnter={() => item.children && setOpenDropdown(item.label)}
                 onMouseLeave={() => setOpenDropdown(null)}
               >
-                <a
-                  href={(item as any).href || "#"}
-                  target={(item as any).external ? "_blank" : undefined}
-                  rel={(item as any).external ? "noopener noreferrer" : undefined}
+                <Link
+                  to={(item as any).href || "#"}
                   className="nav-pill-item"
                   onMouseEnter={() => handleEnter(index)}
                   onMouseLeave={() => handleLeave(index)}
@@ -222,7 +223,7 @@ const NavigationBar = () => {
                     <span className="nav-pill-label-hover" aria-hidden="true">{item.label}</span>
                   </span>
                   {item.children && <ChevronDown className="w-3 h-3 relative z-10 ml-0.5 flex-shrink-0" />}
-                </a>
+                </Link>
 
                 {/* Dropdown */}
                 {item.children && openDropdown === item.label && (
@@ -267,14 +268,14 @@ const NavigationBar = () => {
                             {child.label}
                           </a>
                         ) : (
-                          <a
+                          <Link
                             key={child.label}
-                            href={child.href}
+                            to={child.href}
                             className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
                             onClick={() => setOpenDropdown(null)}
                           >
                             {child.label}
-                          </a>
+                          </Link>
                         )
                       ))
                     )}
@@ -321,11 +322,13 @@ const NavigationBar = () => {
                 </div>
               )}
             </div>
+            <LanguageToggle />
             <ModeToggle />
           </div>
 
           {/* Mobile controls */}
           <div className="lg:hidden flex items-center gap-2">
+            <LanguageToggle />
             <ModeToggle />
             <button
               className="text-primary-foreground p-2"
@@ -344,15 +347,13 @@ const NavigationBar = () => {
         <div className="lg:hidden bg-primary border-t border-primary-foreground/10 max-h-[80vh] overflow-y-auto">
           {navItems.map((item) => (
             <div key={item.label}>
-              <a
-                href={(item as any).href || "#"}
-                target={(item as any).external ? "_blank" : undefined}
-                rel={(item as any).external ? "noopener noreferrer" : undefined}
+              <Link
+                to={(item as any).href || "#"}
                 className="block px-4 py-3 text-sm text-primary-foreground hover:bg-secondary/30 border-b border-primary-foreground/10 font-heading"
                 onClick={() => !item.children && setMobileOpen(false)}
               >
                 {item.label}
-              </a>
+              </Link>
               {item.children && (
                 <div className="bg-primary-foreground/5">
                   {item.children.map((child) => (
@@ -368,14 +369,14 @@ const NavigationBar = () => {
                         {child.label}
                       </a>
                     ) : (
-                      <a
+                      <Link
                         key={child.label}
-                        href={child.href}
+                        to={child.href}
                         className="block px-8 py-2 text-xs text-primary-foreground/80 hover:bg-secondary/20"
                         onClick={() => setMobileOpen(false)}
                       >
                         {child.label}
-                      </a>
+                      </Link>
                     )
                   ))}
                 </div>

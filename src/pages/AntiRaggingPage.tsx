@@ -1,156 +1,210 @@
+import { useEffect, useRef } from "react";
 import PageLayout from "@/components/PageLayout";
 import PageHero from "@/components/PageHero";
-import { ShieldAlert, Phone, Mail, AlertTriangle, CheckCircle2, ExternalLink } from "lucide-react";
+import { 
+  ShieldAlert, 
+  Phone, 
+  Mail, 
+  AlertTriangle, 
+  CheckCircle2, 
+  ExternalLink,
+  ShieldCheck,
+  Search,
+  Users
+} from "lucide-react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const members = [
-  { name: "Dr. [Principal Name]", role: "Chairperson", designation: "Principal & HOD" },
-  { name: "Dr. [Faculty Name]", role: "Convener", designation: "Senior Faculty Member" },
-  { name: "Dr. [Faculty Name]", role: "Member", designation: "Faculty Representative" },
-  { name: "Mr. / Ms. [Non-Teaching Staff]", role: "Member", designation: "Administrative Staff" },
-  { name: "Student Representative", role: "Member", designation: "Senior Year BDS Student" },
-  { name: "Parent Representative", role: "Member", designation: "Parent / Guardian" },
-  { name: "NGO / Alumni Representative", role: "Member", designation: "Civil Society Representative" },
+  { name: "Dr. Savita S", role: "Chairperson", designation: "Principal, RRDCH" },
+  { name: "Dr. Navaneetham R", role: "Member Secretary", designation: "Professor & HOD" },
+  { name: "Dr. J. Dinesh Kumar", role: "Member", designation: "Professor & HOD" },
+  { name: "Dr. Rajkumar S", role: "Member", designation: "Professor" },
+  { name: "Mr. Shivalingaswamy", role: "Member", designation: "Administrative Officer" },
+  { name: "Local Police Inspector", role: "Member", designation: "Civil Administration" },
+  { name: "Student Representative", role: "Member", designation: "General Secretary (Students)" },
 ];
 
 const measures = [
-  "Zero-tolerance policy against ragging in any form",
-  "24×7 helpline accessible to all students",
-  "Confidential complaint mechanism with assured non-victimisation",
-  "Sensitisation programmes at the start of every academic year",
-  "Regular monitoring of hostels, canteen, and common areas",
-  "Strict disciplinary action including expulsion for proven cases",
+  "Zero-tolerance policy against any form of ragging on campus or hostels.",
+  "24/7 Anti-Ragging Helpline accessible to all students and parents.",
+  "Anonymous complaint boxes strategically placed in the campus and library.",
+  "Compulsory anti-ragging affidavits collected from every student and parent.",
+  "Regular sensitisation workshops and orientation programs for freshers.",
+  "Strict disciplinary action including immediate suspension or expulsion."
 ];
 
-const AntiRaggingPage = () => (
-  <PageLayout>
-    <PageHero
-      title="Anti-Ragging Committee"
-      subtitle="RRDCH maintains a strict zero-tolerance policy against ragging in accordance with UGC regulations"
-      breadcrumbs={[
-        { label: "Committee", href: "/committee" },
-        { label: "Anti-Ragging" },
-      ]}
-    />
+const AntiRaggingPage = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
 
-    <section className="container mx-auto px-4 py-14">
-      {/* Alert Banner */}
-      <div className="bg-destructive/10 border border-destructive/30 rounded-xl p-5 flex items-start gap-4 mb-12">
-        <AlertTriangle className="w-6 h-6 text-destructive flex-shrink-0 mt-0.5" />
-        <div>
-          <p className="font-heading font-bold text-destructive text-sm mb-1">
-            Ragging is a Criminal Offence
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Any act of ragging is a punishable offence under UGC Regulations 2009 and
-            the Karnataka Educational Institutions (Prevention of Ragging) Act. Offenders
-            may face suspension, expulsion, and/or criminal prosecution.
-          </p>
-        </div>
-      </div>
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Entry animations
+      gsap.from(".ar-card", {
+        opacity: 0,
+        y: 30,
+        stagger: 0.1,
+        duration: 0.8,
+        ease: "power3.out"
+      });
 
-      <div className="grid lg:grid-cols-2 gap-12 mb-14">
-        {/* Helplines */}
-        <div>
-          <div className="flex items-center gap-2 mb-6">
-            <ShieldAlert className="w-5 h-5 text-primary" />
-            <h2 className="font-heading font-bold text-xl text-foreground">Helplines</h2>
-          </div>
-          <div className="space-y-4">
-            <div className="bg-card border border-border rounded-xl p-5 flex items-center gap-4">
-              <div className="w-11 h-11 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
-                <Phone className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground font-medium mb-1">UGC National Anti-Ragging Helpline</p>
-                <a href="tel:1800-180-5522" className="font-heading font-bold text-lg text-primary hover:underline">
-                  1800-180-5522
-                </a>
-                <p className="text-xs text-muted-foreground">Toll Free — 24×7</p>
+      gsap.utils.toArray<HTMLElement>(".ar-section").forEach((section) => {
+        gsap.from(section, {
+          scrollTrigger: {
+            trigger: section,
+            start: "top 85%",
+          },
+          opacity: 0,
+          y: 40,
+          duration: 1,
+          ease: "power2.out"
+        });
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <PageLayout>
+      <div ref={containerRef} className="bg-background min-h-screen pb-20 overflow-hidden">
+        <PageHero
+          title="Anti-Ragging Compliance"
+          subtitle="Upholding a zero-tolerance policy to ensure a safe, inclusive, and protected campus environment."
+          breadcrumbs={[
+            { label: "Committees", href: "/committee" },
+            { label: "Anti-Ragging" }
+          ]}
+        />
+
+        {/* Global Warning Banner */}
+        <section className="container mx-auto px-4 -mt-10 relative z-10">
+          <div className="bg-red-500 text-white rounded-[2rem] p-8 md:p-12 shadow-2xl flex flex-col md:flex-row items-center gap-8 border-4 border-background overflow-hidden relative">
+            <div className="absolute top-0 right-0 p-8 opacity-10">
+              <ShieldAlert className="w-32 h-32" />
+            </div>
+            <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center flex-shrink-0 animate-pulse">
+              <AlertTriangle className="w-10 h-10" />
+            </div>
+            <div className="flex-1">
+              <h2 className="text-2xl font-heading font-black mb-2 uppercase tracking-tight">Ragging is a Criminal Offence</h2>
+              <p className="text-white/80 leading-relaxed font-medium">
+                As per the **UGC Regulations 2009** and **Supreme Court Mandates**, any act of ragging is strictly prohibited. 
+                Offenders are liable for immediate expulsion and criminal prosecution under IPC.
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 w-full md:w-auto">
+              <div className="bg-white/10 px-6 py-3 rounded-xl text-center text-xs font-bold uppercase tracking-widest border border-white/20 whitespace-nowrap">
+                Zero Tolerance Campus
               </div>
             </div>
-            <div className="bg-card border border-border rounded-xl p-5 flex items-center gap-4">
-              <div className="w-11 h-11 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
-                <Phone className="w-5 h-5 text-primary-foreground" />
+          </div>
+        </section>
+
+        {/* Helplines Dashboard */}
+        <section className="ar-section container mx-auto px-4 py-24">
+          <div className="grid lg:grid-cols-3 gap-6">
+            <div className="ar-card bg-card border border-border rounded-[2.5rem] p-10 flex flex-col items-center text-center shadow-soft hover:border-primary/30 transition-all group">
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
+                <Phone className="w-8 h-8" />
               </div>
-              <div>
-                <p className="text-xs text-muted-foreground font-medium mb-1">RRDCH Anti-Ragging Helpline</p>
-                <a href="tel:+918028437150" className="font-heading font-bold text-lg text-primary hover:underline">
-                  +91-80-2843 7150
-                </a>
-                <p className="text-xs text-muted-foreground">College Office</p>
+              <h3 className="font-heading font-black text-xl mb-2">National Helpline</h3>
+              <p className="text-sm text-muted-foreground mb-6">24/7 Toll-Free Support (UGC)</p>
+              <a href="tel:18001805522" className="text-2xl font-black text-primary hover:tracking-wider transition-all">
+                1800-180-5522
+              </a>
+            </div>
+
+            <div className="ar-card bg-card border border-border rounded-[2.5rem] p-10 flex flex-col items-center text-center shadow-soft hover:border-primary/30 transition-all group lg:scale-110 relative z-10 bg-gradient-to-br from-card to-primary/5">
+              <div className="w-16 h-16 rounded-2xl bg-primary flex items-center justify-center mb-6 text-primary-foreground shadow-lg shadow-primary/20 group-hover:rotate-12 transition-transform">
+                <ShieldCheck className="w-8 h-8" />
+              </div>
+              <h3 className="font-heading font-black text-xl mb-2">RRDCH Anti-Ragging</h3>
+              <p className="text-sm text-muted-foreground mb-6">Internal Emergency Contact</p>
+              <a href="tel:+918028437150" className="text-2xl font-black text-primary transition-all">
+                080-2843 7150
+              </a>
+              <div className="mt-4 flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary text-[10px] font-black uppercase rounded-full">
+                <span className="w-1.5 h-1.5 bg-primary rounded-full animate-ping" /> Available 24/7
               </div>
             </div>
-            <div className="bg-card border border-border rounded-xl p-5 flex items-center gap-4">
-              <div className="w-11 h-11 rounded-lg bg-primary flex items-center justify-center flex-shrink-0">
-                <Mail className="w-5 h-5 text-primary-foreground" />
+
+            <div className="ar-card bg-card border border-border rounded-[2.5rem] p-10 flex flex-col items-center text-center shadow-soft hover:border-primary/30 transition-all group">
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
+                <Mail className="w-8 h-8" />
               </div>
-              <div>
-                <p className="text-xs text-muted-foreground font-medium mb-1">Email Complaints To</p>
-                <a href="mailto:principalrrdch@gmail.com" className="font-heading font-semibold text-primary hover:underline text-sm">
-                  principalrrdch@gmail.com
+              <h3 className="font-heading font-black text-xl mb-2">Email Official</h3>
+              <p className="text-sm text-muted-foreground mb-6">Direct Principal Redressal</p>
+              <a href="mailto:principalrrdch@gmail.com" className="text-lg font-black text-primary hover:underline">
+                principalrrdch@gmail.com
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* Preventive Measures & Committee */}
+        <section className="ar-section container mx-auto px-4 py-12">
+          <div className="grid lg:grid-cols-2 gap-12">
+            <div>
+              <div className="mb-10">
+                <h3 className="text-3xl font-heading font-black text-foreground mb-4 flex items-center gap-3">
+                  <ShieldCheck className="text-primary w-8 h-8" /> Safety <span className="text-primary">Measures</span>
+                </h3>
+                <p className="text-muted-foreground leading-relaxed italic border-l-4 border-primary/20 pl-6">
+                  Comprehensive institutional protocols to ensure a safe environment for every student.
+                </p>
+              </div>
+              <div className="space-y-4">
+                {measures.map((measure, i) => (
+                  <div key={i} className="flex items-start gap-4 p-5 rounded-2xl bg-muted/30 border border-border group hover:bg-white transition-colors">
+                    <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0 mt-1">
+                      <CheckCircle2 className="w-4 h-4" />
+                    </div>
+                    <span className="text-sm font-medium text-foreground/80 leading-relaxed group-hover:text-foreground">{measure}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-card border border-border rounded-[3rem] p-10 shadow-soft self-start">
+              <div className="flex items-center justify-between mb-8">
+                <h3 className="text-2xl font-heading font-black text-foreground">Committee <span className="text-primary">Members</span></h3>
+                <Users className="text-primary/10 w-12 h-12" />
+              </div>
+              <div className="space-y-6">
+                {members.map((member, i) => (
+                  <div key={i} className="flex flex-col md:flex-row md:items-center justify-between py-4 border-b border-border last:border-0 hover:bg-primary/5 transition-colors rounded-xl px-4 -mx-4">
+                    <div className="mb-2 md:mb-0">
+                      <div className="font-heading font-bold text-foreground">{member.name}</div>
+                      <div className="text-xs text-muted-foreground">{member.designation}</div>
+                    </div>
+                    <div className="px-4 py-1 bg-primary/10 text-primary rounded-full text-[10px] font-black uppercase tracking-widest text-center md:text-left self-start md:self-auto">
+                      {member.role}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-10 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-6">
+                <p className="text-xs text-muted-foreground flex items-center gap-2">
+                  <Search className="w-4 h-4" /> Full administrative list available in office.
+                </p>
+                <a 
+                  href="https://www.rrdch.org/anti-ragging/" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs font-black text-primary uppercase tracking-widest hover:underline"
+                >
+                  Legacy Details <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
             </div>
-            <a
-              href="https://www.rrdch.org/anti-ragging/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline mt-2"
-            >
-              <ExternalLink className="w-4 h-4" /> View full Anti-Ragging details
-            </a>
           </div>
-        </div>
-
-        {/* Measures */}
-        <div>
-          <div className="flex items-center gap-2 mb-6">
-            <CheckCircle2 className="w-5 h-5 text-primary" />
-            <h2 className="font-heading font-bold text-xl text-foreground">
-              Preventive Measures
-            </h2>
-          </div>
-          <ul className="space-y-3">
-            {measures.map((m) => (
-              <li key={m} className="flex items-start gap-3">
-                <CheckCircle2 className="w-5 h-5 text-secondary flex-shrink-0 mt-0.5" />
-                <span className="text-sm text-muted-foreground">{m}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+        </section>
       </div>
-
-      {/* Committee Members */}
-      <div>
-        <h2 className="font-heading font-bold text-xl text-foreground mb-6">
-          Committee Members
-        </h2>
-        <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-primary text-primary-foreground">
-                <th className="text-left px-5 py-3 font-heading font-semibold">#</th>
-                <th className="text-left px-5 py-3 font-heading font-semibold">Name</th>
-                <th className="text-left px-5 py-3 font-heading font-semibold">Role</th>
-                <th className="text-left px-5 py-3 font-heading font-semibold">Designation</th>
-              </tr>
-            </thead>
-            <tbody>
-              {members.map((m, i) => (
-                <tr key={i} className={`border-t border-border ${i % 2 !== 0 ? "bg-muted/30" : ""}`}>
-                  <td className="px-5 py-3 text-muted-foreground">{i + 1}</td>
-                  <td className="px-5 py-3 font-medium text-foreground">{m.name}</td>
-                  <td className="px-5 py-3 text-muted-foreground">{m.role}</td>
-                  <td className="px-5 py-3 text-muted-foreground">{m.designation}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  </PageLayout>
-);
+    </PageLayout>
+  );
+};
 
 export default AntiRaggingPage;

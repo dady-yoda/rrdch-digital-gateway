@@ -5,6 +5,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/theme-provider";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/lib/auth-context";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import LoadingScreen from "@/components/LoadingScreen";
@@ -92,50 +93,50 @@ const App = () => {
                   <Route path="/implantology-course" element={<ImplantologyCoursePage />} />
                   <Route path="/mfds-course" element={<MfdsCoursePage />} />
 
-                  {/* ── DMS Auth ── */}
-                  <Route path="/login" element={<LoginPage />} />
+                    {/* ── DMS Auth ── */}
+                    <Route path="/login" element={<LoginPage />} />
 
-                  {/* ── Patient portal ── */}
-                  <Route
-                    path="/patient/booking"
-                    element={
-                      <ProtectedRoute allowedRoles={["patient"]}>
-                        <BookingPage />
-                      </ProtectedRoute>
-                    }
-                  />
+                    {/* ── Patient portal ── */}
+                    <Route
+                      path="/patient/booking"
+                      element={
+                        <ProtectedRoute allowedRoles={["patient"]}>
+                          <BookingPage />
+                        </ProtectedRoute>
+                      }
+                    />
 
-                  {/* ── Doctor portal ── */}
-                  <Route
-                    path="/doctor/schedule"
-                    element={
-                      <ProtectedRoute allowedRoles={["doctor"]}>
-                        <DoctorSchedulePage />
-                      </ProtectedRoute>
-                    }
-                  />
+                    {/* ── Doctor portal ── */}
+                    <Route
+                      path="/doctor/schedule"
+                      element={
+                        <ProtectedRoute allowedRoles={["doctor"]}>
+                          <DoctorSchedulePage />
+                        </ProtectedRoute>
+                      }
+                    />
 
-                  {/* ── Admin portal ── */}
-                  <Route
-                    path="/admin/management"
-                    element={
-                      <ProtectedRoute allowedRoles={["admin"]}>
-                        <AdminManagementPage />
-                      </ProtectedRoute>
-                    }
-                  />
+                    {/* ── Admin portal ── */}
+                    <Route
+                      path="/admin/management"
+                      element={
+                        <ProtectedRoute allowedRoles={["admin"]}>
+                          <AdminManagementPage />
+                        </ProtectedRoute>
+                      }
+                    />
 
-                  {/* ── Catch-all ── */}
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </AuthProvider>
-            </BrowserRouter>
-          </TooltipProvider>
-        </ThemeProvider>
+                    {/* ── Catch-all ── */}
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </AuthProvider>
+              </BrowserRouter>
+            </TooltipProvider>
+          </ThemeProvider>
+        </LanguageProvider>
       </QueryClientProvider>
     </>
   );
 };
 
 export default App;
-

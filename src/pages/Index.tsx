@@ -63,18 +63,18 @@ const navItems = [
     label: "Schedule",
     href: "#",
     children: [
-      { label: "Calendar of events", href: "https://www.rrdch.org/calendar-of-events/", external: true },
-      { label: "Timetable", href: "https://www.rrdch.org/time-table/", external: true },
+      { label: "Calendar of events", href: "/schedule/calendar", external: false },
+      { label: "Timetable", href: "/schedule/timetable", external: false },
     ],
   },
   {
     label: "Committee",
     href: "#",
     children: [
-      { label: "Anti-ragging", href: "https://www.rrdch.org/anti-ragging/", external: true },
+      { label: "Anti-ragging", href: "/committee/anti-ragging", external: false },
     ],
   },
-  { label: "DCI", href: "https://www.rrdch.org/dci-mandatory/", external: true },
+  { label: "DCI", href: "/dci", external: false },
   { label: "Recognitions", href: "/recognitions", external: false },
   { label: "Contact Us", href: "#contact" },
 ];

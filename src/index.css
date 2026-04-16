@@ -76,6 +76,21 @@
   html {
     scroll-behavior: smooth;
   }
+  
+  /* Google Translate Override */
+  body {
+    top: 0px !important;
+  }
+  .goog-te-banner-frame.skiptranslate {
+    display: none !important;
+  }
+  #goog-gt-tt, .goog-te-balloon-frame {
+    display: none !important;
+  }
+  .goog-text-highlight {
+    background: none !important;
+    box-shadow: none !important;
+  }
 }
 
 @layer utilities {
