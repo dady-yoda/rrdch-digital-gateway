@@ -8,6 +8,7 @@ import rcpsgDarkLogo from "@/assets/RCPSG for dark mode.png";
 import gradientWhite from "@/assets/greadient white.svg";
 import gradientBlack from "@/assets/gradient black.svg";
 import StaggeredMenu from "./StaggeredMenu";
+import { Link } from "react-router-dom";
 
 const quickLinks = [
   { label: "ERP", link: "https://rrdch.eduwizerp.com/", external: true },
@@ -38,10 +39,10 @@ const BrandingBar = () => {
       <img src={gradientWhite} alt="" className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none dark:hidden" />
       <img src={gradientBlack} alt="" className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none hidden dark:block" />
       <div className="relative z-10 container mx-auto px-4 py-4 flex items-center justify-between">
-        <a href="#" className="flex items-center">
+        <Link to="/" className="flex items-center">
           <img src={logoBlack} alt="RRDCH Logo" className="h-20 md:h-28 lg:h-32 w-auto object-contain max-w-[200px] md:max-w-[400px] lg:max-w-[600px] dark:hidden" />
           <img src={logoWhite} alt="RRDCH Logo" className="h-20 md:h-28 lg:h-32 w-auto object-contain max-w-[200px] md:max-w-[400px] lg:max-w-[600px] hidden dark:block" />
-        </a>
+        </Link>
         
         <div className="hidden lg:flex items-center gap-6">
           {accreditations.map((item) => (
