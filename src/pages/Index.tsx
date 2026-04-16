@@ -71,7 +71,7 @@ const navItems = [
     label: "Committee",
     href: "#",
     children: [
-      { label: "Anti-ragging", href: "https://www.rrdch.org/anti-ragging/", external: true },
+      { label: "Anti-ragging", href: "/committee/anti-ragging", external: false },
     ],
   },
   { label: "DCI", href: "/dci", external: false },
