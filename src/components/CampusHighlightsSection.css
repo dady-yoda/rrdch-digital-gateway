@@ -1,119 +1,257 @@
 /* ============================================================
-   CampusHighlightsSection — Full-width grid overlay on one image
+   CampusHighlightsSection — Folder Tab Design (Aditi Style)
    ============================================================ */
 
-.ch-section {
+.ch-folder-section {
   width: 100%;
-  padding: 4rem 1rem;
+  padding: 8rem 2rem;
   box-sizing: border-box;
+  background-color: #fbfbf9; /* Exactly matching Aditi background */
+  overflow: hidden;
 }
 
-/* Constrain to the same container width as the rest of the page */
-.ch-container {
-  max-width: 80rem; /* matches Tailwind's container at xl */
+.ch-folder-container {
+  max-width: 80rem;
   margin: 0 auto;
   width: 100%;
 }
 
-/* The grid container carries the background image */
-.ch-grid {
+/* ── Tab Navigation ── */
+.ch-tabs-wrapper {
+  display: flex;
+  gap: 12px;
   position: relative;
-  width: 100%;
-  height: 560px;
-  background-size: cover;
-  background-position: center 30%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  border-radius: 0.5rem;
-  overflow: hidden;
+  z-index: 2;
+  margin-bottom: -1px;
+  padding-left: 2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ch-tabs-wrapper::-webkit-scrollbar { display: none; }
+
+.ch-tab-btn {
+  position: relative;
+  padding: 1rem 2.2rem;
+  border: none;
+  background-color: #e6e4dd;
+  color: #5d5d52;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  border-radius: 12px 12px 0 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 160px;
+  text-transform: uppercase;
+  flex-shrink: 0;
 }
 
-/* Dark layer under everything so text is legible */
-.ch-base-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(20, 30, 14, 0.42);
-  pointer-events: none;
+.ch-tab-btn.active {
+  background-color: #ffffff;
+  color: #1a2a16;
+  z-index: 5;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.03);
+}
+
+.ch-tab-btn:hover:not(.active) {
+  background-color: #dfddd5;
+}
+
+/* ── Content Panel ── */
+.ch-content-panel {
+  background-color: #ffffff;
+  border-radius: 30px;
+  padding: 5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+  position: relative;
   z-index: 1;
 }
 
-/* ── Each grid cell ── */
-.ch-cell {
+.ch-panel-inner {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+/* ── Left: Image & Badge ── */
+.ch-image-container {
   position: relative;
-  z-index: 2;
+}
+
+.ch-main-image-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-position: center;
+  border-radius: 32px;
+  transform: rotate(-3.5deg); /* Base rotation */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+.ch-image-link {
+  display: block;
+  position: relative;
+  text-decoration: none;
+}
+
+.ch-main-image-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 32px;
+  transform: rotate(-3.5deg); /* Base rotation */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  position: relative;
+  transition: transform 0.4s ease;
+}
+
+.ch-image-link:hover .ch-main-image-wrap {
+  transform: rotate(-1deg) scale(1.02);
+}
+
+.ch-image-hover-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 70px;
+  height: 70px;
+  background-color: rgba(239, 107, 107, 0.9);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 0.28s ease;
-
-  /* Thin white divider lines via box-shadow on inner edge */
-  border: 0.5px solid rgba(255, 255, 255, 0.35);
-}
-
-/* Subtle dark tint per cell (transparent by default) */
-.ch-cell::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(84, 107, 65, 0);
-  transition: background 0.28s ease;
-}
-
-/* Hovered cell — lift with a green tint */
-.ch-cell--active::before {
-  background: rgba(84, 107, 65, 0.55);
-}
-
-/* Non-hovered siblings darken slightly */
-.ch-cell--dimmed::before {
-  background: rgba(10, 14, 8, 0.38);
-}
-
-/* The caption label */
-.ch-cell-label {
-  position: relative;
-  z-index: 3;
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
   color: #ffffff;
-  letter-spacing: 0.04em;
-  text-align: center;
-  padding: 0.5rem 1rem;
-  transition: color 0.22s ease, transform 0.22s ease;
-
-  /* Underline that slides in on hover */
-  text-decoration: none;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 5;
 }
 
-.ch-cell-label::after {
-  content: "";
-  display: block;
-  width: 0;
-  height: 2px;
-  background: #dcccac;
-  margin: 6px auto 0;
-  transition: width 0.28s ease;
-  border-radius: 2px;
+.ch-image-link:hover .ch-image-hover-hint {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
-.ch-cell--active .ch-cell-label {
-  color: #fff8ec;
-  transform: translateY(-3px);
+.ch-image-hover-hint svg {
+  width: 30px;
+  height: 30px;
 }
 
-.ch-cell--active .ch-cell-label::after {
-  width: 60%;
+/* ── Right: Text & Secondary Visual ── */
+.ch-text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.ch-text-header-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ch-content-date {
+  color: #ef6b6b;
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+.ch-content-title {
+  font-family: "Playfair Display", serif;
+  font-size: 3.2rem;
+  line-height: 1.1;
+  color: #1a2a16;
+  font-weight: 600;
+}
+
+.ch-content-flex-layout {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+}
+
+.ch-desc-wrapper {
+  flex: 1;
+}
+
+.ch-content-desc {
+  font-family: "Inter", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #555555;
+}
+
+.ch-secondary-visual {
+  width: 180px;
+  flex-shrink: 0;
+  position: relative;
+  padding-top: 1rem;
+}
+
+.ch-secondary-image-box {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  transform: rotate(2deg);
+}
+
+.ch-accent-line {
+  position: absolute;
+  bottom: -15px;
+  right: -15px;
+  width: 60px;
+  height: 60px;
+  border-right: 3px solid #ef6b6b;
+  border-bottom: 3px solid #ef6b6b;
+  border-radius: 0 0 15px 0;
+  opacity: 0.4;
 }
 
 /* ── Responsive ── */
+@media (max-width: 1100px) {
+  .ch-panel-inner {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+    text-align: center;
+  }
+  .ch-text-container {
+    align-items: center;
+  }
+  .ch-image-container {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  .ch-content-flex-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
 @media (max-width: 640px) {
-  .ch-grid {
-    height: auto;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 140px);
+  .ch-folder-section {
+    padding: 4rem 1rem;
+  }
+  .ch-content-panel {
+    padding: 2.5rem 1.5rem;
+  }
+  .ch-content-title {
+    font-size: 2.2rem;
+  }
+  .ch-tabs-wrapper {
+    padding-left: 0;
+  }
+  .ch-tab-btn {
+    padding: 1rem 1.5rem;
+    min-width: 120px;
+  }
+  .ch-secondary-visual {
+    width: 140px;
   }
 }

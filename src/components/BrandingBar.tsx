@@ -21,7 +21,6 @@ const quickLinks = [
   { label: "Online Fees", link: "https://rrdch.eduwizerp.com/", external: true },
   { label: "Fee Terms", link: "/fee-terms", external: false },
   { label: "Newsletter", link: "/newsletter", external: false },
-  { label: "Brochure", link: "/brochure", external: false },
   { label: "Career", link: "/career", external: false },
   { label: "Feedback", link: "/feedback", external: false },
   { label: "Contact Us", link: "/#contact", external: false },
