@@ -40,6 +40,7 @@ const navItems: NavItem[] = [
       { label: "Trust", href: "/about-us/trust" },
       { label: "Management", href: "/about-us/management" },
       { label: "Vision & Mission", href: "/about-us/vision" },
+      { label: "Governing Council", href: "/about-us/council" },
     ],
   },
   {
