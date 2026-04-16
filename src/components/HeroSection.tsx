@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import heroCampus from "@/assets/hero-campus.jpg";
 import heroClinical from "@/assets/hero-clinical.jpg";
 import heroGraduation from "@/assets/hero-graduation.jpg";
@@ -10,11 +11,11 @@ const slides = [
 ];
 
 const tickerItems = [
-  "📢 Applications Open for BDS & MDS 2026-27",
-  "🏆 NAAC 'A+' Accredited Institution",
-  "🎓 MFDS RCPS (Glasgow) Revision Course Available",
-  "🦷 One Year Implantology Course (RGUHS Recognised)",
-  "📋 Republic Day Celebrations - View Gallery",
+  { text: "📢 Applications Open for BDS & MDS 2026-27", href: "/#academics" },
+  { text: "🏆 NAAC 'A+' Accredited Institution", href: "/accreditation/naac" },
+  { text: "🎓 MFDS RCPS (Glasgow) Revision Course Available", href: "/mfds-course" },
+  { text: "🦷 One Year Implantology Course (RGUHS Recognised)", href: "/implantology-course" },
+  { text: "📋 Republic Day Celebrations - View Gallery", href: "/gallery" },
 ];
 
 const HeroSection = () => {
@@ -65,11 +66,15 @@ const HeroSection = () => {
 
       {/* Ticker */}
       <div className="bg-ticker overflow-hidden py-2">
-        <div className="ticker-scroll flex whitespace-nowrap gap-12">
+        <div className="ticker-scroll flex whitespace-nowrap gap-12 group">
           {[...tickerItems, ...tickerItems].map((item, i) => (
-            <span key={i} className="text-sm font-medium text-primary-foreground px-4">
-              {item}
-            </span>
+            <Link 
+              key={i} 
+              to={item.href} 
+              className="text-sm font-medium text-primary-foreground px-4 hover:underline"
+            >
+              {item.text}
+            </Link>
           ))}
         </div>
       </div>
