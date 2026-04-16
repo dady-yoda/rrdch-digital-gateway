@@ -37,14 +37,13 @@ import NewsDetailPage from "./pages/NewsDetailPage.tsx";
 import GalleryPage from "./pages/GalleryPage.tsx";
 import ImplantologyCoursePage from "./pages/ImplantologyCoursePage.tsx";
 import MfdsCoursePage from "./pages/MfdsCoursePage.tsx";
-import AboutUsPage from "./pages/AboutUsPage.tsx";
-<<<<<<< HEAD
+import BdsPage from "./pages/BdsPage.tsx";
+import MdsPage from "./pages/MdsPage.tsx";
+import PhdPage from "./pages/PhdPage.tsx";
+import DepartmentPage from "./pages/DepartmentPage.tsx";
 import DepartmentDetailPage from "./pages/DepartmentDetailPage.tsx";
 import CourseDetailPage from "./pages/CourseDetailPage.tsx";
-=======
-import DepartmentsPage from "./pages/DepartmentsPage.tsx";
-import DepartmentDetailPage from "./pages/DepartmentDetailPage.tsx";
->>>>>>> 9e863b9c595b0d41720b00a3824c271b5154965f
+import AboutUsPage from "./pages/AboutUsPage.tsx";  // ✅ added
 
 // DMS pages
 import LoginPage from "./pages/LoginPage.tsx";
@@ -55,7 +54,6 @@ import AdminManagementPage from "./pages/admin/ManagementPage.tsx";
 const queryClient = new QueryClient();
 
 const App = () => {
-  // Only show the loading screen once per browser session
   const [loaded, setLoaded] = useState(() => sessionStorage.getItem("rrdch_loaded") === "1");
 
   const handleLoadComplete = () => {
@@ -72,45 +70,40 @@ const App = () => {
             <TooltipProvider>
               <Toaster />
               <Sonner />
-            <BrowserRouter>
-              <AuthProvider>
-                <ScrollToTop />
-                <FloatingCTA />
-                <Routes>
-                  {/* ── Public ── */}
-                  <Route path="/" element={<Index />} />
-                  <Route path="/esi" element={<EsiPage />} />
-                  <Route path="/accreditation" element={<AccreditationPage />} />
-                  <Route path="/accreditation/naac" element={<NaacPage />} />
-                  <Route path="/accreditation/nirf" element={<NirfPage />} />
-                  <Route path="/dci" element={<DciPage />} />
-                  <Route path="/recognitions" element={<RecognitionsPage />} />
-                  <Route path="/committee" element={<CommitteePage />} />
-                  <Route path="/committee/anti-ragging" element={<AntiRaggingPage />} />
-                  <Route path="/schedule" element={<SchedulePage />} />
-                  <Route path="/schedule/calendar" element={<CalendarPage />} />
-                  <Route path="/schedule/timetable" element={<TimetablePage />} />
-                  <Route path="/newsletter" element={<NewsletterPage />} />
-                  <Route path="/feedback" element={<FeedbackPage />} />
-                  <Route path="/gallery" element={<GalleryPage />} />
-                  <Route path="/about-us" element={<AboutUsPage />} />
-                  <Route path="/about-us/trust" element={<AboutUsPage />} />
-                  <Route path="/about-us/management" element={<AboutUsPage />} />
-                  <Route path="/about-us/vision" element={<AboutUsPage />} />
-                  <Route path="/about-us/council" element={<AboutUsPage />} />
-                  <Route path="/departments" element={<DepartmentsPage />} />
-                  <Route path="/departments/:slug" element={<DepartmentDetailPage />} />
-                  <Route path="/gallery" element={<GalleryPage />} />
-                  <Route path="/implantology-course" element={<ImplantologyCoursePage />} />
-                  <Route path="/mfds-course" element={<MfdsCoursePage />} />
+              <BrowserRouter>
+                <AuthProvider>
+                  <ScrollToTop />
+                  <FloatingCTA />
+                  <Routes>
+                    {/* ── Public ── */}
+                    <Route path="/" element={<Index />} />
+                    <Route path="/esi" element={<EsiPage />} />
+                    <Route path="/accreditation" element={<AccreditationPage />} />
+                    <Route path="/accreditation/naac" element={<NaacPage />} />
+                    <Route path="/accreditation/nirf" element={<NirfPage />} />
+                    <Route path="/dci" element={<DciPage />} />
+                    <Route path="/recognitions" element={<RecognitionsPage />} />
+                    <Route path="/committee" element={<CommitteePage />} />
+                    <Route path="/committee/anti-ragging" element={<AntiRaggingPage />} />
+                    <Route path="/schedule" element={<SchedulePage />} />
+                    <Route path="/schedule/calendar" element={<CalendarPage />} />
+                    <Route path="/schedule/timetable" element={<TimetablePage />} />
+                    <Route path="/newsletter" element={<NewsletterPage />} />
+                    <Route path="/feedback" element={<FeedbackPage />} />
+                    <Route path="/gallery" element={<GalleryPage />} />  {/* ✅ deduplicated */}
+                    <Route path="/implantology-course" element={<ImplantologyCoursePage />} />
+                    <Route path="/mfds-course" element={<MfdsCoursePage />} />
+                    <Route path="/course/bds" element={<BdsPage />} />
+                    <Route path="/course/mds" element={<MdsPage />} />
+                    <Route path="/course/phd" element={<PhdPage />} />
+                    <Route path="/course/:id" element={<CourseDetailPage />} />
 
-                  {/* ── About Us Tabs ── */}
-                  <Route path="/about-us" element={<AboutUsPage />} />
-                  <Route path="/about-us/:tab" element={<AboutUsPage />} />
+                    {/* ── About Us ── */}
+                    <Route path="/about-us" element={<AboutUsPage />} />  {/* ✅ deduplicated */}
+                    <Route path="/about-us/:tab" element={<AboutUsPage />} />  {/* ✅ covers /trust, /management, /vision, /council */}
 
-                  {/* ── Dynamic Details ── */}
-                  <Route path="/department/:id" element={<DepartmentDetailPage />} />
-                  <Route path="/course/:id" element={<CourseDetailPage />} />
+                    {/* ── Departments ── */}
+                    <Route path="/department/:id" element={<DepartmentDetailPage />} />  {/* ✅ deduplicated, matches nav links */}
 
                     {/* ── DMS Auth ── */}
                     <Route path="/login" element={<LoginPage />} />

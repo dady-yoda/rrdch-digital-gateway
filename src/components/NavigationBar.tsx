@@ -6,7 +6,7 @@ import { gsap } from "gsap";
 import { Link } from "react-router-dom";
 import "./NavAnimation.css";
 
-import { departmentsData } from "@/data/departmentsData";
+
 
 interface NavChild {
   label: string;
@@ -39,30 +39,25 @@ const navItems: NavItem[] = [
       { label: "BDS", href: "/course/bds" },
       { label: "MDS", href: "/course/mds" },
       { label: "Ph.D", href: "/course/phd" },
-      { label: "Certificate in Implantology", href: "/course/implantology" },
+      { label: "Certificate in Implantology", href: "/implantology-course" },
     ],
   },
   {
     label: "Departments",
-<<<<<<< HEAD
-    children: departmentsData.map((d) => ({ 
-      label: d.name, 
-      href: `/department/${d.id}` 
-    })),
-=======
-    href: "/departments",
     children: [
-      { label: "Oral Medicine & Radiology", href: "/departments/oral-medicine" },
-      { label: "Oral & Maxillofacial Surgery", href: "/departments/oral-surgery" },
-      { label: "Orthodontics", href: "/departments/orthodontics" },
-      { label: "Prosthodontics", href: "/departments/prosthodontics" },
-      { label: "Periodontics", href: "/departments/periodontics" },
-      { label: "Conservative Dentistry", href: "/departments/conservative-dentistry" },
-      { label: "Pedodontics", href: "/departments/pedodontics" },
-      { label: "Oral Pathology", href: "/departments/oral-pathology" },
-      { label: "Public Health Dentistry", href: "/departments/public-health" },
+      { label: "Oral Medicine & Radiology", href: "/department/oral-medicine-radiology" },
+      { label: "Prosthetics & Crown & Bridge", href: "/department/prosthetics-crown-bridge" },
+      { label: "Oral & Maxillofacial Surgery", href: "/department/oral-maxillofacial-surgery" },
+      { label: "Periodontology", href: "/department/periodontology" },
+      { label: "Pedodontics & Preventive Dentistry", href: "/department/pedodontics-preventive-dentistry" },
+      { label: "Conservative Dentistry & Endodontics", href: "/department/conservative-dentistry-endodontics" },
+      { label: "Orthodontics & Dentofacial Orthopedics", href: "/department/orthodontics-dento-facial-orthopedics" },
+      { label: "Public Health Dentistry", href: "/department/public-health-dentistry" },
+      { label: "Oral & Maxillofacial Pathology", href: "/department/oral-pathology-microbiology" },
+      { label: "Implantology", href: "/department/implantology" },
+      { label: "Research & Publication", href: "/department/research-publication" },
+      { label: "Orofacial Pain", href: "/department/orofacial-pain" },
     ],
->>>>>>> 9e863b9c595b0d41720b00a3824c271b5154965f
   },
   {
     label: "Accreditation",
@@ -254,7 +249,7 @@ const NavigationBar = () => {
                           ) : (
                             <Link
                               key={child.label}
-                              to={child.href}
+                              to={child.href || "#"}
                               className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
                               onClick={() => setOpenDropdown(null)}
                             >

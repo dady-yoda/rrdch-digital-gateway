@@ -9,18 +9,21 @@ const courses = [
     title: "BDS",
     id: "bds",
     desc: "Bachelor of Dental Surgery — A comprehensive 5-year programme covering all aspects of dental science with extensive clinical training.",
+    link: "/course/bds",
   },
   {
     icon: BookOpen,
     title: "MDS",
     id: "mds",
     desc: "Master of Dental Surgery — Specialise in 9 disciplines with access to advanced research facilities and expert faculty.",
+    link: "/course/mds",
   },
   {
     icon: FlaskConical,
     title: "Ph.D",
     id: "phd",
     desc: "Doctoral research programme fostering innovation in dental sciences with interdisciplinary collaboration.",
+    link: "/course/phd",
   },
 ];
 
@@ -37,10 +40,10 @@ const AcademicsSection = () => {
         <div className="grid md:grid-cols-3 gap-6 mb-10 items-stretch">
           {courses.map((course) => (
             <FadeInSection key={course.title} className="h-full">
-              <Link to={`/course/${course.id}`} className="block h-full group">
-                <SpotlightCard className="bg-popover rounded-lg p-6 border border-border hover:shadow-lg transition-shadow text-center group h-full flex flex-col items-center justify-start" spotlightColor="rgba(153, 173, 122, 0.2)">
+              <Link to={course.link} className="block h-full outline-none">
+                <SpotlightCard className="bg-popover rounded-lg p-6 border border-border hover:shadow-lg transition-shadow text-center group h-full flex flex-col items-center justify-start cursor-pointer" spotlightColor="rgba(153, 173, 122, 0.2)">
                   <course.icon className="w-12 h-12 text-secondary mx-auto mb-4 group-hover:scale-110 transition-transform" />
-                  <h3 className="font-heading text-lg font-bold text-primary mb-2">{course.title}</h3>
+                  <h3 className="font-heading text-lg font-bold text-primary mb-2 group-hover:text-secondary transition-colors">{course.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{course.desc}</p>
                 </SpotlightCard>
               </Link>

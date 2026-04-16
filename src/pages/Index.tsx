@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 import CampusHighlightsSection from "@/components/CampusHighlightsSection";
 import logo from "@/assets/RRDCH FULL BLACK.png";
 
-import { departmentsData } from "@/data/departmentsData";
+
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -28,16 +28,26 @@ const navItems = [
       { label: "BDS", href: "/course/bds" },
       { label: "MDS", href: "/course/mds" },
       { label: "Ph.D", href: "/course/phd" },
-      { label: "Certificate in Implantology", href: "/course/implantology" },
+      { label: "Certificate in Implantology", href: "/implantology-course" },
     ],
   },
   {
     label: "Departments",
     href: "#",
-    children: departmentsData.map((d) => ({ 
-      label: d.name, 
-      href: `/department/${d.id}` 
-    })),
+    children: [
+      { label: "Oral Medicine & Radiology", href: "/department/oral-medicine-radiology" },
+      { label: "Prosthetics & Crown & Bridge", href: "/department/prosthetics-crown-bridge" },
+      { label: "Oral & Maxillofacial Surgery", href: "/department/oral-maxillofacial-surgery" },
+      { label: "Periodontology", href: "/department/periodontology" },
+      { label: "Pedodontics & Preventive Dentistry", href: "/department/pedodontics-preventive-dentistry" },
+      { label: "Conservative Dentistry & Endodontics", href: "/department/conservative-dentistry-endodontics" },
+      { label: "Orthodontics & Dentofacial Orthopedics", href: "/department/orthodontics-dento-facial-orthopedics" },
+      { label: "Public Health Dentistry", href: "/department/public-health-dentistry" },
+      { label: "Oral & Maxillofacial Pathology", href: "/department/oral-pathology-microbiology" },
+      { label: "Implantology", href: "/department/implantology" },
+      { label: "Research & Publication", href: "/department/research-publication" },
+      { label: "Orofacial Pain", href: "/department/orofacial-pain" },
+    ],
   },
   {
     label: "Accreditation",
