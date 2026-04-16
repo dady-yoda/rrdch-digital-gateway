@@ -223,7 +223,7 @@ const NavigationBar = () => {
                     <span className="nav-pill-label-hover" aria-hidden="true">{item.label}</span>
                   </span>
                   {item.children && <ChevronDown className="w-3 h-3 relative z-10 ml-0.5 flex-shrink-0" />}
-                </a>
+                </Link>
 
                 {/* Dropdown */}
                 {item.children && openDropdown === item.label && (
@@ -347,15 +347,13 @@ const NavigationBar = () => {
         <div className="lg:hidden bg-primary border-t border-primary-foreground/10 max-h-[80vh] overflow-y-auto">
           {navItems.map((item) => (
             <div key={item.label}>
-              <a
-                href={(item as any).href || "#"}
-                target={(item as any).external ? "_blank" : undefined}
-                rel={(item as any).external ? "noopener noreferrer" : undefined}
+              <Link
+                to={(item as any).href || "#"}
                 className="block px-4 py-3 text-sm text-primary-foreground hover:bg-secondary/30 border-b border-primary-foreground/10 font-heading"
                 onClick={() => !item.children && setMobileOpen(false)}
               >
                 {item.label}
-              </a>
+              </Link>
               {item.children && (
                 <div className="bg-primary-foreground/5">
                   {item.children.map((child) => (
