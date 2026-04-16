@@ -70,6 +70,12 @@ const Footer = () => {
                 </a>
               </li>
               <li>
+                <a href="https://www.rrdch.org/360tour/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors group">
+                  <ExternalLink className="w-4 h-4 text-accent/70 group-hover:text-accent transition-colors" />
+                  Virtual Campus Tour (360°)
+                </a>
+              </li>
+              <li>
                 <Link
                   to="/login"
                   className="flex items-center gap-2 hover:text-accent transition-colors group font-semibold"

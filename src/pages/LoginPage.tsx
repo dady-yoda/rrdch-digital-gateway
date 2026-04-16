@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
 import { useAuth } from "@/lib/auth-context";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -91,7 +91,9 @@ export default function LoginPage() {
         <div>
           {/* Logo text */}
           <div className="mb-10">
-            <img src={logoWhite} alt="RRDCH Logo" className="h-[72px] sm:h-[84px] w-auto object-contain drop-shadow-md mb-2" />
+            <Link to="/" className="inline-block hover:opacity-80 transition-opacity" title="Back to Homepage">
+              <img src={logoWhite} alt="RRDCH Logo" className="h-[72px] sm:h-[84px] w-auto object-contain drop-shadow-md mb-2" />
+            </Link>
           </div>
 
           <h2 className="font-heading text-white text-2xl xl:text-3xl font-bold leading-tight mb-3">
@@ -138,12 +140,14 @@ export default function LoginPage() {
       <div className="flex-1 flex flex-col items-center justify-center p-6 sm:p-10 bg-gray-50">
         {/* Mobile header */}
         <div className="md:hidden text-center mb-8">
-          <h1
-            className="font-heading text-2xl font-extrabold"
-            style={{ color: "#546B41" }}
-          >
-            RRDCH Portal
-          </h1>
+          <Link to="/" className="inline-block hover:opacity-80 transition-opacity" title="Back to Homepage">
+            <h1
+              className="font-heading text-2xl font-extrabold"
+              style={{ color: "#546B41" }}
+            >
+              RRDCH Portal
+            </h1>
+          </Link>
           <p className="text-gray-500 text-sm mt-1">Dental Management System</p>
         </div>
 

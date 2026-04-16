@@ -59,10 +59,11 @@ const App = () => {
     <>
       {!loaded && <LoadingScreen onComplete={handleLoadComplete} />}
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme" attribute="class">
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
+        <LanguageProvider>
+          <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme" attribute="class">
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
             <BrowserRouter>
               <AuthProvider>
                 <ScrollToTop />

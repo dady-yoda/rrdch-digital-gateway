@@ -16,5 +16,4 @@ const PageLayout = ({ children }: PageLayoutProps) => {
     </div>
   );
 };
-
 export default PageLayout;
