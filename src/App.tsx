@@ -37,6 +37,10 @@ import NewsDetailPage from "./pages/NewsDetailPage.tsx";
 import GalleryPage from "./pages/GalleryPage.tsx";
 import ImplantologyCoursePage from "./pages/ImplantologyCoursePage.tsx";
 import MfdsCoursePage from "./pages/MfdsCoursePage.tsx";
+import BdsPage from "./pages/BdsPage.tsx";
+import MdsPage from "./pages/MdsPage.tsx";
+import PhdPage from "./pages/PhdPage.tsx";
+import DepartmentPage from "./pages/DepartmentPage.tsx";
 
 // DMS pages
 import LoginPage from "./pages/LoginPage.tsx";
@@ -93,6 +97,10 @@ const App = () => {
                   <Route path="/gallery" element={<GalleryPage />} />
                   <Route path="/implantology-course" element={<ImplantologyCoursePage />} />
                   <Route path="/mfds-course" element={<MfdsCoursePage />} />
+                  <Route path="/course/bds" element={<BdsPage />} />
+                  <Route path="/course/mds" element={<MdsPage />} />
+                  <Route path="/course/phd" element={<PhdPage />} />
+                  <Route path="/department/:id" element={<DepartmentPage />} />
 
                     {/* ── DMS Auth ── */}
                     <Route path="/login" element={<LoginPage />} />

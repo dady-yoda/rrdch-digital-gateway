@@ -6,17 +6,7 @@ import { gsap } from "gsap";
 import { Link } from "react-router-dom";
 import "./NavAnimation.css";
 
-const departments = [
-  "Oral Medicine & Radiology",
-  "Oral & Maxillofacial Surgery",
-  "Orthodontics",
-  "Prosthodontics",
-  "Periodontics",
-  "Conservative Dentistry",
-  "Pedodontics",
-  "Oral Pathology",
-  "Public Health Dentistry",
-];
+
 
 interface NavChild {
   label: string;
@@ -46,15 +36,28 @@ const navItems: NavItem[] = [
   {
     label: "Courses",
     children: [
-      { label: "BDS", href: "#" },
-      { label: "MDS", href: "#" },
-      { label: "Ph.D", href: "#" },
-      { label: "Certificate in Implantology", href: "#" },
+      { label: "BDS", href: "/course/bds" },
+      { label: "MDS", href: "/course/mds" },
+      { label: "Ph.D", href: "/course/phd" },
+      { label: "Certificate in Implantology", href: "/implantology-course" },
     ],
   },
   {
     label: "Departments",
-    children: departments.map((d) => ({ label: d, href: "#" })),
+    children: [
+      { label: "Oral Medicine & Radiology", href: "/department/oral-medicine-radiology" },
+      { label: "Prosthetics & Crown & Bridge", href: "/department/prosthetics-crown-bridge" },
+      { label: "Oral & Maxillofacial Surgery", href: "/department/oral-maxillofacial-surgery" },
+      { label: "Periodontology", href: "/department/periodontology" },
+      { label: "Pedodontics & Preventive Dentistry", href: "/department/pedodontics-preventive-dentistry" },
+      { label: "Conservative Dentistry & Endodontics", href: "/department/conservative-dentistry-endodontics" },
+      { label: "Orthodontics & Dentofacial Orthopedics", href: "/department/orthodontics-dento-facial-orthopedics" },
+      { label: "Public Health Dentistry", href: "/department/public-health-dentistry" },
+      { label: "Oral & Maxillofacial Pathology", href: "/department/oral-pathology-microbiology" },
+      { label: "Implantology", href: "/department/implantology" },
+      { label: "Research & Publication", href: "/department/research-publication" },
+      { label: "Orofacial Pain", href: "/department/orofacial-pain" },
+    ],
   },
   {
     label: "Accreditation",
@@ -244,14 +247,14 @@ const NavigationBar = () => {
                               {child.label}
                             </a>
                           ) : (
-                            <a
+                            <Link
                               key={child.label}
-                              href={child.href}
+                              to={child.href || "#"}
                               className="block px-4 py-2 text-sm text-foreground hover:bg-muted transition-colors"
                               onClick={() => setOpenDropdown(null)}
                             >
                               {child.label}
-                            </a>
+                            </Link>
                           )
                         ))}
                       </div>
