@@ -7,18 +7,21 @@ const courses = [
   {
     icon: GraduationCap,
     title: "BDS",
+    id: "bds",
     desc: "Bachelor of Dental Surgery — A comprehensive 5-year programme covering all aspects of dental science with extensive clinical training.",
     link: "/course/bds",
   },
   {
     icon: BookOpen,
     title: "MDS",
+    id: "mds",
     desc: "Master of Dental Surgery — Specialise in 9 disciplines with access to advanced research facilities and expert faculty.",
     link: "/course/mds",
   },
   {
     icon: FlaskConical,
     title: "Ph.D",
+    id: "phd",
     desc: "Doctoral research programme fostering innovation in dental sciences with interdisciplinary collaboration.",
     link: "/course/phd",
   },

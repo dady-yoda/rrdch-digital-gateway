@@ -10,14 +10,15 @@ import logo from "@/assets/RRDCH FULL BLACK.png";
 
 
 const navItems = [
-  { label: "Home", href: "#" },
+  { label: "Home", href: "/" },
   {
     label: "About Us",
-    href: "#",
+    href: "/about-us",
     children: [
-      { label: "Trust", href: "#" },
-      { label: "Management", href: "#" },
-      { label: "Vision & Mission", href: "#" },
+      { label: "Trust", href: "/about-us/trust" },
+      { label: "Management", href: "/about-us/management" },
+      { label: "Vision & Mission", href: "/about-us/vision" },
+      { label: "Governing Council", href: "/about-us/council" },
     ],
   },
   {

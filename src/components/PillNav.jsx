@@ -322,15 +322,26 @@ const PillNav = ({
                 {item.children && openDropdown === item.label && (
                   <div className={`pill-submenu ${item.label === 'Departments' ? 'pill-submenu-grid' : ''}`}>
                     {item.children.map((child) => (
-                      <a
-                        key={child.label}
-                        href={child.href}
-                        target={child.external ? '_blank' : undefined}
-                        rel={child.external ? 'noopener noreferrer' : undefined}
-                        className="pill-submenu-link"
-                      >
-                        {child.label}
-                      </a>
+                      isRouterLink(child.href) ? (
+                        <Link
+                          key={child.label}
+                          to={child.href}
+                          className="pill-submenu-link"
+                          onClick={() => setOpenDropdown(null)}
+                        >
+                          {child.label}
+                        </Link>
+                      ) : (
+                        <a
+                          key={child.label}
+                          href={child.href}
+                          target={child.external ? '_blank' : undefined}
+                          rel={child.external ? 'noopener noreferrer' : undefined}
+                          className="pill-submenu-link"
+                        >
+                          {child.label}
+                        </a>
+                      )
                     ))}
                   </div>
                 )}
@@ -449,16 +460,27 @@ const PillNav = ({
               {item.children && (
                 <div className="mobile-submenu">
                   {item.children.map((child) => (
-                    <a
-                      key={child.label}
-                      href={child.href}
-                      target={child.external ? '_blank' : undefined}
-                      rel={child.external ? 'noopener noreferrer' : undefined}
-                      className="mobile-submenu-link"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {child.label}
-                    </a>
+                    isRouterLink(child.href) ? (
+                      <Link
+                        key={child.label}
+                        to={child.href}
+                        className="mobile-submenu-link"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {child.label}
+                      </Link>
+                    ) : (
+                      <a
+                        key={child.label}
+                        href={child.href}
+                        target={child.external ? '_blank' : undefined}
+                        rel={child.external ? 'noopener noreferrer' : undefined}
+                        className="mobile-submenu-link"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {child.label}
+                      </a>
+                    )
                   ))}
                 </div>
               )}

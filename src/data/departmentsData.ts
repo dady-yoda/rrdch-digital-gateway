@@ -1,86 +1,272 @@
-export const departmentsData = {
-  "oral-medicine-radiology": {
+import {
+  Stethoscope,
+  Scissors,
+  Smile,
+  Settings,
+  Activity,
+  ShieldAlert,
+  Baby,
+  Microscope,
+  Users2,
+  LucideIcon
+} from "lucide-react";
+
+export interface FacultyMember {
+  name: string;
+  designation: string;
+  image?: string;
+}
+
+export interface Department {
+  id: string;
+  name: string;
+  icon: LucideIcon;
+  overview: string;
+  hodMessage?: string;
+  objectives: string[];
+  faculty: FacultyMember[];
+  facilities: string[];
+  color: string;
+}
+
+export const departmentsData: Department[] = [
+  {
     id: "oral-medicine-radiology",
     name: "Oral Medicine & Radiology",
-    description: "The department of oral medicine and radiology is the threshold to dentistry for all patients. This department is responsible for the preliminary investigation and diagnosis of dental issues, lesions and systemic diseases through oral manifestations. The department also takes responsibility for the dental management of medically compromised patients.\n\nThis department is where students, both at the UG and PG level, gain the ability to examine patients, diagnose issues and practice the clinical skills, vital to good dentistry. The department has a separate radiology section with advanced diagnostic aids such as a cephalostat and orthopantomograph, T-Scan, digital OPG, RVG and Extra Oral X-ray unit. Patient management is done through a system of computerized records.\n\nStudents have access to a large number of reference books, educational CDs and online resources through LAN and WiFi. The department has the distinction of being the first in India to be equipped with a full-fledged T-Scan with biopack at its Orthofacial pain clinic. The teaching faculty are excellent academicians with several national and international Publications to their credit. Future Plans include acquisition of CBCT, making the department a Ph.D center and to start oral cancer research center.",
-    icon: "Activity",
-    highlights: ["Advanced diagnostics", "Systemic disease management", "Radiographic imaging"],
+    icon: Stethoscope,
+    color: "hsl(100, 24%, 34%)",
+    overview: "The department of oral medicine and radiology is the threshold to dentistry for all patients. This department is responsible for the preliminary investigation and diagnosis of dental issues, lesions and systemic diseases through oral manifestations. The department also takes responsibility for the dental management of medically compromised patients.",
+    objectives: [
+      "Expertise in clinical examination and diagnosis of oral diseases.",
+      "Proficiency in radiographic techniques and interpretation.",
+      "Comprehensive dental management of medically compromised patients.",
+      "Early detection and screening of oral cancer.",
+      "Management of orofacial pain and TMJ disorders."
+    ],
+    faculty: [
+      { name: "Dr. Poornima C.", designation: "Professor & HOD" },
+      { name: "Dr. Balaji P.", designation: "Professor" },
+      { name: "Dr. M. B. Sowbhagya", designation: "Professor" },
+      { name: "Dr. Poornima G.", designation: "Associate Professor" },
+      { name: "Dr. Mahesh Kumar T. S.", designation: "Reader" }
+    ],
+    facilities: [
+      "Centralized Diagnostic Clinic",
+      "Advanced Digital Radiology (OPG, Cephalostat)",
+      "RVG (RadioVisioGraphy) Units",
+      "T-Scan for Occlusal Analysis",
+      "Biopack for Orofacial Pain Diagnosis",
+      "Intra-oral Cameras"
+    ]
   },
-  "prosthetics-crown-bridge": {
-    id: "prosthetics-crown-bridge",
-    name: "Prosthetics & Crown & Bridge",
-    description: "The replacement of missing teeth and associated structures due to congenital reasons or due to disease, surgery, aging or accident is the responsibility of the department of prosthodontics. Through dental prosthesis, not only are the teeth replaced, but also form and function of surrounding areas such as lips and cheeks is restored.\n\nThe department conducts student training in two stages – pre-clinical and clinical prosthodontics. Teaching is conducted at the UG and PG level and the department is also recognized as a Ph.D centre. The department is well equipped with the latest Lab equipment such as all ceramic furnace, sterio microscope, anatomical articulators, to replace everything from a single tooth to the complete set, special procedures include dental implantology and maxillofacial prosthesis. Several research projects are underway including animal studies. The department is closely associated with oro facial pain clinic and study occlusal disharmony and TM joint disorders with help of the newly acquired T-Scan and EMG. The faculty can boast about their numerous international and national publications and about the achievement of their P.G’s. Future plans include starting  courses in bite scan, long term research projects in implants.",
-    icon: "Shield",
-    highlights: ["Maxillofacial prosthetics", "Crowns & Bridges", "Full mouth rehabilitation"],
-  },
-  "oral-maxillofacial-surgery": {
+  {
     id: "oral-maxillofacial-surgery",
     name: "Oral & Maxillofacial Surgery",
-    description: "The department of maxillofacial surgery is responsible for the surgical treatment of acquired, congenital and traumatic issues related to the jaws and facial regions as well developmental diseases of these areas. Facial fractures, head and neck cancers and salivary gland diseases are the other areas in which the department plays a key role. Major surgeries include those for maxillofacial traumas, cysts and tumours, oral cancer, orthognathic surgery, bone graft, distraction and cleft lip and cleft palate. The department trains students at the UG and PG levels in the surgical procedures conducted and enables them to gain the necessary knowledge and skills.\n\nThe department has the advantage of sharing the best of medical facilities such as OT, Surgical ICUS 24 hour causality, inpatient beds and advanced diagnostic aids like MRI, CT with rajarajeswari medical college &#038; hospital which is a 1100 bedded super specialty teaching institute belonging to the same trust. Apart from routine tooth extractions and impactions, the department performs surgical procedures for head and neck cancers, salivary tumors, cysts, T.M. joint disorders, orthognathic corrections. All types of trauma, cleft lip and palate corrections.",
-    icon: "Scissors",
-    highlights: ["Trauma management", "Orthognathic surgery", "Dentoalveolar surgery"],
+    icon: Scissors,
+    color: "hsl(95, 25%, 58%)",
+    overview: "The department of maxillofacial surgery is responsible for the surgical treatment of acquired, congenital and traumatic issues related to the jaws and facial regions as well developmental diseases of the oral cavity.",
+    objectives: [
+      "Surgical management of impacted teeth.",
+      "Treatment of maxillofacial trauma and fractures.",
+      "Management of benign and malignant tumors of the oral cavity.",
+      "Orthognathic surgery for facial deformity correction.",
+      "Placement of dental implants and bone grafting."
+    ],
+    faculty: [
+      { name: "Dr. Lokesh V. R.", designation: "Professor & HOD" },
+      { name: "Dr. Madhumati Singh", designation: "Professor" },
+      { name: "Dr. Mamatha N. S.", designation: "Professor" },
+      { name: "Dr. Girish B. Giraddi", designation: "Professor" }
+    ],
+    facilities: [
+      "Major Operation Theatre with 10 beds",
+      "Minor OS Clinics (Undergraduate & Postgraduate)",
+      "Advanced Implant Center",
+      "Intensive Care Unit (ICU)",
+      "Laser Surgery Unit",
+      "General Anesthesia Facility"
+    ]
   },
-  "periodontology": {
-    id: "periodontology",
-    name: "Periodontology",
-    description: "The department of periodontology is engaged in the treatment of problems associated with the gums and poor dental hygiene. Through a training program comprising both theory and clinical practice, UG and PG students gain knowledge of arrange of treatments and procedures. These include scaling and root planning, splinting and abscess drainage. Surgeries such as flap surgery, micro-gingiveal surgery and laser assisted surgery are conducted on a regular basis. PG students also undergo training in the latest aesthetic and regenerative procedures using advanced membranes and bone graft materials. The Department is also a recognized centre for Ph.D programs.\n\nThe Department is equipped with state-of-the-art dental diagnostic and surgical facilities. Modern dental chairs, ultra-sonic scalers, an electrocautery unit and a laser unit enabling superior patient care. The Department also has a range of advanced GTR membranes and bone grafting materials. Critical researches encompass immunology, periodontal plastic surgery, periodontal regeneration, periodontal medicine and dental implants.",
-    icon: "Crosshair",
-    highlights: ["Gum treatments", "Dental hygiene", "Bone grafting"],
-  },
-  "pedodontics-preventive-dentistry": {
-    id: "pedodontics-preventive-dentistry",
-    name: "Pedodontics & Preventive Dentistry",
-    description: "Focussed on good dental hygiene in children, the Department of pedodontics and Preventive dentistry aims to do this through a combination of professionally applied and self applied fluorides, deplaning procedures and placement of occlusal sealants.\n\nThe objective is to prevent dental caries, gingivitis and periodontal diseases. The Department also treats habitual problems and developing malocclusions. UG and PG students are exposed to the dental issues faced by children and adolescents and get an opportunity to educate them and provide preventive treatment.\n\nThe Department is equipped with 37 special child friendly dental chairs as well as a conscious sedation unit. The Department has a unique children’s recreation area that contains special toys and oral education room that enables children to learn better dental hygiene and practice it in their daily lives. The Department also regularly conducts camps and clinics in schools and rural areas.",
-    icon: "Heart",
-    highlights: ["Child-friendly environment", "Preventive care", "Fluoride treatments"],
-  },
-  "conservative-dentistry-endodontics": {
-    id: "conservative-dentistry-endodontics",
-    name: "Conservative Dentistry & Endodontics",
-    description: "One of the busiest departments of the college, the Department of Conservative Dentistry and Endodontics aims at “Increasing the life span of teeth”. Towards this end, department offers root canal treatment, endodontic surgeries, metallic non-metallic and aesthetic restorations. UG and PG students gain thorough knowledge in areas such as restorative dentistry and endodontic treatment which includes endodontic microsurgery, regenerative endodontics and management of traumatic injuries. The department also teaches students, the procedures involved in aesthetic dentistry. The department is fully equipped with facilities such as vista scan, thermoplasticized gutta percha system, rotary endodontic system, power bleaching , LED light curing unit, endosonics and a complete ceramics lab.\n\nThe latest addition to the department is the waterlase- “Hard Tissue Laser”. This has helped in making the procedures such as cavity preparation, caries removal, desensitization and bleaching more precise and painless. This new technology can be used in the field of endodontics for access cavity preparation without anaesthesia and also for root canal disinfection. The advantages of water lase extends to endo surgery as well which includes procedures involving soft tissues and osseous tissues such as Periosurgeries, Implant placements. \n\nThese, enables students to watch, understand and gain hands on experience on the complete range of treatments and procedures. A new department namely, aesthetic dentistry has been created to serve the present day cosmetic needs of the patients. Faculty of the department has authored a text book on endodontics.  Several national and international papers have been published by the staff. Future plans include conducting workshops on endo microsurgical procedures and to make the department a PHD center.",
-    icon: "Tool",
-    highlights: ["Root canal therapy", "Restorative procedures", "Aesthetic dentistry"],
-  },
-  "orthodontics-dento-facial-orthopedics": {
-    id: "orthodontics-dento-facial-orthopedics",
+  {
+    id: "orthodontics",
     name: "Orthodontics & Dentofacial Orthopedics",
-    description: "The Department has excellent facilities ranging from separate UG and PG clinics with computers connected to a central server. The department has an advanced digital imaging and treatment simulation system, a first, which enables planning of complex procedures.",
-    icon: "MoveDiagonal",
-    highlights: ["Braces and aligners", "Jaw correction", "Growth modulation"],
+    icon: Smile,
+    color: "hsl(100, 24%, 34%)",
+    overview: "The Department of Orthodontics and dentofacial orthopedics specializes in the correction of defects in the jaws and teeth through the use of various removable and fixed appliances, aimed at improving both function and aesthetic appearance.",
+    objectives: [
+      "Management of malocclusions in children and adults.",
+      "Preventive and interceptive orthodontics.",
+      "Management of cleft lip and palate patients.",
+      "Surgical orthodontics and dentofacial orthopedics.",
+      "Expertise in latest bracket systems and aligners."
+    ],
+    faculty: [
+      { name: "Dr. Akshai Shetty", designation: "Professor & HOD" },
+      { name: "Dr. Rajesh H.", designation: "Professor" },
+      { name: "Dr. Dinesh M. R.", designation: "Professor" },
+      { name: "Dr. Shivalinga B. M.", designation: "Professor" }
+    ],
+    facilities: [
+      "Modern Orthodontic Clinics",
+      "Cephalometric Analysis Software",
+      "Dry and Wet Labs",
+      "Aligner Fabrication Tools",
+      "Advanced Sterilization Room"
+    ]
   },
-  "public-health-dentistry": {
+  {
+    id: "prosthodontics",
+    name: "Prosthodontics and Crown & Bridge",
+    icon: Settings,
+    color: "hsl(95, 25%, 58%)",
+    overview: "The replacement of missing teeth and associated structures due to congenital reasons or due to disease, surgery, aging or accident is the responsibility of the department of prosthodontics. We restore function and aesthetics through prosthetic solutions.",
+    objectives: [
+      "Fabrication of complete and partial dentures.",
+      "Fixed prosthodontics (Crowns and Bridges).",
+      "Implant-supported prostheses.",
+      "Maxillofacial prosthetics for craniofacial defects.",
+      "Full mouth rehabilitation."
+    ],
+    faculty: [
+      { name: "Dr. Shwetha Poovani", designation: "Professor & HOD" },
+      { name: "Dr. S. Vijayanand", designation: "Professor" },
+      { name: "Dr. Mallikarjun S. Ragher", designation: "Professor" }
+    ],
+    facilities: [
+      "Ceramic Lab with CAD/CAM facilities",
+      "Pre-clinical Prosthodontic Lab",
+      "Casting and Finishing Lab",
+      "Dedicated Implant Clinic",
+      "Phantom Head Simulation Lab"
+    ]
+  },
+  {
+    id: "periodontics",
+    name: "Periodontology",
+    icon: Activity,
+    color: "hsl(100, 24%, 34%)",
+    overview: "The department of periodontology is engaged in the treatment of diseases associated with the gums and supporting structures of the teeth. We emphasize both non-surgical and surgical interventions to ensure optimal oral hygiene and periodontal health.",
+    objectives: [
+      "Diagnosis and management of periodontal diseases.",
+      "Advanced periodontal plastic surgeries.",
+      "Regenerative procedures and bone grafting.",
+      "Dental implant placement and maintenance.",
+      "Laser-assisted periodontal therapy."
+    ],
+    faculty: [
+      { name: "Dr. Savita S.", designation: "Professor & HOD" },
+      { name: "Dr. Dharmendra J.", designation: "Professor" },
+      { name: "Dr. Anish Shetty", designation: "Professor" }
+    ],
+    facilities: [
+      "Periodontal Surgical Suite",
+      "Soft Tissue Laser Unit",
+      "Piezosurgery Unit",
+      "Centrifuge for PRF preparation",
+      "Digital Patient Database"
+    ]
+  },
+  {
+    id: "conservative-dentistry",
+    name: "Conservative Dentistry & Endodontics",
+    icon: ShieldAlert,
+    color: "hsl(95, 25%, 58%)",
+    overview: "One of the busiest departments, Conservative Dentistry and Endodontics aims at 'Increasing the life span of teeth' by treating dental caries and pulpal diseases through restorative and root canal procedures.",
+    objectives: [
+      "Aesthetic and composite restorations.",
+      "Non-surgical and surgical endodontics.",
+      "Micro-endodontics using dental microscopes.",
+      "Management of traumatic dental injuries.",
+      "Bleaching and smile design."
+    ],
+    faculty: [
+      { name: "Dr. Mithra N. Hegde", designation: "Director of Post Graduate Studies" },
+      { name: "Dr. Geeta I. B.", designation: "Professor & HOD" },
+      { name: "Dr. Girish S.", designation: "Professor" }
+    ],
+    facilities: [
+      "Dental Operating Microscopes",
+      "Thermoplasticized Gutta Percha Units",
+      "Endodontic Rotary Systems",
+      "Vitality Testers",
+      "Advanced Ceramic Studio"
+    ]
+  },
+  {
+    id: "pedodontics",
+    name: "Pedodontics & Preventive Dentistry",
+    icon: Baby,
+    color: "hsl(100, 24%, 34%)",
+    overview: "Focused on dental care for children, the Department of Pedodontics aims to provide comprehensive oral healthcare for infants, children, and adolescents, including those with special healthcare needs.",
+    objectives: [
+      "Preventive dental care for children.",
+      "Management of early childhood caries.",
+      "Interceptive orthodontics for primary dentition.",
+      "Behavior management techniques.",
+      "Treatment under Nitrous Oxide sedation."
+    ],
+    faculty: [
+      { name: "Dr. Navin Hadadi", designation: "Professor & HOD" },
+      { name: "Dr. Prasanna Kumar", designation: "Professor" }
+    ],
+    facilities: [
+      "Child-friendly Dental Clinics",
+      "Nitrous Oxide - Oxygen Sedation Unit",
+      "Special Care Dentistry Unit",
+      "Pre-clinical Pedodontic Lab",
+      "Audiovisual Education Corner"
+    ]
+  },
+  {
+    id: "oral-pathology",
+    name: "Oral & Maxillofacial Pathology",
+    icon: Microscope,
+    color: "hsl(95, 25%, 58%)",
+    overview: "The department focuses on the nature, identification, and management of diseases affecting the oral and maxillofacial regions. We provide diagnostic services through histopathological examination of biopsy specimens.",
+    objectives: [
+      "Diagnostic oral histopathology.",
+      "Cytopathology and hematological investigations.",
+      "Forensic odontology procedures.",
+      "Research in oral cancer and precancer.",
+      "Immunohistochemistry services."
+    ],
+    faculty: [
+      { name: "Dr. Girish H. C.", designation: "Professor & HOD" },
+      { name: "Dr. Sanjay Murgod", designation: "Professor" },
+      { name: "Dr. Shyamala K.", designation: "Professor" }
+    ],
+    facilities: [
+      "Advanced Histopathology Lab",
+      "Penta-head Microscope",
+      "Fluorescence Microscope",
+      "Digital Imaging System",
+      "Tissue Processing Unit",
+      "Museum of Oral Pathologies"
+    ]
+  },
+  {
     id: "public-health-dentistry",
     name: "Public Health Dentistry",
-    description: "The UG and PG students of the college gain first-hand experience of dentistry at the grass-roots level and a sense of social commitment through interaction with the less privileged members of the society. The department operates a modern well equipped mobile dental clinic that travels to even remote locations and serves rural communities.\n\nFuture plans include collaboration with other international NGOs. Organizing          P.G. conventions and national conferences.",
-    icon: "Users",
-    highlights: ["Community outreach", "Epidemiological studies", "Health promotion"],
-  },
-  "oral-pathology-microbiology": {
-    id: "oral-pathology-microbiology",
-    name: "Oral & Maxillofacial Pathology",
-    description: "The modern histopathological and microbiological lab is equipped with semi automatic microtome, tissue processor, research and penta head microscopes, labs for UG and PG students. A pathology museum with a collection of over 2000 histopathology slides and rare specimens supplements the vast array of specialized texts and journals available with the department Over 60 National and International Publications have been done by the staff. Many papers were presented at international conferences by them.\n\nFuture plans include making this a Ph.D center, inviting national conferences and make the department as a Diagnostic Center for nearby practicing dentists.",
-    icon: "Microscope",
-    highlights: ["Biopsy and histopathology", "Disease research", "Microbiology"],
-  },
-  "implantology": {
-    id: "implantology",
-    name: "Implantology",
-    description: "This emerging super speciality in Dentistry functions as an independent department having specialists from co specialties. In addition to conducting one year Rajiv Gandhi University of Health Sciences certificate programme, the implantology department provides permanent replacements for prematurely lost teeth. It is fully equipped with latest implant surgical kits, physio dispenser and advanced surgical equipments.",
-    icon: "Disc",
-    highlights: ["Advanced implants", "Certificate course", "Multi-disciplinary approach"],
-  },
-  "research-publication": {
-    id: "research-publication",
-    name: "Research & Publication",
-    description: "The Institution boasts about having an active Research &#038; Publication Department which conducts several research projects by staff and students. It has been equipped with a Real Time PCR which attracts students from various colleges to come and do projects. It publishes an indexed scientific journal namely Journal of Health Sciences and Research.",
-    icon: "BookOpen",
-    highlights: ["Journal publications", "Advanced labs", "Inter-college research"],
-  },
-  "orofacial-pain": {
-    id: "orofacial-pain",
-    name: "Orofacial Pain",
-    description: "Department specially created to deal with Orofacial Pain. Investigations and Treatment given for all types of Orofacial and Tempero Mandibular Pain dysfunction including Migraine.",
-    icon: "ActivitySquare",
-    highlights: ["TMJ treatment", "Migraine care", "Comprehensive diagnosis"],
+    icon: Users2,
+    color: "hsl(100, 24%, 34%)",
+    overview: "Orientation towards meeting the oral health needs of communities. We focus on dental public health, preventive strategies, and taking dental care to the doorsteps of those who lack access to facilities.",
+    objectives: [
+      "Conducting community dental health camps.",
+      "Epidemiological surveys of oral diseases.",
+      "Tobacco cessation counseling.",
+      "Promotion of school dental health programs.",
+      "Providing mobile dental clinic services."
+    ],
+    faculty: [
+      { name: "Dr. Padma K. Bhat", designation: "Professor & HOD" },
+      { name: "Dr. Aruna C. N.", designation: "Professor" }
+    ],
+    facilities: [
+      "Sophisticated Mobile Dental Van",
+      "Satellite Dental Clinics",
+      "Epidemiological Kit",
+      "Oral Health Education Museum",
+      "Community Outreach Infrastructure"
+    ]
   }
-};
+];
