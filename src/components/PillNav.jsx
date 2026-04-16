@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { Search, X, Moon, Sun, ChevronDown } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { LanguageToggle } from './language-toggle';
 import './PillNav.css';
 
 const PillNav = ({
@@ -380,6 +381,13 @@ const PillNav = ({
             )}
           </div>
 
+          {/* Language toggle */}
+          <LanguageToggle
+            className="pill-action-btn flex items-center justify-center min-w-[50px] whitespace-nowrap px-2"
+            textClassName="text-xs font-bold"
+            mutedClassName="text-xs opacity-60 font-normal"
+          />
+
           {/* Dark mode toggle */}
           <button
             className="pill-action-btn"
@@ -457,8 +465,13 @@ const PillNav = ({
             </li>
           ))}
         </ul>
-        {/* Mobile dark mode toggle */}
-        <div className="mobile-theme-toggle">
+        {/* Mobile dark mode and language toggles */}
+        <div className="mobile-theme-toggle flex items-center gap-2">
+          <LanguageToggle
+            className="pill-action-btn flex items-center justify-center px-2 min-w-[50px] whitespace-nowrap"
+            textClassName="text-xs font-bold"
+            mutedClassName="text-xs opacity-60 font-normal"
+          />
           <button
             className="pill-action-btn"
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}

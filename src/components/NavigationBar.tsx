@@ -1,6 +1,7 @@
 import { useState, useRef, useLayoutEffect, useCallback, useEffect } from "react";
 import { Search, Menu, X, ChevronDown } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
+import { LanguageToggle } from "./language-toggle";
 import { gsap } from "gsap";
 import "./NavAnimation.css";
 
@@ -321,11 +322,13 @@ const NavigationBar = () => {
                 </div>
               )}
             </div>
+            <LanguageToggle />
             <ModeToggle />
           </div>
 
           {/* Mobile controls */}
           <div className="lg:hidden flex items-center gap-2">
+            <LanguageToggle />
             <ModeToggle />
             <button
               className="text-primary-foreground p-2"
