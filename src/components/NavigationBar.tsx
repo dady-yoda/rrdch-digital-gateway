@@ -44,10 +44,25 @@ const navItems: NavItem[] = [
   },
   {
     label: "Departments",
+<<<<<<< HEAD
     children: departmentsData.map((d) => ({ 
       label: d.name, 
       href: `/department/${d.id}` 
     })),
+=======
+    href: "/departments",
+    children: [
+      { label: "Oral Medicine & Radiology", href: "/departments/oral-medicine" },
+      { label: "Oral & Maxillofacial Surgery", href: "/departments/oral-surgery" },
+      { label: "Orthodontics", href: "/departments/orthodontics" },
+      { label: "Prosthodontics", href: "/departments/prosthodontics" },
+      { label: "Periodontics", href: "/departments/periodontics" },
+      { label: "Conservative Dentistry", href: "/departments/conservative-dentistry" },
+      { label: "Pedodontics", href: "/departments/pedodontics" },
+      { label: "Oral Pathology", href: "/departments/oral-pathology" },
+      { label: "Public Health Dentistry", href: "/departments/public-health" },
+    ],
+>>>>>>> 9e863b9c595b0d41720b00a3824c271b5154965f
   },
   {
     label: "Accreditation",
