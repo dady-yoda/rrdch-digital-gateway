@@ -49,13 +49,13 @@ const navItems = [
     label: "Accreditation",
     href: "#",
     children: [
-      { label: "NAAC", href: "https://www.rrdch.org/accreditation/naac/", external: true },
+      { label: "NAAC", href: "/accreditation/naac", external: false },
       { label: "NABH", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2025/07/NABH-accredited.pdf", external: true },
       { label: "ISO", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2026/02/ISO-certificate-of-registration-12.05.2027.pdf", external: true },
       { label: "IAO", href: "https://www.iao.org/India-Karnataka/RajaRajeswari-Dental-College-And-Hospital", external: true },
       { label: "RCPS", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2021/07/RCPSG.pdf", external: true },
       { label: "SLMC", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2021/07/SLMC.pdf", external: true },
-      { label: "NIRF", href: "https://www.rrdch.org/nirf/", external: true },
+      { label: "NIRF", href: "/accreditation/nirf", external: false },
       { label: "AISHE", href: "https://www.rrdch.org/rrdch/wp-content/uploads/2023/02/RRDCH-AISHE_Certificate-1.pdf", external: true },
     ],
   },
@@ -75,8 +75,7 @@ const navItems = [
     ],
   },
   { label: "DCI", href: "https://www.rrdch.org/dci-mandatory/", external: true },
-  { label: "Recognitions", href: "https://www.rrdch.org/recognitions/", external: true },
-  { label: "Brochure", href: "#" },
+  { label: "Recognitions", href: "/recognitions", external: false },
   { label: "Contact Us", href: "#contact" },
 ];
 
