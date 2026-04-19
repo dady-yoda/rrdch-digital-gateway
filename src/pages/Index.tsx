@@ -86,7 +86,7 @@ const navItems = [
 const Index = () => {
   return (
     <div className="min-h-screen relative">
-      <div className="absolute top-0 left-0 w-full z-50">
+      <div className="absolute top-0 left-0 w-full z-[100]">
         <BrandingBar />
       </div>
       
