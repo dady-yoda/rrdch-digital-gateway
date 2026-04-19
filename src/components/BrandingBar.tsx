@@ -10,6 +10,8 @@ import gradientBlack from "@/assets/gradient black.svg";
 import StaggeredMenu from "./StaggeredMenu";
 import { Link } from "react-router-dom";
 
+import { useTheme } from "next-themes";
+
 const quickLinks = [
   { label: "ERP", link: "https://rrdch.eduwizerp.com/", external: true },
   { label: "ESI", link: "/esi", external: false },
@@ -34,14 +36,17 @@ const accreditations = [
 ];
 
 const BrandingBar = () => {
+  const { theme, systemTheme } = useTheme();
+  const isDark = theme === "dark" || (theme === "system" && systemTheme === "dark");
+
   return (
     <div className="relative z-[100] overflow-hidden">
-      <img src={gradientWhite} alt="" className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none dark:hidden" />
-      <img src={gradientBlack} alt="" className="absolute inset-0 w-full h-full object-cover object-top pointer-events-none select-none hidden dark:block" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-white/80 to-transparent pointer-events-none select-none dark:hidden" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-transparent pointer-events-none select-none hidden dark:block" />
       <div className="relative z-10 container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center">
-          <img src={logoBlack} alt="RRDCH Logo" className="h-20 md:h-28 lg:h-32 w-auto object-contain max-w-[200px] md:max-w-[400px] lg:max-w-[600px] dark:hidden" />
-          <img src={logoWhite} alt="RRDCH Logo" className="h-20 md:h-28 lg:h-32 w-auto object-contain max-w-[200px] md:max-w-[400px] lg:max-w-[600px] hidden dark:block" />
+          <img src={logoBlack} alt="RRDCH Logo" className="h-16 md:h-20 lg:h-24 w-auto object-contain max-w-[180px] md:max-w-[300px] lg:max-w-[450px] dark:hidden" />
+          <img src={logoWhite} alt="RRDCH Logo" className="h-16 md:h-20 lg:h-24 w-auto object-contain max-w-[180px] md:max-w-[300px] lg:max-w-[450px] hidden dark:block" />
         </Link>
         
         <div className="hidden lg:flex items-center gap-6">
@@ -66,10 +71,10 @@ const BrandingBar = () => {
               items={quickLinks}
               displaySocials={false}
               displayItemNumbering={false}
-              menuButtonColor="#546B41"
-              openMenuButtonColor="#222"
+              menuButtonColor={isDark ? "#849a62" : "#546B41"}
+              openMenuButtonColor={isDark ? "#444" : "#222"}
               changeMenuColorOnOpen={true}
-              colors={['#849a62', '#546B41']} 
+              colors={isDark ? ['#a8c385', '#849a62'] : ['#849a62', '#546B41']} 
             />
           </div>
         </div>
