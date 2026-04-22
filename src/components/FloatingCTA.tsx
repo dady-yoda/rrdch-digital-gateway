@@ -4,6 +4,7 @@ import { CalendarCheck } from "lucide-react";
 import { DentiChatWindow } from "./DentiChat/DentiChat";
 // Ensure DentiChat styles are always available (window + button)
 import "./DentiChat/DentiChat.css";
+import AccessibilityToolbar from "./AccessibilityToolbar";
 
 export default function FloatingCTA() {
   const location = useLocation();
@@ -86,6 +87,7 @@ export default function FloatingCTA() {
           <CalendarCheck className="w-5 h-5" />
           Book Appointment
         </Link>
+        <AccessibilityToolbar />
       </div>
     </>
   );

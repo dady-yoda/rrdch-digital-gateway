@@ -1,0 +1,233 @@
+/* ═══════════════════════════════════════════════════════════════════
+   RRDCH ACCESSIBILITY TOOLBAR — 3-LEVEL FEATURE CSS
+   Class format: a11y-{featureId}-{level}  (applied to <html>)
+═══════════════════════════════════════════════════════════════════ */
+
+/* ── 1. HIGHLIGHT LINKS ──────────────────────────────────────────── */
+.a11y-highlightLinks-1 a,
+.a11y-highlightLinks-1 button {
+  background-color: rgba(255, 235, 59, 0.35) !important;
+  outline: 1px dashed #f59e0b !important;
+  outline-offset: 2px !important;
+  border-radius: 2px !important;
+}
+.a11y-highlightLinks-2 a,
+.a11y-highlightLinks-2 button {
+  background-color: #ffeb3b !important;
+  color: #000 !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 2px !important;
+  outline: 2px solid #f59e0b !important;
+  outline-offset: 2px !important;
+  border-radius: 2px !important;
+}
+.a11y-highlightLinks-3 a,
+.a11y-highlightLinks-3 button {
+  background-color: #ffd600 !important;
+  color: #000 !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 3px !important;
+  outline: 3px solid #f59e0b !important;
+  outline-offset: 3px !important;
+  border-radius: 3px !important;
+  font-weight: bold !important;
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2) !important;
+}
+
+/* ── 2. CONTRAST ────────────────────────────────────────────────── */
+html.a11y-contrast-1 {
+  filter: contrast(125%) !important;
+}
+html.a11y-contrast-2 {
+  filter: contrast(150%) !important;
+}
+html.a11y-contrast-3 {
+  filter: contrast(180%) brightness(92%) !important;
+}
+
+/* ── 3. BIGGER TEXT ─────────────────────────────────────────────── */
+html.a11y-biggerText-1 {
+  font-size: 110% !important;
+}
+html.a11y-biggerText-2 {
+  font-size: 120% !important;
+}
+html.a11y-biggerText-3 {
+  font-size: 135% !important;
+}
+
+/* ── 4. TEXT SPACING ────────────────────────────────────────────── */
+.a11y-textSpacing-1 *,
+.a11y-textSpacing-1 p,
+.a11y-textSpacing-1 span,
+.a11y-textSpacing-1 a,
+.a11y-textSpacing-1 li {
+  letter-spacing: 0.05em !important;
+  word-spacing: 0.08em !important;
+}
+.a11y-textSpacing-2 *,
+.a11y-textSpacing-2 p,
+.a11y-textSpacing-2 span,
+.a11y-textSpacing-2 a,
+.a11y-textSpacing-2 li {
+  letter-spacing: 0.1em !important;
+  word-spacing: 0.15em !important;
+}
+.a11y-textSpacing-3 *,
+.a11y-textSpacing-3 p,
+.a11y-textSpacing-3 span,
+.a11y-textSpacing-3 a,
+.a11y-textSpacing-3 li {
+  letter-spacing: 0.18em !important;
+  word-spacing: 0.28em !important;
+}
+
+/* ── 5. PAUSE ANIMATIONS ────────────────────────────────────────── */
+.a11y-pauseAnim-1 *,
+.a11y-pauseAnim-1 *::before,
+.a11y-pauseAnim-1 *::after {
+  animation-duration: 3000ms !important;
+  transition-duration: 600ms !important;
+}
+.a11y-pauseAnim-2 *,
+.a11y-pauseAnim-2 *::before,
+.a11y-pauseAnim-2 *::after {
+  animation-duration: 8000ms !important;
+  transition-duration: 1500ms !important;
+}
+.a11y-pauseAnim-3 *,
+.a11y-pauseAnim-3 *::before,
+.a11y-pauseAnim-3 *::after {
+  animation-play-state: paused !important;
+  transition: none !important;
+}
+
+/* ── 6. HIDE IMAGES ─────────────────────────────────────────────── */
+.a11y-hideImages-1 img,
+.a11y-hideImages-1 video {
+  opacity: 0.45 !important;
+  transition: opacity 0.3s !important;
+}
+.a11y-hideImages-2 img,
+.a11y-hideImages-2 video {
+  opacity: 0.12 !important;
+  transition: opacity 0.3s !important;
+}
+.a11y-hideImages-3 img,
+.a11y-hideImages-3 video {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+/* Always keep toolbar icons visible */
+.a11y-hideImages-1 .lucide,
+.a11y-hideImages-2 .lucide,
+.a11y-hideImages-3 .lucide {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* ── 7. DYSLEXIA FONT ───────────────────────────────────────────── */
+.a11y-dyslexia-1,
+.a11y-dyslexia-1 * {
+  font-family: "Comic Sans MS", "Chalkboard SE", cursive !important;
+}
+.a11y-dyslexia-2,
+.a11y-dyslexia-2 * {
+  font-family: "Verdana", "Trebuchet MS", sans-serif !important;
+  word-spacing: 0.12em !important;
+  letter-spacing: 0.02em !important;
+}
+.a11y-dyslexia-3,
+.a11y-dyslexia-3 * {
+  /* OpenDyslexic — will fall back to Arial if not installed */
+  font-family: "OpenDyslexic", "Arial", sans-serif !important;
+  letter-spacing: 0.06em !important;
+  word-spacing: 0.2em !important;
+  line-height: 1.6 !important;
+}
+
+/* ── 8. CURSOR SIZE ─────────────────────────────────────────────── */
+/* Level 1 — medium cursor (24px) */
+.a11y-cursor-1,
+.a11y-cursor-1 * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%23000000' stroke='%23ffffff' stroke-width='1.5' d='M4 4l16 7-7 2.5-2.5 8z'/%3E%3C/svg%3E") 0 0, auto !important;
+}
+/* Level 2 — large cursor (36px) */
+.a11y-cursor-2,
+.a11y-cursor-2 * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath fill='%23000000' stroke='%23ffffff' stroke-width='2' d='M5 5l26 11-11 4-4 13z'/%3E%3C/svg%3E") 0 0, auto !important;
+}
+/* Level 3 — extra-large cursor (48px) with green accent */
+.a11y-cursor-3,
+.a11y-cursor-3 * {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath fill='%23546B41' stroke='%23ffffff' stroke-width='2.5' d='M6 6l36 15-15 5-5 18z'/%3E%3C/svg%3E") 0 0, auto !important;
+}
+
+/* ── 9. LINE HEIGHT ─────────────────────────────────────────────── */
+.a11y-lineHeight-1 *,
+.a11y-lineHeight-1 p,
+.a11y-lineHeight-1 li,
+.a11y-lineHeight-1 span {
+  line-height: 1.6 !important;
+}
+.a11y-lineHeight-2 *,
+.a11y-lineHeight-2 p,
+.a11y-lineHeight-2 li,
+.a11y-lineHeight-2 span {
+  line-height: 1.9 !important;
+}
+.a11y-lineHeight-3 *,
+.a11y-lineHeight-3 p,
+.a11y-lineHeight-3 li,
+.a11y-lineHeight-3 span {
+  line-height: 2.4 !important;
+}
+
+/* ── 10. TEXT ALIGN ─────────────────────────────────────────────── */
+.a11y-textAlign-1 p,
+.a11y-textAlign-1 li,
+.a11y-textAlign-1 td,
+.a11y-textAlign-1 span,
+.a11y-textAlign-1 div {
+  text-align: left !important;
+}
+.a11y-textAlign-2 p,
+.a11y-textAlign-2 li,
+.a11y-textAlign-2 td,
+.a11y-textAlign-2 span,
+.a11y-textAlign-2 div {
+  text-align: center !important;
+}
+.a11y-textAlign-3 p,
+.a11y-textAlign-3 li,
+.a11y-textAlign-3 td,
+.a11y-textAlign-3 span,
+.a11y-textAlign-3 div {
+  text-align: justify !important;
+  hyphens: auto !important;
+}
+
+/* ── 11. SATURATION ─────────────────────────────────────────────── */
+html.a11y-saturation-1 {
+  filter: saturate(160%) !important;
+}
+html.a11y-saturation-2 {
+  filter: saturate(220%) !important;
+}
+html.a11y-saturation-3 {
+  /* Muted / near-grayscale for sensitive users */
+  filter: saturate(20%) !important;
+}
+
+/* ── COMBINED FILTER OVERRIDES ──────────────────────────────────── */
+/* When both contrast and saturation are active, merge filters */
+html.a11y-contrast-1.a11y-saturation-1 { filter: contrast(125%) saturate(160%) !important; }
+html.a11y-contrast-1.a11y-saturation-2 { filter: contrast(125%) saturate(220%) !important; }
+html.a11y-contrast-1.a11y-saturation-3 { filter: contrast(125%) saturate(20%) !important; }
+html.a11y-contrast-2.a11y-saturation-1 { filter: contrast(150%) saturate(160%) !important; }
+html.a11y-contrast-2.a11y-saturation-2 { filter: contrast(150%) saturate(220%) !important; }
+html.a11y-contrast-2.a11y-saturation-3 { filter: contrast(150%) saturate(20%) !important; }
+html.a11y-contrast-3.a11y-saturation-1 { filter: contrast(180%) brightness(92%) saturate(160%) !important; }
+html.a11y-contrast-3.a11y-saturation-2 { filter: contrast(180%) brightness(92%) saturate(220%) !important; }
+html.a11y-contrast-3.a11y-saturation-3 { filter: contrast(180%) brightness(92%) saturate(20%) !important; }
