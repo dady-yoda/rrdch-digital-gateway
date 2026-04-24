@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
 import {
   Accessibility,
   Link2,
@@ -39,7 +40,8 @@ interface Feature {
   id: string;
   label: string;
   icon: React.ElementType;
-  levelLabels: [string, string, string];
+  levelLabels: string[];
+  max?: number; // defaults to 3; set to 1 for on/off features
 }
 
 const FEATURES: Feature[] = [
@@ -47,7 +49,8 @@ const FEATURES: Feature[] = [
     id: "highlightLinks",
     label: "Highlight Links",
     icon: Link2,
-    levelLabels: ["Subtle", "Bold", "Strong"],
+    levelLabels: ["Subtle"],
+    max: 1,
   },
   {
     id: "contrast",
@@ -71,7 +74,8 @@ const FEATURES: Feature[] = [
     id: "pauseAnim",
     label: "Animations",
     icon: Pause,
-    levelLabels: ["Slow", "Slower", "Paused"],
+    levelLabels: ["Slower", "Paused"],
+    max: 2,
   },
   {
     id: "hideImages",
@@ -83,7 +87,8 @@ const FEATURES: Feature[] = [
     id: "dyslexia",
     label: "Dyslexia Font",
     icon: BookOpen,
-    levelLabels: ["Comic", "Verdana", "Dyslexic"],
+    levelLabels: ["On"],
+    max: 1,
   },
   {
     id: "cursor",
@@ -128,6 +133,22 @@ const INITIAL: State = Object.fromEntries(FEATURES.map((f) => [f.id, 0]));
 export default function AccessibilityToolbar() {
   const [open, setOpen] = useState(false);
   const [levels, setLevels] = useState<State>(INITIAL);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const iconRef = useRef<SVGSVGElement>(null);
+  const tweenRef = useRef<gsap.core.Tween | null>(null);
+
+  // Handle spin on hover (matches Search/Dark mode buttons)
+  const handleSpinEnter = () => {
+    if (!iconRef.current) return;
+    tweenRef.current?.kill();
+    gsap.set(iconRef.current, { rotate: 0 });
+    tweenRef.current = gsap.to(iconRef.current, {
+      rotate: 360,
+      duration: 0.4,
+      ease: "power3.easeOut",
+      overwrite: "auto",
+    });
+  };
 
   // Apply / remove CSS classes on <html>
   useEffect(() => {
@@ -139,15 +160,29 @@ export default function AccessibilityToolbar() {
     });
   }, [levels]);
 
-  const bump = (id: string) =>
-    setLevels((prev) => ({ ...prev, [id]: cycle(prev[id]) }));
+  // Close panel when clicking outside the toolbar container
+  useEffect(() => {
+    if (!open) return;
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [open]);
+
+  const bump = (id: string) => {
+    const feature = FEATURES.find((f) => f.id === id);
+    setLevels((prev) => ({ ...prev, [id]: cycle(prev[id], feature?.max ?? 3) }));
+  };
 
   const reset = () => setLevels(INITIAL);
 
   const activeCount = Object.values(levels).filter((v) => v > 0).length;
 
   return (
-    <div className="relative">
+    <div className="relative" ref={containerRef}>
       {/* ── Panel ── */}
       {open && (
         <div
@@ -213,22 +248,29 @@ export default function AccessibilityToolbar() {
         </div>
       )}
 
-      {/* ── Trigger button — same animation as search / mode toggle ── */}
+      {/* ── Trigger button — 52×52px circle to match Book Appointment / Ask Denti height ── */}
       <button
         onClick={() => setOpen((o) => !o)}
+        onMouseEnter={handleSpinEnter}
         aria-label="Open Accessibility Toolbar"
         aria-expanded={open}
-        className="search-toggle-btn relative"
+        className="relative flex items-center justify-center rounded-full transition-all duration-300 hover:opacity-90 hover:-translate-y-1 active:translate-y-0"
         style={{
-          backgroundColor: open ? "rgba(84,107,65,0.85)" : "#546B41",
-          boxShadow: "0 8px 32px rgba(84,107,65,0.45)",
+          width: "52px",
+          height: "52px",
+          background: open
+            ? "linear-gradient(135deg,#3d5030,#2a3820)"
+            : "linear-gradient(135deg,#546B41,#3d5030)",
+          boxShadow: "0 8px 32px rgba(84,107,65,0.50), 0 0 0 4px rgba(84,107,65,0.12)",
           border: "1.5px solid rgba(153,173,122,0.35)",
           color: "#fff",
         }}
       >
         <Accessibility
-          className={`a11y-icon h-[1.2rem] w-[1.2rem] text-primary-foreground ${open ? "rotate-12 scale-110" : ""
-            }`}
+          ref={iconRef}
+          className={`a11y-icon w-6 h-6 text-white ${
+            open ? "scale-110" : ""
+          }`}
         />
         {activeCount > 0 && (
           <span
