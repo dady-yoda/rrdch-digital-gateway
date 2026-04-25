@@ -268,9 +268,8 @@ export default function AccessibilityToolbar() {
       >
         <Accessibility
           ref={iconRef}
-          className={`a11y-icon w-6 h-6 text-white ${
-            open ? "scale-110" : ""
-          }`}
+          className={`a11y-icon w-6 h-6 text-white ${open ? "scale-110" : ""
+            }`}
         />
         {activeCount > 0 && (
           <span

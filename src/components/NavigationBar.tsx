@@ -76,6 +76,7 @@ const navItems: NavItem[] = [
     href: "/committee",
     children: [
       { label: "Anti-Ragging", href: "/committee/anti-ragging" },
+      { label: "Hostel Issues", href: "/committee/hostel-issues" },
     ],
   },
   { label: "ESI", href: "/esi" },
