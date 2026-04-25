@@ -13,7 +13,8 @@ export type ConvStep =
   | "booking:name"
   | "booking:phone"
   | "booking:complaint"
-  | "status:input";
+  | "status:input"
+  | "cancel:input";
 
 export interface ConvState {
   step: ConvStep;
@@ -60,7 +61,131 @@ function uid(): string {
   return Math.random().toString(36).slice(2, 10);
 }
 
-export function dentiMsg(text: string, extra?: MessageExtra): DentiMessage {
+const KN_DICT: Record<string, string> = {
+  "Book Appointment": "ಅಪಾಯಿಂಟ್ಮೆಂಟ್ ಬುಕ್ ಮಾಡಿ",
+  "Check Status": "ಸ್ಥಿತಿ ಪರಿಶೀಲಿಸಿ",
+  "Departments": "ವಿಭಾಗಗಳು",
+  "OPD Hours": "OPD ಸಮಯ",
+  "Contact Us": "ಸಂಪರ್ಕಿಸಿ",
+  "Courses": "ಕೋರ್ಸ್‌ಗಳು",
+  "Fees": "ಶುಲ್ಕ",
+  "Emergency": "ತುರ್ತು",
+  "Location": "ಸ್ಥಳ",
+  "Main Menu": "ಮುಖ್ಯ ಮೆನು",
+  "Book Another Appointment": "ಮತ್ತೊಂದು ಅಪಾಯಿಂಟ್ಮೆಂಟ್ ಬುಕ್ ಮಾಡಿ",
+  "Check Another Status": "ಮತ್ತೊಂದು ಸ್ಥಿತಿ ಪರಿಶೀಲಿಸಿ",
+  "View Departments": "ವಿಭಾಗಗಳನ್ನು ವೀಕ್ಷಿಸಿ",
+  "Courses Offered": "ನೀಡುವ ಕೋರ್ಸ್‌ಗಳು",
+  "Oral Medicine": "ಬಾಯಿಯ ಔಷಧ",
+  "Oral Surgery": "ಬಾಯಿಯ ಶಸ್ತ್ರಚಿಕಿತ್ಸೆ",
+  "Orthodontics": "ಆರ್ಥೊಡಾಂಟಿಕ್ಸ್",
+  "Prosthodontics": "ಪ್ರೋಸ್ಟೊಡಾಂಟಿಕ್ಸ್",
+  "Periodontics": "ಪೆರಿಯೊಡಾಂಟಿಕ್ಸ್",
+  "Conservative Dentistry": "ಸಂಪ್ರದಾಯವಾದಿ ದಂತವೈದ್ಯಶಾಸ್ತ್ರ",
+  "Pedodontics": "ಪೆಡೋಡಾಂಟಿಕ್ಸ್",
+  "Oral Pathology": "ಬಾಯಿಯ ರೋಗಶಾಸ್ತ್ರ",
+  "Public Health Dentistry": "ಸಾರ್ವಜನಿಕ ಆರೋಗ್ಯ ದಂತವೈದ್ಯಶಾಸ್ತ್ರ",
+  "No problem! I've reset our conversation. What else can I help you with? 😊": "ಯಾವ ತೊಂದರೆಯಿಲ್ಲ! ಸಂಭಾಷಣೆಯನ್ನು ಮರುಹೊಂದಿಸಿದ್ದೇನೆ. ನಾನು ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು? 😊",
+  "Please tap a doctor card above to select.": "ಆಯ್ಕೆ ಮಾಡಲು ದಯವಿಟ್ಟು ಮೇಲಿನ ವೈದ್ಯರ ಕಾರ್ಡ್ ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ.",
+  "Please tap a time slot from the grid above.": "ದಯವಿಟ್ಟು ಮೇಲಿನ ಗ್ರಿಡ್‌ನಿಂದ ಸಮಯದ ಸ್ಲಾಟ್ ಅನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ.",
+  "Almost there! What's your **full name**? 📝": "ಬಹುತೇಕ ಮುಗಿದಿದೆ! ನಿಮ್ಮ **ಪೂರ್ಣ ಹೆಸರು** ಏನು? 📝",
+  "Please enter your full name (at least 2 characters).": "ದಯವಿಟ್ಟು ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರನ್ನು ನಮೂದಿಸಿ (ಕನಿಷ್ಠ 2 ಅಕ್ಷರಗಳು).",
+  "Please enter a valid 10-digit Indian mobile number (e.g., 98765 43210).": "ದಯವಿಟ್ಟು ಮಾನ್ಯವಾದ 10-ಅಂಕಿಯ ಭಾರತೀಯ ಮೊಬೈಲ್ ಸಂಖ್ಯೆಯನ್ನು ನಮೂದಿಸಿ.",
+  "📋 Any specific **complaint or reason** for your visit?\n(Type **'None'** if it's a general checkup)": "📋 ನಿಮ್ಮ ಭೇಟಿಗೆ ಯಾವುದೇ ನಿರ್ದಿಷ್ಟ **ದೂರು ಅಥವಾ ಕಾರಣ** ಇದೆಯೇ?\n(ಸಾಮಾನ್ಯ ತಪಾಸಣೆಯಾಗಿದ್ದರೆ **'None'** ಎಂದು ಟೈಪ್ ಮಾಡಿ)",
+  "Oops, something went wrong. Let's start over!": "ಕ್ಷಮಿಸಿ, ಏನೋ ತಪ್ಪಾಗಿದೆ. ಮೊದಲಿನಿಂದ ಪ್ರಾರಂಭಿಸೋಣ!",
+  "🎉 Your appointment is **confirmed**! Here's your summary:": "🎉 ನಿಮ್ಮ ಅಪಾಯಿಂಟ್ಮೆಂಟ್ **ಖಚಿತವಾಗಿದೆ**! ನಿಮ್ಮ ಸಾರಾಂಶ ಇಲ್ಲಿದೆ:",
+  "**Save your token number** and arrive 10 minutes early. See you soon! 😊": "**ನಿಮ್ಮ ಟೋಕನ್ ಸಂಖ್ಯೆಯನ್ನು ಉಳಿಸಿ** ಮತ್ತು 10 ನಿಮಿಷ ಮುಂಚಿತವಾಗಿ ಬನ್ನಿ. ಶೀಘ್ರದಲ್ಲೇ ಭೇಟಿಯಾಗೋಣ! 😊",
+  "Anything else I can help you with?": "ನಾನು ನಿಮಗೆ ಬೇರೆ ಏನಾದರೂ ಸಹಾಯ ಮಾಡಬಹುದೇ?",
+  "Hello! 😊 Great to see you. How can I help you today?": "ನಮಸ್ಕಾರ! 😊 ನಿಮ್ಮನ್ನು ನೋಡಿ ಸಂತೋಷವಾಯಿತು. ನಾನು ನಿಮಗೆ ಇಂದು ಹೇಗೆ ಸಹಾಯ ಮಾಡಬಹುದು?",
+  "Thank you for chatting with Denti! 🦷 Take care of your dental health. Goodbye! 👋": "ಡೆಂಟಿ ಜೊತೆ ಚಾಟ್ ಮಾಡಿದ್ದಕ್ಕಾಗಿ ಧನ್ಯವಾದಗಳು! 🦷 ನಿಮ್ಮ ಹಲ್ಲಿನ ಆರೋಗ್ಯವನ್ನು ಕಾಪಾಡಿಕೊಳ್ಳಿ. ವಿದಾಯ! 👋",
+  "Here's everything I can help you with:": "ನಾನು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಬಹುದಾದ ಎಲ್ಲವೂ ಇಲ್ಲಿದೆ:",
+  "Sure! Let's get you an appointment. 📅\nWhich **department** would you like to visit?": "ಖಂಡಿತ! ನಿಮಗೆ ಅಪಾಯಿಂಟ್ಮೆಂಟ್ ನೀಡೋಣ. 📅\nನೀವು ಯಾವ **ವಿಭಾಗ**ಕ್ಕೆ ಭೇಟಿ ನೀಡಲು ಬಯಸುತ್ತೀರಿ?",
+  "Sure! Please enter your **appointment token number**:\n(e.g., RRDCH-20260416-1234)": "ಖಂಡಿತ! ದಯವಿಟ್ಟು ನಿಮ್ಮ **ಅಪಾಯಿಂಟ್ಮೆಂಟ್ ಟೋಕನ್ ಸಂಖ್ಯೆ**ಯನ್ನು ನಮೂದಿಸಿ:\n(ಉದಾ: RRDCH-20260416-1234)",
+  "I can help you cancel your appointment. Please enter your **Token ID** (e.g., RRDCH-...):": "ನಿಮ್ಮ ಅಪಾಯಿಂಟ್ಮೆಂಟ್ ಅನ್ನು ರದ್ದುಗೊಳಿಸಲು ನಾನು ಸಹಾಯ ಮಾಡಬಹುದು. ದಯವಿಟ್ಟು ನಿಮ್ಮ **ಟೋಕನ್ ಐಡಿ** ನಮೂದಿಸಿ (ಉದಾ: RRDCH-...):",
+  "Hi! 👋 I'm **Denti**, your personal RRDCH dental assistant.\n\nI can help you **book appointments**, **check status**, answer questions about **departments**, **timings**, and more!": "ನಮಸ್ಕಾರ! 👋 ನಾನು **ಡೆಂಟಿ**, ನಿಮ್ಮ ವೈಯಕ್ತಿಕ RRDCH ದಂತ ಸಹಾಯಕ.\n\nಅಪಾಯಿಂಟ್ಮೆಂಟ್ ಬುಕ್ ಮಾಡಲು, ಸ್ಥಿತಿ ಪರಿಶೀಲಿಸಲು ಮತ್ತು ವಿಭಾಗಗಳ ಬಗ್ಗೆ ಉತ್ತರಿಸಲು ನಾನು ಸಹಾಯ ಮಾಡುತ್ತೇನೆ!",
+  "Hmm, I didn't quite catch that. 🤔 Could you rephrase, or choose from below?": "ಕ್ಷಮಿಸಿ, ನನಗೆ ಅರ್ಥವಾಗಲಿಲ್ಲ. 🤔 ದಯವಿಟ್ಟು ಮತ್ತೊಮ್ಮೆ ಕೇಳಬಹುದೇ, ಅಥವಾ ಕೆಳಗಿನಿಂದ ಆಯ್ಕೆ ಮಾಡಬಹುದೇ?",
+  "About RRDCH": "RRDCH ಬಗ್ಗೆ",
+  "Get Directions": "ನಿರ್ದೇಶನಗಳನ್ನು ಪಡೆಯಿರಿ",
+  "Help": "ಸಹಾಯ",
+  "I'm having trouble thinking right now. Please try again in a moment, or use the quick-reply buttons!": "ನನಗೆ ಈಗ ಯೋಚಿಸಲು ತೊಂದರೆಯಾಗುತ್ತಿದೆ. ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ, ಅಥವಾ ತ್ವರಿತ-ಪ್ರತ್ಯುತ್ತರ ಬಟನ್‌ಗಳನ್ನು ಬಳಸಿ!",
+  "I'm sorry, I couldn't generate a response. Please try again!": "ಕ್ಷಮಿಸಿ, ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ!",
+  "Sorry, I had trouble processing that. Please try again!": "ಕ್ಷಮಿಸಿ, ಅದನ್ನು ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲು ತೊಂದರೆಯಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ!"
+};
+
+export function translateText(text: string, lang: string): string {
+  if (lang !== "kn-IN") return text;
+  if (KN_DICT[text]) return KN_DICT[text];
+
+  if (text.startsWith("I couldn't find doctors for")) {
+    const dept = text.split("**\"")[1]?.split("\"**")[0] || "";
+    return `ನನಗೆ ವೈದ್ಯರು ಕಂಡುಬಂದಿಲ್ಲ **"${dept}"**. ದಯವಿಟ್ಟು ಕೆಳಗಿನಿಂದ ವಿಭಾಗವನ್ನು ಆಯ್ಕೆಮಾಡಿ:`;
+  }
+  if (text.startsWith("Great! Here are the doctors available in")) {
+    const dept = text.split("**")[1] || "";
+    return `ಉತ್ತಮ! ಇಲ್ಲಿ ಲಭ್ಯವಿರುವ ವೈದ್ಯರು **${dept}**. ಆಯ್ಕೆ ಮಾಡಲು ಒಂದನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ:`;
+  }
+  if (text.startsWith("Sorry, **")) {
+    const doc = text.split("**")[1] || "";
+    return `ಕ್ಷಮಿಸಿ, **${doc}** ಇಂದು ಯಾವುದೇ ಖಾಲಿ ಸ್ಲಾಟ್‌ಗಳನ್ನು ಹೊಂದಿಲ್ಲ. ನೀವು ಬೇರೆ ವೈದ್ಯರನ್ನು ಆಯ್ಕೆ ಮಾಡಲು ಬಯಸುವಿರಾ?`;
+  }
+  if (text.startsWith("Here are today's open slots for")) {
+    const doc = text.split("**")[1] || "";
+    return `ಇಂದು ಲಭ್ಯವಿರುವ ಸ್ಲಾಟ್‌ಗಳು **${doc}**. ಸಮಯವನ್ನು ಆಯ್ಕೆಮಾಡಿ:`;
+  }
+  if (text.startsWith("Nice to meet you,")) {
+    const name = text.split("**")[1] || "";
+    return `ನಿಮ್ಮನ್ನು ಭೇಟಿಯಾಗಿದ್ದು ಸಂತೋಷ, **${name}**! 📱 ಈಗ ದಯವಿಟ್ಟು ನಿಮ್ಮ **ಮೊಬೈಲ್ ಸಂಖ್ಯೆ**ಯನ್ನು ಹಂಚಿಕೊಳ್ಳಿ:`;
+  }
+  if (text.startsWith("Here are the details for")) {
+    const token = text.split("**")[1] || "";
+    return `ಇದರ ವಿವರಗಳು ಇಲ್ಲಿವೆ **${token}**:`;
+  }
+  if (text.startsWith("No appointment found for token")) {
+    const token = text.split("**")[1] || "";
+    if (text.includes("cancel")) {
+      return `ಟೋಕನ್‌ಗೆ ಯಾವುದೇ ಅಪಾಯಿಂಟ್ಮೆಂಟ್ ಕಂಡುಬಂದಿಲ್ಲ **${token}**. ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ, ಅಥವಾ ಮುಖ್ಯ ಮೆನುಗೆ ಹಿಂತಿರುಗಲು 'cancel' ಎಂದು ಟೈಪ್ ಮಾಡಿ.`;
+    }
+    return `ಟೋಕನ್‌ಗೆ ಯಾವುದೇ ಅಪಾಯಿಂಟ್ಮೆಂಟ್ ಕಂಡುಬಂದಿಲ್ಲ **${token}**. ದಯವಿಟ್ಟು ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.`;
+  }
+  if (text.includes("is already cancelled.")) {
+    const token = text.split("**")[1] || "";
+    return `ನಿಮ್ಮ ಅಪಾಯಿಂಟ್ಮೆಂಟ್ **${token}** ಅನ್ನು ಈಗಾಗಲೇ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ.`;
+  }
+  if (text.startsWith("Your appointment for")) {
+    const parts = text.split("**");
+    return `ನಿಮ್ಮ ಅಪಾಯಿಂಟ್ಮೆಂಟ್ **${parts[1] || ""}** ರಂದು **${parts[3] || ""}** ಲ್ಲಿ **${parts[5] || ""}** ಯಶಸ್ವಿಯಾಗಿ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ.`;
+  }
+  return text;
+}
+
+export function translateExtra(extra: MessageExtra | undefined, lang: string): MessageExtra | undefined {
+  if (!extra) return undefined;
+  if (lang !== "kn-IN") return extra;
+  
+  if (extra.type === "quickReplies") {
+    return {
+      ...extra,
+      replies: extra.replies.map(r => KN_DICT[r] || r)
+    };
+  }
+  return extra;
+}
+
+export function reverseTranslate(text: string, lang: string): string {
+  if (lang !== "kn-IN") return text;
+  // If the user clicked a Kannada quick-reply, map it back to the English key
+  // so the intent engine and flow logic can understand it natively.
+  for (const [enKey, knVal] of Object.entries(KN_DICT)) {
+    if (text === knVal) {
+      return enKey;
+    }
+  }
+  return text;
+}
+
+export function dentiMsg(text: string, extra?: MessageExtra, lang: string = "en-IN"): DentiMessage {
+  // We no longer translate at creation time, so the state always holds the original English text.
+  // Translation happens at render time in DentiChat.tsx.
   return { id: uid(), from: "denti", text, extra, time: new Date() };
 }
 
@@ -115,21 +240,32 @@ export interface ProcessResult {
   newState: ConvState;
   newAppointment?: Appointment;
   bookedSlotId?: string;
+  cancelledAppointmentId?: string;
+  freedSlotTime?: string;
+  freedSlotDoctorId?: string;
 }
 
 export function processUserInput(
   input: string,
   state: ConvState,
   slots: TimeSlot[],
-  appointments: Appointment[]
+  appointments: Appointment[],
+  lang: string = "en-IN"
 ): ProcessResult {
   const trimmed = input.trim();
+  
+  // Helper to inject lang into dentiMsg calls seamlessly
+  const msg = (text: string, extra?: MessageExtra) => dentiMsg(text, extra, lang);
 
-  // Universal cancel
-  if (/^(cancel|stop|reset|start\s*over|go\s*back|main\s*menu|restart)\b/i.test(trimmed)) {
+  // Universal cancel: If in a flow, "cancel" aborts the flow. If idle, let it pass to intent detection for cancelling an appointment.
+  const universalCancelRegex = state.step === "idle"
+    ? /^(stop|reset|start\s*over|go\s*back|main\s*menu|restart)\b/i
+    : /^(cancel|stop|reset|start\s*over|go\s*back|main\s*menu|restart)\b/i;
+
+  if (universalCancelRegex.test(trimmed)) {
     return {
       messages: [
-        dentiMsg("No problem! I've reset our conversation. What else can I help you with? 😊", {
+        msg("No problem! I've reset our conversation. What else can I help you with? 😊", {
           type: "quickReplies",
           replies: ["Book Appointment", "Check Status", "Departments", "OPD Hours", "Contact Us"],
         }),
@@ -145,7 +281,7 @@ export function processUserInput(
     if (doctors.length === 0) {
       return {
         messages: [
-          dentiMsg(
+          msg(
             `I couldn't find doctors for **"${dept}"**. Please pick a department from below:`,
             { type: "quickReplies", replies: DEPT_QUICK_REPLIES }
           ),
@@ -155,7 +291,7 @@ export function processUserInput(
     }
     return {
       messages: [
-        dentiMsg(`Great! Here are the doctors available in **${dept}**. Tap one to select:`, {
+        msg(`Great! Here are the doctors available in **${dept}**. Tap one to select:`, {
           type: "doctorList",
           doctors,
         }),
@@ -170,7 +306,7 @@ export function processUserInput(
       DOCTORS.find((d) => d.name.toLowerCase() === trimmed.toLowerCase());
     if (!doctor) {
       return {
-        messages: [dentiMsg("Please tap a doctor card above to select.")],
+        messages: [msg("Please tap a doctor card above to select.")],
         newState: state,
       };
     }
@@ -179,7 +315,7 @@ export function processUserInput(
       const deptDoctors = getDoctorsForDept(state.booking.dept || "");
       return {
         messages: [
-          dentiMsg(
+          msg(
             `Sorry, **${doctor.name}** has no open slots today. Would you like to choose a different doctor?`,
             { type: "doctorList", doctors: deptDoctors.filter((d) => d.id !== doctor.id) }
           ),
@@ -189,7 +325,7 @@ export function processUserInput(
     }
     return {
       messages: [
-        dentiMsg(`Here are today's open slots for **${doctor.name}**. Pick a time:`, {
+        msg(`Here are today's open slots for **${doctor.name}**. Pick a time:`, {
           type: "slotGrid",
           slots: openSlots,
           doctor,
@@ -203,12 +339,12 @@ export function processUserInput(
     const slot = slots.find((s) => s.id === trimmed);
     if (!slot) {
       return {
-        messages: [dentiMsg("Please tap a time slot from the grid above.")],
+        messages: [msg("Please tap a time slot from the grid above.")],
         newState: state,
       };
     }
     return {
-      messages: [dentiMsg("Almost there! What's your **full name**? 📝")],
+      messages: [msg("Almost there! What's your **full name**? 📝")],
       newState: { step: "booking:name", booking: { ...state.booking, slot } },
     };
   }
@@ -216,13 +352,13 @@ export function processUserInput(
   if (state.step === "booking:name") {
     if (trimmed.length < 2) {
       return {
-        messages: [dentiMsg("Please enter your full name (at least 2 characters).")],
+        messages: [msg("Please enter your full name (at least 2 characters).")],
         newState: state,
       };
     }
     return {
       messages: [
-        dentiMsg(`Nice to meet you, **${trimmed}**! 📱 Now please share your **mobile number**:`),
+        msg(`Nice to meet you, **${trimmed}**! 📱 Now please share your **mobile number**:`),
       ],
       newState: { step: "booking:phone", booking: { ...state.booking, name: trimmed } },
     };
@@ -233,14 +369,14 @@ export function processUserInput(
     if (!/^(91)?[6-9]\d{9}$/.test(clean)) {
       return {
         messages: [
-          dentiMsg("Please enter a valid 10-digit Indian mobile number (e.g., 98765 43210)."),
+          msg("Please enter a valid 10-digit Indian mobile number (e.g., 98765 43210)."),
         ],
         newState: state,
       };
     }
     return {
       messages: [
-        dentiMsg(
+        msg(
           "📋 Any specific **complaint or reason** for your visit?\n(Type **'None'** if it's a general checkup)"
         ),
       ],
@@ -253,7 +389,7 @@ export function processUserInput(
     if (!doctor || !slot || !name || !phone) {
       return {
         messages: [
-          dentiMsg("Oops, something went wrong. Let's start over!", {
+          msg("Oops, something went wrong. Let's start over!", {
             type: "quickReplies",
             replies: ["Book Appointment"],
           }),
@@ -295,11 +431,11 @@ export function processUserInput(
 
     return {
       messages: [
-        dentiMsg("🎉 Your appointment is **confirmed**! Here's your summary:", {
+        msg("🎉 Your appointment is **confirmed**! Here's your summary:", {
           type: "confirmation",
           booking: confirmation,
         }),
-        dentiMsg("**Save your token number** and arrive 10 minutes early. See you soon! 😊", {
+        msg("**Save your token number** and arrive 10 minutes early. See you soon! 😊", {
           type: "quickReplies",
           replies: ["Book Another Appointment", "Check Status", "Main Menu"],
         }),
@@ -315,18 +451,57 @@ export function processUserInput(
     const found = appointments.find((a) => a.tokenId.toUpperCase() === token);
     return {
       messages: [
-        dentiMsg(
+        msg(
           found
             ? `Here are the details for **${token}**:`
             : `No appointment found for token **${token}**. Please double-check and try again.`,
           { type: "statusResult", appointment: found ?? null, token }
         ),
-        dentiMsg("Anything else I can help you with?", {
+        msg("Anything else I can help you with?", {
           type: "quickReplies",
           replies: ["Book Appointment", "Check Another Status", "Main Menu"],
         }),
       ],
       newState: INITIAL_CONV_STATE,
+    };
+  }
+
+  if (state.step === "cancel:input") {
+    const token = trimmed.toUpperCase();
+    const foundIndex = appointments.findIndex((a) => a.tokenId.toUpperCase() === token);
+    
+    if (foundIndex === -1) {
+      return {
+        messages: [
+          msg(`No appointment found for token **${token}**. Please double-check and try again, or type 'cancel' to go back to the main menu.`),
+        ],
+        newState: state,
+      };
+    }
+    
+    const found = appointments[foundIndex];
+    if (found.status === "Cancelled") {
+      return {
+        messages: [
+          msg(`Your appointment **${token}** is already cancelled.`, {
+            type: "quickReplies", replies: ["Main Menu"]
+          })
+        ],
+        newState: INITIAL_CONV_STATE
+      };
+    }
+    
+    return {
+      messages: [
+        msg(`Your appointment for **${found.patientName}** on **${found.date}** at **${found.displayTime}** has been successfully cancelled.`),
+        msg("Anything else I can help you with?", {
+          type: "quickReplies", replies: ["Book Appointment", "Main Menu"]
+        })
+      ],
+      newState: INITIAL_CONV_STATE,
+      cancelledAppointmentId: found.id,
+      freedSlotTime: found.time,
+      freedSlotDoctorId: found.doctorId,
     };
   }
 
@@ -337,7 +512,7 @@ export function processUserInput(
     case "greeting":
       return {
         messages: [
-          dentiMsg("Hello! 😊 Great to see you. How can I help you today?", {
+          msg("Hello! 😊 Great to see you. How can I help you today?", {
             type: "quickReplies",
             replies: ["Book Appointment", "Check Status", "Departments", "OPD Hours", "Contact Us", "Courses"],
           }),
@@ -348,7 +523,7 @@ export function processUserInput(
     case "farewell":
       return {
         messages: [
-          dentiMsg(
+          msg(
             "Thank you for chatting with Denti! 🦷 Take care of your dental health. Goodbye! 👋"
           ),
         ],
@@ -358,7 +533,7 @@ export function processUserInput(
     case "help":
       return {
         messages: [
-          dentiMsg("Here's everything I can help you with:", {
+          msg("Here's everything I can help you with:", {
             type: "quickReplies",
             replies: [
               "Book Appointment",
@@ -379,7 +554,7 @@ export function processUserInput(
     case "book_appointment":
       return {
         messages: [
-          dentiMsg(
+          msg(
             "Sure! Let's get you an appointment. 📅\nWhich **department** would you like to visit?",
             { type: "quickReplies", replies: DEPT_QUICK_REPLIES }
           ),
@@ -390,17 +565,25 @@ export function processUserInput(
     case "check_status":
       return {
         messages: [
-          dentiMsg(
+          msg(
             "Sure! Please enter your **appointment token number**:\n(e.g., RRDCH-20260416-1234)"
           ),
         ],
         newState: { step: "status:input", booking: {} },
       };
 
+    case "cancel_appointment":
+      return {
+        messages: [
+          msg("I can help you cancel your appointment. Please enter your **Token ID** (e.g., RRDCH-...):"),
+        ],
+        newState: { step: "cancel:input", booking: {} },
+      };
+
     case "about":
       return {
         messages: [
-          dentiMsg(
+          msg(
             `**${RRDCH.name}** (RRDCH) is a premier dental institution established in **${RRDCH.established}**, located in Bengaluru.\n\nAffiliated with **${RRDCH.affiliation}** and recognized by the **${RRDCH.recognition}**.\n\nWe operate **9 specialized departments** and are proud holders of: ${RRDCH.accreditations.join(", ")}.`,
             {
               type: "quickReplies",
@@ -414,7 +597,7 @@ export function processUserInput(
     case "hours":
       return {
         messages: [
-          dentiMsg(
+          msg(
             `⏰ **OPD Timings**\n${RRDCH.opdHours}\n\n🚨 **Emergency**\n${RRDCH.emergency}`,
             { type: "quickReplies", replies: ["Book Appointment", "Location", "Contact Us"] }
           ),
@@ -425,7 +608,7 @@ export function processUserInput(
     case "location":
       return {
         messages: [
-          dentiMsg(
+          msg(
             `📍 **RRDCH Address**\n${RRDCH.address}\n\n🗺️ We are on **Mysore Road**, easily accessible from all parts of Bengaluru.\n\n[Open in Maps →](https://maps.google.com/?q=RajaRajeswari+Dental+College+Hospital+Bengaluru)`,
             { type: "quickReplies", replies: ["Book Appointment", "Contact Us", "OPD Hours"] }
           ),
@@ -436,7 +619,7 @@ export function processUserInput(
     case "contact":
       return {
         messages: [
-          dentiMsg(
+          msg(
             `📞 **Phone**: ${RRDCH.phone}\n\n📧 **Email**: ${RRDCH.email}\n\n🌐 **Website**: ${RRDCH.website}`,
             { type: "quickReplies", replies: ["Book Appointment", "Location", "OPD Hours"] }
           ),
@@ -447,7 +630,7 @@ export function processUserInput(
     case "departments":
       return {
         messages: [
-          dentiMsg(
+          msg(
             `🦷 **RRDCH has 9 specialized departments:**\n\n${RRDCH.departments.map((d, i) => `**${i + 1}.** ${d}`).join("\n")}`,
             { type: "quickReplies", replies: ["Book Appointment", "About RRDCH", "Courses"] }
           ),
@@ -458,7 +641,7 @@ export function processUserInput(
     case "courses":
       return {
         messages: [
-          dentiMsg(
+          msg(
             `🎓 **Courses offered at RRDCH:**\n\n${RRDCH.courses.map((c) => `• ${c}`).join("\n")}\n\nAdmissions are through **NEET-UG/PG** as per RGUHS norms.`,
             {
               type: "quickReplies",
@@ -472,7 +655,7 @@ export function processUserInput(
     case "fees":
       return {
         messages: [
-          dentiMsg(`💰 **Fee Information**\n${RRDCH.fees}`, {
+          msg(`💰 **Fee Information**\n${RRDCH.fees}`, {
             type: "quickReplies",
             replies: ["Book Appointment", "Contact Us"],
           }),
@@ -483,7 +666,7 @@ export function processUserInput(
     case "emergency":
       return {
         messages: [
-          dentiMsg(
+          msg(
             `🚨 **Emergency Dental Care** is available **24/7**!\n\nPlease call us immediately:\n📞 **${RRDCH.phone.split("/")[0].trim()}**\n\n📍 Head directly to our Emergency Department:\n${RRDCH.address}`,
             { type: "quickReplies", replies: ["Get Directions", "Contact Us"] }
           ),
@@ -494,7 +677,7 @@ export function processUserInput(
     default:
       return {
         messages: [
-          dentiMsg(
+          msg(
             "Hmm, I didn't quite catch that. 🤔 Could you rephrase, or choose from below?",
             {
               type: "quickReplies",
@@ -508,14 +691,15 @@ export function processUserInput(
 }
 
 // ── Welcome ────────────────────────────────────────────────────────────────────
-export function getWelcomeMessages(): DentiMessage[] {
+export function getWelcomeMessages(lang: string = "en-IN"): DentiMessage[] {
   return [
     dentiMsg(
       "Hi! 👋 I'm **Denti**, your personal RRDCH dental assistant.\n\nI can help you **book appointments**, **check status**, answer questions about **departments**, **timings**, and more!",
       {
         type: "quickReplies",
         replies: ["Book Appointment", "Check Status", "Departments", "OPD Hours", "About RRDCH"],
-      }
+      },
+      lang
     ),
   ];
 }

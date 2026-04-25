@@ -51,6 +51,7 @@ export type DentiIntent =
   | "fees"
   | "emergency"
   | "cancel"
+  | "cancel_appointment"
   | "unknown";
 
 interface IntentRule {
@@ -74,7 +75,16 @@ export const INTENT_PATTERNS: IntentRule[] = [
   {
     intent: "cancel",
     patterns: [
-      /^(cancel|stop|reset|start\s*over|go\s*back|main\s*menu|restart|quit|exit)\b/i,
+      /^(stop|reset|start\s*over|go\s*back|main\s*menu|restart|quit|exit)\b/i,
+    ],
+  },
+  {
+    intent: "cancel_appointment",
+    patterns: [
+      /^(cancel|delete|remove)\b/i,
+      /cancel\s*(an?\s*)?(appointment|appt|booking)/i,
+      /delete\s*(an?\s*)?(appointment|appt|booking)/i,
+      /remove\s*(an?\s*)?(appointment|appt|booking)/i,
     ],
   },
   {
