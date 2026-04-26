@@ -52,9 +52,16 @@ import SearchPage from "./pages/SearchPage.tsx";
 
 // DMS pages
 import LoginPage from "./pages/LoginPage.tsx";
+import SignupPage from "./pages/SignupPage.tsx";
+import RequestReset from "./pages/RequestReset.tsx";
+import UpdatePassword from "./pages/UpdatePassword.tsx";
+import SettingsPage from "./pages/SettingsPage.tsx";
 import BookingPage from "./pages/patient/BookingPage.tsx";
+import DashboardPage from "./pages/patient/DashboardPage.tsx";
+import ProfilePage from "./pages/patient/ProfilePage.tsx";
 import DoctorSchedulePage from "./pages/doctor/SchedulePage.tsx";
 import AdminManagementPage from "./pages/admin/ManagementPage.tsx";
+import StaffManagementPage from "./pages/admin/StaffManagementPage.tsx";
 
 const queryClient = new QueryClient();
 
@@ -127,8 +134,19 @@ const App = () => {
 
                     {/* ── DMS Auth ── */}
                     <Route path="/login" element={<LoginPage />} />
+                    <Route path="/signup" element={<SignupPage />} />
+                    <Route path="/forgot-password" element={<RequestReset />} />
+                    <Route path="/update-password" element={<UpdatePassword />} />
 
                     {/* ── Patient portal ── */}
+                    <Route
+                      path="/patient/dashboard"
+                      element={
+                        <ProtectedRoute allowedRoles={["patient"]}>
+                          <DashboardPage />
+                        </ProtectedRoute>
+                      }
+                    />
                     <Route
                       path="/patient/booking"
                       element={
@@ -137,8 +155,24 @@ const App = () => {
                         </ProtectedRoute>
                       }
                     />
+                    <Route
+                      path="/patient/profile"
+                      element={
+                        <ProtectedRoute allowedRoles={["patient"]}>
+                          <ProfilePage />
+                        </ProtectedRoute>
+                      }
+                    />
 
                     {/* ── Doctor portal ── */}
+                    <Route
+                      path="/doctor"
+                      element={
+                        <ProtectedRoute allowedRoles={["doctor"]}>
+                          <DoctorSchedulePage />
+                        </ProtectedRoute>
+                      }
+                    />
                     <Route
                       path="/doctor/schedule"
                       element={
@@ -150,10 +184,34 @@ const App = () => {
 
                     {/* ── Admin portal ── */}
                     <Route
+                      path="/admin"
+                      element={
+                        <ProtectedRoute allowedRoles={["admin"]}>
+                          <AdminManagementPage />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
                       path="/admin/management"
                       element={
                         <ProtectedRoute allowedRoles={["admin"]}>
                           <AdminManagementPage />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/admin/staff"
+                      element={
+                        <ProtectedRoute allowedRoles={["admin"]}>
+                          <StaffManagementPage />
+                        </ProtectedRoute>
+                      }
+                    />
+                    <Route
+                      path="/settings"
+                      element={
+                        <ProtectedRoute allowedRoles={["patient", "doctor", "admin"]}>
+                          <SettingsPage />
                         </ProtectedRoute>
                       }
                     />

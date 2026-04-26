@@ -35,6 +35,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { toast } from "sonner";
+import { MedicalRecordsModal } from "@/components/doctor/MedicalRecordsModal";
 
 // Doctor's ID in mock data = dr-003 (Dr. Anitha Rao, Orthodontics)
 const DOCTOR_ID = "dr-003";
@@ -179,12 +180,13 @@ export default function DoctorSchedulePage() {
                       <TableHead>Patient</TableHead>
                       <TableHead className="hidden sm:table-cell">Chief Complaint</TableHead>
                       <TableHead>Status</TableHead>
+                      <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {todayAppts.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={4} className="text-center text-gray-400 py-8">
+                        <TableCell colSpan={5} className="text-center text-gray-400 py-8">
                           No appointments today.
                         </TableCell>
                       </TableRow>
@@ -204,6 +206,9 @@ export default function DoctorSchedulePage() {
                             {apt.complaint}
                           </TableCell>
                           <TableCell>{statusBadge(apt.status)}</TableCell>
+                          <TableCell className="text-right flex justify-end gap-2">
+                            <MedicalRecordsModal patientId={apt.id} patientName={apt.patientName} />
+                          </TableCell>
                         </TableRow>
                       ))
                     )}

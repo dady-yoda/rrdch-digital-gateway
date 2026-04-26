@@ -18,6 +18,7 @@ import {
   UserRound,
   ClipboardList,
   Clock,
+  Settings,
 } from "lucide-react";
 
 interface NavItem {
@@ -28,13 +29,19 @@ interface NavItem {
 
 const ROLE_NAV: Record<string, NavItem[]> = {
   patient: [
+    { label: "My Vault", href: "/patient/dashboard", icon: ShieldCheck },
     { label: "Book Appointment", href: "/patient/booking", icon: Calendar },
+    { label: "Profile", href: "/patient/profile", icon: UserRound },
+    { label: "Settings", href: "/settings", icon: Settings },
   ],
   doctor: [
-    { label: "My Dashboard", href: "/doctor/schedule", icon: ClipboardList },
+    { label: "My Dashboard", href: "/doctor", icon: ClipboardList },
+    { label: "Settings", href: "/settings", icon: Settings },
   ],
   admin: [
-    { label: "Management Console", href: "/admin/management", icon: ShieldCheck },
+    { label: "Management Console", href: "/admin", icon: ShieldCheck },
+    { label: "Staff Management", href: "/admin/staff", icon: Users },
+    { label: "Settings", href: "/settings", icon: Settings },
   ],
 };
 
@@ -60,8 +67,8 @@ export default function DashboardLayout({ children, title }: DashboardLayoutProp
   const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     navigate("/login");
   };
 
