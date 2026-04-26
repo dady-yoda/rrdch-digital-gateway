@@ -73,7 +73,8 @@ const BrandingBar = () => {
               menuButtonColor={isDark ? "#849a62" : "#546B41"}
               openMenuButtonColor={isDark ? "#444" : "#222"}
               changeMenuColorOnOpen={true}
-              colors={isDark ? ['#a8c385', '#849a62'] : ['#849a62', '#546B41']} 
+              colors={isDark ? ['#a8c385', '#849a62'] : ['#849a62', '#546B41']}
+              accentColor={isDark ? "#a8c385" : "#546B41"}
             />
           </div>
         </div>
