@@ -5,17 +5,17 @@ import heroClinical from "@/assets/hero-clinical.jpg";
 import heroGraduation from "@/assets/hero-graduation.jpg";
 
 const slides = [
-  { src: heroCampus, alt: "RRDCH Campus aerial view", caption: "A Premier Dental Institution in Bengaluru" },
-  { src: heroClinical, alt: "Clinical training at RRDCH", caption: "World-Class Clinical Training" },
-  { src: heroGraduation, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
+  { src: heroCampus, alt: "RRDCH Campus aerial view", caption: "A PREMIER DENTAL INSTITUTION IN BENGALURU" },
+  { src: heroClinical, alt: "Clinical training at RRDCH", caption: "WORLD-CLASS CLINICAL TRAINING" },
+  { src: heroGraduation, alt: "RRDCH Graduation ceremony", caption: "SHAPING FUTURE DENTAL LEADERS" },
 ];
 
 const tickerItems = [
-  { text: "📢 Applications Open for BDS & MDS 2026-27", href: "/#academics" },
-  { text: "🏆 NAAC 'A+' Accredited Institution", href: "/accreditation/naac" },
-  { text: "🎓 MFDS RCPS (Glasgow) Revision Course Available", href: "/mfds-course" },
-  { text: "🦷 One Year Implantology Course (RGUHS Recognised)", href: "/implantology-course" },
-  { text: "📋 Republic Day Celebrations - View Gallery", href: "/gallery" },
+  { text: "📢 APPLICATIONS OPEN FOR BDS & MDS 2026-27", href: "/#academics" },
+  { text: "🏆 NAAC 'A+' ACCREDITED INSTITUTION", href: "/accreditation/naac" },
+  { text: "🎓 MFDS RCPS (GLASGOW) REVISION COURSE AVAILABLE", href: "/mfds-course" },
+  { text: "🦷 ONE YEAR IMPLANTOLOGY COURSE (RGUHS RECOGNISED)", href: "/implantology-course" },
+  { text: "📋 REPUBLIC DAY CELEBRATIONS - VIEW GALLERY", href: "/gallery" },
 ];
 
 const HeroSection = () => {

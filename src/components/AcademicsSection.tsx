@@ -33,7 +33,7 @@ const AcademicsSection = () => {
       <div className="container mx-auto px-4">
         <FadeInSection>
           <h2 className="font-heading text-2xl md:text-3xl font-bold text-primary text-center mb-10">
-            Academic Programmes
+            ACADEMIC PROGRAMMES
           </h2>
         </FadeInSection>
 
@@ -57,7 +57,7 @@ const AcademicsSection = () => {
             <div className="text-center mb-8">
               <Stethoscope className="w-10 h-10 text-accent mx-auto mb-4" />
               <h3 className="font-heading text-2xl font-bold text-primary-foreground">
-                Special Programmes
+                SPECIAL PROGRAMMES
               </h3>
             </div>
 

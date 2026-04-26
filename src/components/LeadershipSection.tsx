@@ -26,7 +26,7 @@ const LeadershipSection = () => {
               
               <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
                 <div className="transform transition-all duration-500 group-hover:-translate-y-2">
-                  <h3 className="font-heading text-2xl font-bold text-white mb-1 drop-shadow-md">Chairman's Message</h3>
+                  <h3 className="font-heading text-2xl font-bold text-white mb-1 drop-shadow-md">CHAIRMAN'S MESSAGE</h3>
                   <p className="text-white/90 font-semibold mb-2 text-sm drop-shadow-md">Dr. A.C. Shanmugam</p>
                   
                   <div className="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-500 ease-in-out">
@@ -74,7 +74,7 @@ const LeadershipSection = () => {
               
               <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
                 <div className="transform transition-all duration-500 group-hover:-translate-y-2">
-                  <h3 className="font-heading text-2xl font-bold text-white mb-2 drop-shadow-md">The College</h3>
+                  <h3 className="font-heading text-2xl font-bold text-white mb-2 drop-shadow-md">THE COLLEGE</h3>
                   
                   <div className="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-500 ease-in-out">
                     <div className="overflow-hidden">
@@ -117,7 +117,7 @@ const LeadershipSection = () => {
               
               <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end">
                 <div className="transform transition-all duration-500 group-hover:-translate-y-2">
-                  <h3 className="font-heading text-2xl font-bold text-white mb-2 drop-shadow-md">The Hospital</h3>
+                  <h3 className="font-heading text-2xl font-bold text-white mb-2 drop-shadow-md">THE HOSPITAL</h3>
                   
                   <div className="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-500 ease-in-out">
                     <div className="overflow-hidden">
