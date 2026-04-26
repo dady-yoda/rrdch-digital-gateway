@@ -88,140 +88,140 @@ const App = () => {
                     <ScrollToTop />
                     <FloatingCTA />
                     <Routes>
-                    {/* ── Public ── */}
-                    <Route path="/" element={<Index />} />
-                    <Route path="/search" element={<SearchPage />} />
-                    <Route path="/esi" element={<EsiPage />} />
-                    <Route path="/accreditation" element={<AccreditationPage />} />
-                    <Route path="/accreditation/naac" element={<NaacPage />} />
-                    <Route path="/accreditation/nirf" element={<NirfPage />} />
-                    <Route path="/dci" element={<DciPage />} />
-                    <Route path="/recognitions" element={<RecognitionsPage />} />
-                    <Route path="/committee" element={<CommitteePage />} />
-                    <Route path="/committee/anti-ragging" element={<AntiRaggingPage />} />
-                    <Route path="/committee/hostel-issues" element={<HostelIssuesPage />} />
-                    <Route path="/schedule" element={<SchedulePage />} />
-                    <Route path="/schedule/calendar" element={<CalendarPage />} />
-                    <Route path="/schedule/timetable" element={<TimetablePage />} />
-                    <Route path="/newsletter" element={<NewsletterPage />} />
-                    <Route path="/feedback" element={<FeedbackPage />} />
-                    <Route path="/career" element={<CareerPage />} />
-                    <Route path="/circulars" element={<CircularsPage />} />
-                    <Route path="/fee-terms" element={<FeeTermsPage />} />
-                    <Route path="/brochure" element={<BrochurePage />} />
-                    <Route path="/gallery" element={<GalleryPage />} />
+                      {/* ── Public ── */}
+                      <Route path="/" element={<Index />} />
+                      <Route path="/search" element={<SearchPage />} />
+                      <Route path="/esi" element={<EsiPage />} />
+                      <Route path="/accreditation" element={<AccreditationPage />} />
+                      <Route path="/accreditation/naac" element={<NaacPage />} />
+                      <Route path="/accreditation/nirf" element={<NirfPage />} />
+                      <Route path="/dci" element={<DciPage />} />
+                      <Route path="/recognitions" element={<RecognitionsPage />} />
+                      <Route path="/committee" element={<CommitteePage />} />
+                      <Route path="/committee/anti-ragging" element={<AntiRaggingPage />} />
+                      <Route path="/committee/hostel-issues" element={<HostelIssuesPage />} />
+                      <Route path="/schedule" element={<SchedulePage />} />
+                      <Route path="/schedule/calendar" element={<CalendarPage />} />
+                      <Route path="/schedule/timetable" element={<TimetablePage />} />
+                      <Route path="/newsletter" element={<NewsletterPage />} />
+                      <Route path="/feedback" element={<FeedbackPage />} />
+                      <Route path="/career" element={<CareerPage />} />
+                      <Route path="/circulars" element={<CircularsPage />} />
+                      <Route path="/fee-terms" element={<FeeTermsPage />} />
+                      <Route path="/brochure" element={<BrochurePage />} />
+                      <Route path="/gallery" element={<GalleryPage />} />
 
-                    {/* ── News ── */}
-                    <Route path="/news" element={<NewsPage />} />
-                    <Route path="/news/:id" element={<NewsDetailPage />} />
+                      {/* ── News ── */}
+                      <Route path="/news" element={<NewsPage />} />
+                      <Route path="/news/:id" element={<NewsDetailPage />} />
 
-                    <Route path="/implantology-course" element={<ImplantologyCoursePage />} />
-                    <Route path="/mfds-course" element={<MfdsCoursePage />} />
-                    <Route path="/course/bds" element={<BdsPage />} />
-                    <Route path="/course/mds" element={<MdsPage />} />
-                    <Route path="/course/phd" element={<PhdPage />} />
-                    <Route path="/course/:id" element={<CourseDetailPage />} />
+                      <Route path="/implantology-course" element={<ImplantologyCoursePage />} />
+                      <Route path="/mfds-course" element={<MfdsCoursePage />} />
+                      <Route path="/course/bds" element={<BdsPage />} />
+                      <Route path="/course/mds" element={<MdsPage />} />
+                      <Route path="/course/phd" element={<PhdPage />} />
+                      <Route path="/course/:id" element={<CourseDetailPage />} />
 
-                    {/* ── About Us ── */}
-                    <Route path="/about-us" element={<AboutUsPage />} />
-                    <Route path="/about-us/:tab" element={<AboutUsPage />} />
-                    <Route path="/facilities" element={<FacilitiesPage />} />
+                      {/* ── About Us ── */}
+                      <Route path="/about-us" element={<AboutUsPage />} />
+                      <Route path="/about-us/:tab" element={<AboutUsPage />} />
+                      <Route path="/facilities" element={<FacilitiesPage />} />
 
-                    {/* ── Departments ── */}
-                    <Route path="/departments" element={<DepartmentsPage />} />
-                    <Route path="/departments/:slug" element={<DepartmentDetailPage />} />
-                    <Route path="/department/:id" element={<DepartmentDetailPage />} />
+                      {/* ── Departments ── */}
+                      <Route path="/departments" element={<DepartmentsPage />} />
+                      <Route path="/departments/:slug" element={<DepartmentDetailPage />} />
+                      <Route path="/department/:id" element={<DepartmentDetailPage />} />
 
-                    {/* ── DMS Auth ── */}
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/signup" element={<SignupPage />} />
-                    <Route path="/forgot-password" element={<RequestReset />} />
-                    <Route path="/update-password" element={<UpdatePassword />} />
+                      {/* ── DMS Auth ── */}
+                      <Route path="/login" element={<LoginPage />} />
+                      <Route path="/signup" element={<SignupPage />} />
+                      <Route path="/forgot-password" element={<RequestReset />} />
+                      <Route path="/update-password" element={<UpdatePassword />} />
 
-                    {/* ── Patient portal ── */}
-                    <Route
-                      path="/patient/dashboard"
-                      element={
-                        <ProtectedRoute allowedRoles={["patient"]}>
-                          <DashboardPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/patient/booking"
-                      element={
-                        <ProtectedRoute allowedRoles={["patient"]}>
-                          <BookingPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/patient/profile"
-                      element={
-                        <ProtectedRoute allowedRoles={["patient"]}>
-                          <ProfilePage />
-                        </ProtectedRoute>
-                      }
-                    />
+                      {/* ── Patient portal ── */}
+                      <Route
+                        path="/patient/dashboard"
+                        element={
+                          <ProtectedRoute allowedRoles={["patient"]}>
+                            <DashboardPage />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/patient/booking"
+                        element={
+                          <ProtectedRoute allowedRoles={["patient"]}>
+                            <BookingPage />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/patient/profile"
+                        element={
+                          <ProtectedRoute allowedRoles={["patient"]}>
+                            <ProfilePage />
+                          </ProtectedRoute>
+                        }
+                      />
 
-                    {/* ── Doctor portal ── */}
-                    <Route
-                      path="/doctor"
-                      element={
-                        <ProtectedRoute allowedRoles={["doctor"]}>
-                          <DoctorSchedulePage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/doctor/schedule"
-                      element={
-                        <ProtectedRoute allowedRoles={["doctor"]}>
-                          <DoctorSchedulePage />
-                        </ProtectedRoute>
-                      }
-                    />
+                      {/* ── Doctor portal ── */}
+                      <Route
+                        path="/doctor"
+                        element={
+                          <ProtectedRoute allowedRoles={["doctor"]}>
+                            <DoctorSchedulePage />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/doctor/schedule"
+                        element={
+                          <ProtectedRoute allowedRoles={["doctor"]}>
+                            <DoctorSchedulePage />
+                          </ProtectedRoute>
+                        }
+                      />
 
-                    {/* ── Admin portal ── */}
-                    <Route
-                      path="/admin"
-                      element={
-                        <ProtectedRoute allowedRoles={["admin"]}>
-                          <AdminManagementPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/admin/management"
-                      element={
-                        <ProtectedRoute allowedRoles={["admin"]}>
-                          <AdminManagementPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/admin/staff"
-                      element={
-                        <ProtectedRoute allowedRoles={["admin"]}>
-                          <StaffManagementPage />
-                        </ProtectedRoute>
-                      }
-                    />
-                    <Route
-                      path="/settings"
-                      element={
-                        <ProtectedRoute allowedRoles={["patient", "doctor", "admin"]}>
-                          <SettingsPage />
-                        </ProtectedRoute>
-                      }
-                    />
+                      {/* ── Admin portal ── */}
+                      <Route
+                        path="/admin"
+                        element={
+                          <ProtectedRoute allowedRoles={["admin"]}>
+                            <AdminManagementPage />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/admin/management"
+                        element={
+                          <ProtectedRoute allowedRoles={["admin"]}>
+                            <AdminManagementPage />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/admin/staff"
+                        element={
+                          <ProtectedRoute allowedRoles={["admin"]}>
+                            <StaffManagementPage />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route
+                        path="/settings"
+                        element={
+                          <ProtectedRoute allowedRoles={["patient", "doctor", "admin"]}>
+                            <SettingsPage />
+                          </ProtectedRoute>
+                        }
+                      />
 
-                    {/* ── Catch-all ── */}
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </AuthProvider>
-              </SmoothScroll>
-            </BrowserRouter>
+                      {/* ── Catch-all ── */}
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </AuthProvider>
+                </SmoothScroll>
+              </BrowserRouter>
             </TooltipProvider>
           </ThemeProvider>
         </LanguageProvider>
