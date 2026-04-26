@@ -107,18 +107,22 @@ const KN_DICT: Record<string, string> = {
   "About RRDCH": "RRDCH ಬಗ್ಗೆ",
   "Get Directions": "ನಿರ್ದೇಶನಗಳನ್ನು ಪಡೆಯಿರಿ",
   "Help": "ಸಹಾಯ",
-  "I'm having trouble thinking right now. Please try again in a moment, or use the quick-reply buttons!": "ನನಗೆ ಈಗ ಯೋಚಿಸಲು ತೊಂದರೆಯಾಗುತ್ತಿದೆ. ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ, ಅಥವಾ ತ್ವರಿತ-ಪ್ರತ್ಯುತ್ತರ ಬಟನ್‌ಗಳನ್ನು ಬಳಸಿ!",
+  "I'm having trouble thinking right now. Please try again in a moment, or use the quick-reply buttons!": "ನಮಗೆ ಈಗ ಯೋಚಿಸಲು ತೊಂದರೆಯಾಗುತ್ತಿದೆ. ದಯವಿಟ್ಟು ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ, ಅಥವಾ ತ್ವರಿತ-ಪ್ರತ್ಯುತ್ತರ ಬಟನ್‌ಗಳನ್ನು ಬಳಸಿ!",
   "I'm sorry, I couldn't generate a response. Please try again!": "ಕ್ಷಮಿಸಿ, ಪ್ರತಿಕ್ರಿಯೆಯನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ!",
-  "Sorry, I had trouble processing that. Please try again!": "ಕ್ಷಮಿಸಿ, ಅದನ್ನು ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲು ತೊಂದರೆಯಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ!"
+  "Sorry, I had trouble processing that. Please try again!": "ಕ್ಷಮಿಸಿ, ಅದನ್ನು ಪ್ರಕ್ರಿಯೆಗೊಳಿಸಲು ತೊಂದರೆಯಾಗಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ!",
+  "I'm having trouble connecting right now. Please try the quick-reply buttons, or contact us at": "ನನಗೆ ಈಗ ಸಂಪರ್ಕಿಸಲು ತೊಂದರೆಯಾಗುತ್ತಿದೆ. ದಯವಿಟ್ಟು ತ್ವರಿತ-ಪ್ರತ್ಯುತ್ತರ ಬಟನ್‌ಗಳನ್ನು ಪ್ರಯತ್ನಿಸಿ ಅಥವಾ ಇಲ್ಲಿ ಸಂಪರ್ಕಿಸಿ",
 };
 
 export function translateText(text: string, lang: string): string {
   if (lang !== "kn-IN") return text;
+  
+  // Exact matches
   if (KN_DICT[text]) return KN_DICT[text];
 
+  // Dynamic content handling
   if (text.startsWith("I couldn't find doctors for")) {
     const dept = text.split("**\"")[1]?.split("\"**")[0] || "";
-    return `ನನಗೆ ವೈದ್ಯರು ಕಂಡುಬಂದಿಲ್ಲ **"${dept}"**. ದಯವಿಟ್ಟು ಕೆಳಗಿನಿಂದ ವಿಭಾಗವನ್ನು ಆಯ್ಕೆಮಾಡಿ:`;
+    return `ನಮಗೆ ವೈದ್ಯರು ಕಂಡುಬಂದಿಲ್ಲ **"${dept}"**. ದಯವಿಟ್ಟು ಕೆಳಗಿನಿಂದ ವಿಭಾಗವನ್ನು ಆಯ್ಕೆಮಾಡಿ:`;
   }
   if (text.startsWith("Great! Here are the doctors available in")) {
     const dept = text.split("**")[1] || "";
@@ -155,6 +159,44 @@ export function translateText(text: string, lang: string): string {
     const parts = text.split("**");
     return `ನಿಮ್ಮ ಅಪಾಯಿಂಟ್ಮೆಂಟ್ **${parts[1] || ""}** ರಂದು **${parts[3] || ""}** ಲ್ಲಿ **${parts[5] || ""}** ಯಶಸ್ವಿಯಾಗಿ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ.`;
   }
+
+  // Section specific responses (About, Timings, etc.)
+  if (text.includes(" premier dental institution established in")) {
+    return `**${RRDCH.name}** (RRDCH) ಒಂದು ಪ್ರಮುಖ ದಂತ ಶಿಕ್ಷಣ ಸಂಸ್ಥೆಯಾಗಿದ್ದು, **${RRDCH.established}** ರಲ್ಲಿ ಸ್ಥಾಪನೆಯಾಗಿದೆ. ಇದು ಬೆಂಗಳೂರಿನಲ್ಲಿದೆ.\n\n**${RRDCH.affiliation}** ಗೆ ಸಂಯೋಜಿತವಾಗಿದೆ ಮತ್ತು **${RRDCH.recognition}** ನಿಂದ ಮಾನ್ಯತೆ ಪಡೆದಿದೆ.\n\nನಾವು **9 ವಿಶೇಷ ವಿಭಾಗಗಳನ್ನು** ನಡೆಸುತ್ತಿದ್ದೇವೆ ಮತ್ತು ಈ ಕೆಳಗಿನ ಮಾನ್ಯತೆಗಳನ್ನು ಹೊಂದಿದ್ದೇವೆ: ${RRDCH.accreditations.join(", ")}.`;
+  }
+
+  if (text.includes("⏰ **OPD Timings**")) {
+    return `⏰ **OPD ಸಮಯ**\n${RRDCH.opdHours}\n\n🚨 **ತುರ್ತು ಚಿಕಿತ್ಸೆ**\n${RRDCH.emergency}`;
+  }
+
+  if (text.includes("📍 **RRDCH Address**")) {
+    return `📍 **RRDCH ವಿಳಾಸ**\n${RRDCH.address}\n\n🗺️ ನಾವು **ಮೈಸೂರು ರಸ್ತೆ**ಯಲ್ಲಿದ್ದೇವೆ, ಬೆಂಗಳೂರಿನ ಎಲ್ಲಾ ಭಾಗಗಳಿಂದ ಸುಲಭವಾಗಿ ತಲುಪಬಹುದು.`;
+  }
+
+  if (text.includes("📞 **Phone**")) {
+    return `📞 **ಫೋನ್**: ${RRDCH.phone}\n\n📧 **ಇಮೇಲ್**: ${RRDCH.email}\n\n🌐 **ವೆಬ್‌ಸೈಟ್**: ${RRDCH.website}`;
+  }
+
+  if (text.includes("🎓 **Courses offered at RRDCH**")) {
+    return `🎓 **RRDCH ನಲ್ಲಿ ನೀಡಲಾಗುವ ಕೋರ್ಸ್‌ಗಳು:**\n\n${RRDCH.courses.map((c) => `• ${c}`).join("\n")}\n\nಪ್ರವೇಶಾತಿಯು RGUHS ನಿಯಮಗಳ ಪ್ರಕಾರ **NEET-UG/PG** ಮೂಲಕ ಇರುತ್ತದೆ.`;
+  }
+
+  if (text.includes("🚨 **Emergency Dental Care**")) {
+    return `🚨 **ತುರ್ತು ದಂತ ಆರೈಕೆ** ದಿನದ **24/7** ಗಂಟೆಯೂ ಲಭ್ಯವಿದೆ!\n\nದಯವಿಟ್ಟು ನಮಗೆ ತಕ್ಷಣ ಕರೆ ಮಾಡಿ:\n📞 **${RRDCH.phone.split("/")[0].trim()}**\n\n📍 ನೇರವಾಗಿ ನಮ್ಮ ತುರ್ತು ವಿಭಾಗಕ್ಕೆ ಬನ್ನಿ:\n${RRDCH.address}`;
+  }
+
+  if (text.includes("💰 **Fee Information**")) {
+    return `💰 **ಶುಲ್ಕದ ಮಾಹಿತಿ**\n${RRDCH.fees}`;
+  }
+
+  if (text.includes("🦷 **RRDCH has 9 specialized departments**")) {
+    return `🦷 **RRDCH 9 ವಿಶೇಷ ವಿಭಾಗಗಳನ್ನು ಹೊಂದಿದೆ:**\n\n${RRDCH.departments.map((d, i) => `**${i + 1}.** ${d}`).join("\n")}`;
+  }
+
+  if (text.startsWith("I'm having trouble connecting right now.")) {
+    return `ನಮಗೆ ಈಗ ಸಂಪರ್ಕಿಸಲು ತೊಂದರೆಯಾಗುತ್ತಿದೆ. ದಯವಿಟ್ಟು ತ್ವರಿತ-ಪ್ರತ್ಯುತ್ತರ ಬಟನ್‌ಗಳನ್ನು ಪ್ರಯತ್ನಿಸಿ ಅಥವಾ ಇಲ್ಲಿ ಸಂಪರ್ಕಿಸಿ ${RRDCH.phone}.`;
+  }
+
   return text;
 }
 
@@ -184,8 +226,6 @@ export function reverseTranslate(text: string, lang: string): string {
 }
 
 export function dentiMsg(text: string, extra?: MessageExtra, lang: string = "en-IN"): DentiMessage {
-  // We no longer translate at creation time, so the state always holds the original English text.
-  // Translation happens at render time in DentiChat.tsx.
   return { id: uid(), from: "denti", text, extra, time: new Date() };
 }
 
@@ -254,10 +294,8 @@ export function processUserInput(
 ): ProcessResult {
   const trimmed = input.trim();
   
-  // Helper to inject lang into dentiMsg calls seamlessly
   const msg = (text: string, extra?: MessageExtra) => dentiMsg(text, extra, lang);
 
-  // Universal cancel: If in a flow, "cancel" aborts the flow. If idle, let it pass to intent detection for cancelling an appointment.
   const universalCancelRegex = state.step === "idle"
     ? /^(stop|reset|start\s*over|go\s*back|main\s*menu|restart)\b/i
     : /^(cancel|stop|reset|start\s*over|go\s*back|main\s*menu|restart)\b/i;
@@ -274,7 +312,6 @@ export function processUserInput(
     };
   }
 
-  // ── Booking flow ────────────────────────────────────────────────────────────
   if (state.step === "booking:dept") {
     const dept = trimmed;
     const doctors = getDoctorsForDept(dept);
@@ -505,7 +542,6 @@ export function processUserInput(
     };
   }
 
-  // ── Idle — intent detection ─────────────────────────────────────────────────
   const intent = detectIntent(trimmed);
 
   switch (intent) {
@@ -609,7 +645,7 @@ export function processUserInput(
       return {
         messages: [
           msg(
-            `📍 **RRDCH Address**\n${RRDCH.address}\n\n🗺️ We are on **Mysore Road**, easily accessible from all parts of Bengaluru.\n\n[Open in Maps →](https://maps.google.com/?q=RajaRajeswari+Dental+College+Hospital+Bengaluru)`,
+            `📍 **RRDCH Address**\n${RRDCH.address}\n\n🗺️ we are on **Mysore Road**, easily accessible from all parts of Bengaluru.\n\n[Open in Maps →](https://maps.google.com/?q=RajaRajeswari+Dental+College+Hospital+Bengaluru)`,
             { type: "quickReplies", replies: ["Book Appointment", "Contact Us", "OPD Hours"] }
           ),
         ],
@@ -690,7 +726,6 @@ export function processUserInput(
   }
 }
 
-// ── Welcome ────────────────────────────────────────────────────────────────────
 export function getWelcomeMessages(lang: string = "en-IN"): DentiMessage[] {
   return [
     dentiMsg(

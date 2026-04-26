@@ -46,7 +46,7 @@ const HeroSection = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent" />
             <div className="absolute inset-0 bg-black/20" /> {/* Subtle overlay for overall contrast */}
             <div className="absolute bottom-16 md:bottom-24 left-0 right-0 text-center px-4">
-              <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground drop-shadow-lg">
+              <h2 className="font-heading text-2xl md:text-4xl lg:text-5xl font-bold text-primary-foreground drop-shadow-xl tracking-tight max-w-4xl mx-auto">
                 {slide.caption}
               </h2>
             </div>

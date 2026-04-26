@@ -43,7 +43,7 @@ const navItems = [
       { label: "ORTHODONTICS & DENTOFACIAL ORTHOPEDICS", href: "/department/orthodontics-dento-facial-orthopedics" },
       { label: "PUBLIC HEALTH DENTISTRY", href: "/department/public-health-dentistry" },
       { label: "ORAL & MAXILLOFACIAL PATHOLOGY", href: "/department/oral-pathology-microbiology" },
-      { label: "IMPLPLANTOLOGY", href: "/department/implantology" },
+      { label: "IMPLANTOLOGY", href: "/department/implantology" },
       { label: "RESEARCH & PUBLICATION", href: "/department/research-publication" },
       { label: "OROFACIAL PAIN", href: "/department/orofacial-pain" },
     ],

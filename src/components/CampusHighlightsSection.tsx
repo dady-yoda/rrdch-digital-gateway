@@ -15,7 +15,7 @@ import gsap from "gsap";
 const tabs = [
   { 
     id: "news",             
-    label: "NEWS",        
+    label: "News",        
     title: "Recent Faculty Achievements & Research",
     date: "January 15, 2025",
     desc: "Our faculty members have been recognized for their pioneering research in advanced implantology and oral and maxillofacial surgery, contributing to the global dental community.",
@@ -26,7 +26,7 @@ const tabs = [
   },
   { 
     id: "experience",       
-    label: "EXPERIENCE",     
+    label: "Experience",     
     title: "Vibrant Campus Life & Beyond Academics",
     date: "February 01, 2025",
     desc: "Life at RRDCH is more than just lectures. Students engage in a rich tapestry of sports, cultural galas, and community outreach programs that build character and leadership.",
@@ -37,7 +37,7 @@ const tabs = [
   },
   { 
     id: "awards",           
-    label: "AWARDS", 
+    label: "Awards", 
     title: "Securing Excellence in National Rankings",
     date: "March 10, 2025",
     desc: "Rajarajeswari Dental College once again secures a top-tier position in NIRF rankings, solidifying our status as a premier institution for dental education in India.",
@@ -48,8 +48,8 @@ const tabs = [
   },
   { 
     id: "gallery",               
-    label: "GALLERY",               
-    title: "A Glimpse into Our State-of-the-Art Campus",
+    label: "Gallery",               
+    title: "A Glimpse into our State-of-the-art Campus",
     date: "April 05, 2025",
     desc: "Walk through our high-tech laboratories, lush green campus, and modern clinical suites where the future of dentistry is being shaped every day by our dedicated students.",
     link: "/gallery",
@@ -59,8 +59,8 @@ const tabs = [
   },
   { 
     id: "facilities",       
-    label: "FACILITIES",     
-    title: "Next-Gen Digital Scanning & Precision Lab",
+    label: "Facilities",     
+    title: "Next-gen Digital Scanning & Precision Lab",
     date: "May 20, 2025",
     desc: "We have upgraded our facility with the latest 3D digital oral scanners and robotic simulation units, providing our students with hands-on experience in cutting-edge tech.",
     link: "/departments",
@@ -70,8 +70,8 @@ const tabs = [
   },
   { 
     id: "maps",             
-    label: "LOCATE US",                  
-    title: "Navigate Our Multi-Specialty Departments",
+    label: "Locate Us",                  
+    title: "Navigate our Multi-specialty Departments",
     date: "Ongoing",
     desc: "Use our interactive campus map to find your way through our sprawling campus, from the out-patient departments to our research centers and student lounges.",
     link: "https://maps.google.com/?q=Rajarajeswari+Dental+College+Bangalore", 

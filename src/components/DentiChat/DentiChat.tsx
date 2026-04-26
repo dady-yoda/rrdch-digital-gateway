@@ -255,7 +255,9 @@ function stopSpeaking() {
 function speakText(text: string, lang: string, onStart?: () => void, onEnd?: () => void) {
   stopSpeaking();
   const clean = text.replace(/\*\*/g, "").replace(/\n/g, ". ");
-  const isKannada = /[\u0C80-\u0CFF]/.test(clean);
+  
+  // Use the passed lang if it's explicitly Kannada, otherwise detect from content
+  const isKannada = lang === "kn-IN" || /[\u0C80-\u0CFF]/.test(clean);
   const targetLang = isKannada ? "kn-IN" : "en-IN";
 
   fetch("https://api.sarvam.ai/text-to-speech", {
@@ -274,27 +276,41 @@ function speakText(text: string, lang: string, onStart?: () => void, onEnd?: () 
       model: "bulbul:v3"
     })
   })
-  .then(res => res.json())
+  .then(async (res) => {
+    if (!res.ok) {
+      const errData = await res.json().catch(() => ({}));
+      throw new Error(errData.error || `HTTP ${res.status}`);
+    }
+    return res.json();
+  })
   .then(data => {
     if (data.audios && data.audios.length > 0) {
       currentAudio = new Audio("data:audio/wav;base64," + data.audios[0]);
       if (onStart) currentAudio.addEventListener("play", onStart);
       if (onEnd) {
         currentAudio.addEventListener("ended", onEnd);
-        currentAudio.addEventListener("error", onEnd);
+        currentAudio.addEventListener("error", (e) => {
+          console.error("Audio playback error", e);
+          onEnd();
+        });
       }
       currentAudio.play().catch(e => {
         console.error("Audio playback failed", e);
         if (onEnd) onEnd();
       });
     } else {
-      console.error("Sarvam TTS error:", data);
+      console.error("Sarvam TTS error: No audio data in response", data);
       if (onEnd) onEnd();
     }
   })
   .catch(err => {
-    console.error("Failed to fetch Sarvam TTS", err);
+    console.error("Failed to fetch Sarvam TTS:", err.message);
     if (onEnd) onEnd();
+    
+    // Fallback to instant browser TTS if Sarvam fails
+    if (lang === "en-IN") {
+      speakInstant(text, lang, onStart, onEnd);
+    }
   });
 }
 
@@ -657,13 +673,7 @@ export function DentiChatWindow({ open, onClose }: DentiChatWindowProps) {
                 color: chatLang === "en-IN" ? "#fff" : "rgba(255,255,255,0.4)",
               }}
               onClick={() => {
-                chatLangRef.current = "en-IN";
                 setChatLang("en-IN");
-                if (micRequestedRef.current) {
-                  micRequestedRef.current = false;
-                  try { recognitionRef.current?.stop(); } catch {}
-                  setTimeout(() => toggleListening(), 300);
-                }
                 if (ttsEnabled) {
                   const lastMsg = messages.filter(m => m.from === "denti").pop();
                   if (lastMsg) {
@@ -681,13 +691,7 @@ export function DentiChatWindow({ open, onClose }: DentiChatWindowProps) {
                 color: chatLang === "kn-IN" ? "#fff" : "rgba(255,255,255,0.4)",
               }}
               onClick={() => {
-                chatLangRef.current = "kn-IN";
                 setChatLang("kn-IN");
-                if (micRequestedRef.current) {
-                  micRequestedRef.current = false;
-                  try { recognitionRef.current?.stop(); } catch {}
-                  setTimeout(() => toggleListening(), 300);
-                }
                 if (ttsEnabled) {
                   const lastMsg = messages.filter(m => m.from === "denti").pop();
                   if (lastMsg) {
