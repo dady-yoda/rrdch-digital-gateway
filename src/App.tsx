@@ -24,6 +24,7 @@ import DciPage from "./pages/DciPage.tsx";
 import RecognitionsPage from "./pages/RecognitionsPage.tsx";
 import CommitteePage from "./pages/CommitteePage.tsx";
 import AntiRaggingPage from "./pages/AntiRaggingPage.tsx";
+import HostelIssuesPage from "./pages/HostelIssuesPage.tsx";
 import SchedulePage from "./pages/SchedulePage.tsx";
 import CalendarPage from "./pages/CalendarPage.tsx";
 import TimetablePage from "./pages/TimetablePage.tsx";
@@ -91,6 +92,7 @@ const App = () => {
                     <Route path="/recognitions" element={<RecognitionsPage />} />
                     <Route path="/committee" element={<CommitteePage />} />
                     <Route path="/committee/anti-ragging" element={<AntiRaggingPage />} />
+                    <Route path="/committee/hostel-issues" element={<HostelIssuesPage />} />
                     <Route path="/schedule" element={<SchedulePage />} />
                     <Route path="/schedule/calendar" element={<CalendarPage />} />
                     <Route path="/schedule/timetable" element={<TimetablePage />} />

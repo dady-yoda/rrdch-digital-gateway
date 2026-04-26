@@ -76,6 +76,7 @@ const navItems = [
     href: "#",
     children: [
       { label: "Anti-ragging", href: "/committee/anti-ragging", external: false },
+      { label: "Hostel Issues", href: "/committee/hostel-issues", external: false },
     ],
   },
   { label: "DCI", href: "/dci", external: false },
