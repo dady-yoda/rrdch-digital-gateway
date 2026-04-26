@@ -5,17 +5,17 @@ import heroClinical from "@/assets/hero-clinical.jpg";
 import heroGraduation from "@/assets/hero-graduation.jpg";
 
 const slides = [
-  { src: heroCampus, alt: "RRDCH Campus aerial view", caption: "A PREMIER DENTAL INSTITUTION IN BENGALURU" },
-  { src: heroClinical, alt: "Clinical training at RRDCH", caption: "WORLD-CLASS CLINICAL TRAINING" },
-  { src: heroGraduation, alt: "RRDCH Graduation ceremony", caption: "SHAPING FUTURE DENTAL LEADERS" },
+  { src: heroCampus, alt: "RRDCH Campus aerial view", caption: "A Premier Dental Institution in Bengaluru" },
+  { src: heroClinical, alt: "Clinical training at RRDCH", caption: "World-Class Clinical Training" },
+  { src: heroGraduation, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
 ];
 
 const tickerItems = [
-  { text: "📢 APPLICATIONS OPEN FOR BDS & MDS 2026-27", href: "/#academics" },
-  { text: "🏆 NAAC 'A+' ACCREDITED INSTITUTION", href: "/accreditation/naac" },
-  { text: "🎓 MFDS RCPS (GLASGOW) REVISION COURSE AVAILABLE", href: "/mfds-course" },
-  { text: "🦷 ONE YEAR IMPLANTOLOGY COURSE (RGUHS RECOGNISED)", href: "/implantology-course" },
-  { text: "📋 REPUBLIC DAY CELEBRATIONS - VIEW GALLERY", href: "/gallery" },
+  { text: "📢 Applications Open for BDS & MDS 2026-27", href: "/#academics" },
+  { text: "🏆 NAAC 'A+' Accredited Institution", href: "/accreditation/naac" },
+  { text: "🎓 MFDS RCPS (Glasgow) Revision Course Available", href: "/mfds-course" },
+  { text: "🦷 One Year Implantology Course (RGUHS Recognised)", href: "/implantology-course" },
+  { text: "📋 Republic Day Celebrations - View Gallery", href: "/gallery" },
 ];
 
 const HeroSection = () => {
@@ -46,7 +46,7 @@ const HeroSection = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent" />
             <div className="absolute inset-0 bg-black/20" /> {/* Subtle overlay for overall contrast */}
             <div className="absolute bottom-16 md:bottom-24 left-0 right-0 text-center px-4">
-              <h2 className="font-heading text-3xl md:text-5xl lg:text-6xl font-bold text-primary-foreground drop-shadow-lg">
+              <h2 className="font-heading text-2xl md:text-4xl lg:text-5xl font-bold text-primary-foreground drop-shadow-xl tracking-tight max-w-4xl mx-auto">
                 {slide.caption}
               </h2>
             </div>
