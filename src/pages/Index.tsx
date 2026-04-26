@@ -4,6 +4,7 @@ import PillNav from "@/components/PillNav";
 import HeroSection from "@/components/HeroSection";
 import LeadershipSection from "@/components/LeadershipSection";
 import AcademicsSection from "@/components/AcademicsSection";
+import TeethModuleWrapper from "@/components/TeethModuleWrapper";
 import Footer from "@/components/Footer";
 import CampusHighlightsSection from "@/components/CampusHighlightsSection";
 import logo from "@/assets/RRDCH FULL BLACK.png";
@@ -115,6 +116,7 @@ const Index = () => {
         <HeroSection />
         <LeadershipSection />
         <AcademicsSection />
+        <TeethModuleWrapper />
         <CampusHighlightsSection />
       </main>
       <Footer />
