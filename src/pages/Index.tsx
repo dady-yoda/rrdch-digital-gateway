@@ -43,7 +43,7 @@ const navItems = [
       { label: "ORTHODONTICS & DENTOFACIAL ORTHOPEDICS", href: "/department/orthodontics-dento-facial-orthopedics" },
       { label: "PUBLIC HEALTH DENTISTRY", href: "/department/public-health-dentistry" },
       { label: "ORAL & MAXILLOFACIAL PATHOLOGY", href: "/department/oral-pathology-microbiology" },
-      { label: "IMPLANTOLOGY", href: "/department/implantology" },
+      { label: "IMPLPLANTOLOGY", href: "/department/implantology" },
       { label: "RESEARCH & PUBLICATION", href: "/department/research-publication" },
       { label: "OROFACIAL PAIN", href: "/department/orofacial-pain" },
     ],
@@ -90,10 +90,8 @@ const Index = () => {
         <BrandingBar />
       </div>
       
-      {/* Invisible spacer to position PillNav correctly below BrandingBar initially */}
       <div className="w-full h-[120px] md:h-[160px] lg:h-[180px] pointer-events-none shrink-0" />
       
-      {/* Sticky PillNav wrapped in zero-height container so it doesn't add to flow height */}
       <div className="sticky top-5 md:top-10 z-[60] flex justify-center w-full h-0 max-h-0 overflow-visible">
         <div className="pointer-events-auto -mt-4">
           <PillNav
@@ -110,7 +108,6 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Pull main back up by exactly the spacer's height so it starts at Y=0 */}
       <main className="-mt-[120px] md:-mt-[160px] lg:-mt-[180px] relative z-0">
         <HeroSection />
         <LeadershipSection />
