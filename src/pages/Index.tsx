@@ -6,10 +6,7 @@ import LeadershipSection from "@/components/LeadershipSection";
 import AcademicsSection from "@/components/AcademicsSection";
 import Footer from "@/components/Footer";
 import CampusHighlightsSection from "@/components/CampusHighlightsSection";
-import { TeethViewer } from "@/components/TeethViewer/TeethViewer";
 import logo from "@/assets/RRDCH FULL BLACK.png";
-
-
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -87,8 +84,6 @@ const navItems = [
 ];
 
 const Index = () => {
-  const [isTeethViewerOpen, setIsTeethViewerOpen] = useState(false);
-
   return (
     <div className="min-h-screen relative">
       <div className="absolute top-0 left-0 w-full z-[100]">
@@ -120,34 +115,8 @@ const Index = () => {
         <HeroSection />
         <LeadershipSection />
         <AcademicsSection />
-        
-        {/* Know Your Teeth CTA */}
-        <section className="py-24 bg-[#0a0f0b] relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(84,107,65,0.1)_0,transparent_70%)]" />
-          <div className="container mx-auto px-6 relative z-10 text-center">
-            <h4 className="text-[#849a62] font-bold tracking-[0.2em] text-xs uppercase mb-4">Interactive Anatomy</h4>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 tracking-tight">Know Your Teeth</h2>
-            <p className="text-white/60 max-w-2xl mx-auto mb-10 text-lg leading-relaxed">
-              Explore the intricate details of human dental anatomy with our advanced 3D interactive viewer. 
-              Identify incisors, canines, molars, and more in a clinical-grade environment.
-            </p>
-            <button 
-              onClick={() => setIsTeethViewerOpen(true)}
-              className="bg-[#546B41] hover:bg-[#849a62] text-[#FFF8EC] font-bold px-10 py-5 rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-[0_0_30px_rgba(84,107,65,0.4)] flex items-center gap-3 mx-auto"
-            >
-              <span className="text-xl">🦷</span>
-              Launch 3D Viewer
-            </button>
-          </div>
-        </section>
-
         <CampusHighlightsSection />
       </main>
-      
-      <TeethViewer 
-        isOpen={isTeethViewerOpen} 
-        onClose={() => setIsTeethViewerOpen(false)} 
-      />
       <Footer />
     </div>
   );
