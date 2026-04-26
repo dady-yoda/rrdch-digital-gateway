@@ -19,9 +19,9 @@ gsap.registerPlugin(ScrollTrigger);
 const nationalAwards = [
   {
     icon: Award,
-    title: "NAAC A+ Accredited",
+    title: "NAAC A Accredited",
     body: "National Assessment and Accreditation Council",
-    description: "The highest grade awarded by NAAC, recognizing RRDCH's commitment to quality education and infrastructure.",
+    description: "The prestigious 'A' grade awarded by NAAC, recognizing RRDCH's commitment to quality education and infrastructure.",
     color: "hsl(100, 24%, 34%)"
   },
   {
@@ -217,7 +217,7 @@ const RecognitionsPage = () => {
                     <p className="text-xs uppercase font-bold tracking-wider opacity-50">Established</p>
                   </div>
                   <div className="bg-white dark:bg-card p-8 rounded-3xl border border-border shadow-soft flex flex-col items-center text-center translate-y-8">
-                    <p className="text-4xl font-black text-secondary mb-2">A+</p>
+                    <p className="text-4xl font-black text-secondary mb-2">A</p>
                     <p className="text-xs uppercase font-bold tracking-wider opacity-50">NAAC Grade</p>
                   </div>
                 </div>
@@ -232,7 +232,9 @@ const RecognitionsPage = () => {
             <h3 className="text-2xl font-heading font-bold mb-6">Want to learn more about our quality standards?</h3>
             <div className="flex justify-center gap-4">
               <a 
-                href="/accreditation/naac" 
+                href="https://www.rrdch.org/accreditation/naac/" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-xl font-heading font-bold hover:scale-105 transition-transform"
               >
                 View NAAC Reports <ChevronRight className="w-4 h-4" />

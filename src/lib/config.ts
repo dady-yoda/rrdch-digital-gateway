@@ -18,7 +18,7 @@ export type Role = (typeof ROLES)[keyof typeof ROLES];
 
 /** Role → default redirect after login */
 export const ROLE_HOME: Record<Role, string> = {
-  patient: "/patient/booking",
-  doctor: "/doctor/schedule",
-  admin: "/admin/management",
+  patient: "/patient/dashboard",
+  doctor: "/doctor",
+  admin: "/admin",
 };

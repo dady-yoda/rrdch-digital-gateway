@@ -23,3 +23,8 @@ vite.config.ts.timestamp*
 *.njsproj
 *.sln
 *.sw?
+
+# Environment variables
+.env
+.env.local
+.env.production

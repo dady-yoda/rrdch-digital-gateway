@@ -1,36 +1,33 @@
 import { useState } from "react";
 import { useNavigate, Navigate, Link } from "react-router-dom";
 import { useAuth } from "@/lib/auth-context";
+import { ROLE_HOME } from "@/lib/config";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Stethoscope, ShieldCheck, UserRound, ArrowRight, Eye, EyeOff, Loader2 } from "lucide-react";
+import { Stethoscope, ShieldCheck, UserRound, ArrowRight, Eye, EyeOff, Loader2, LockKeyhole } from "lucide-react";
 import logoWhite from "@/assets/RRDCH FULL WHITE.png";
 
-const DEMO_ACCOUNTS = [
+const PORTAL_INFO = [
   {
     role: "patient" as const,
-    label: "Patient",
-    email: "patient@rrdch.org",
+    label: "Patient Portal",
     description: "Book & manage your dental appointments",
     icon: UserRound,
     color: "#546B41",
   },
   {
     role: "doctor" as const,
-    label: "Doctor",
-    email: "doctor@rrdch.org",
+    label: "Doctor Portal",
     description: "View schedule & manage availability",
     icon: Stethoscope,
     color: "#99AD7A",
   },
   {
     role: "admin" as const,
-    label: "Admin",
-    email: "admin@rrdch.org",
-    description: "Full hospital oversight & CRUD",
+    label: "Admin Portal",
+    description: "Full hospital oversight & management",
     icon: ShieldCheck,
     color: "#DCCCAC",
   },
@@ -46,39 +43,28 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  // Already logged in → redirect
+  // Already logged in → redirect to role home
   if (user) return <Navigate to={roleHome} replace />;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
     setSubmitting(true);
-    const result = await login(email, password);
-    setSubmitting(false);
-    if (!result.success) {
-      setError(result.error ?? "Login failed. Please try again.");
-    } else {
-      // navigate happens via the redirect above after user state updates
-      // but we navigate proactively too
-      const role = email.toLowerCase().startsWith("admin")
-        ? "admin"
-        : email.toLowerCase().startsWith("doctor")
-        ? "doctor"
-        : "patient";
-      const dest =
-        role === "admin"
-          ? "/admin/management"
-          : role === "doctor"
-          ? "/doctor/schedule"
-          : "/patient/booking";
-      navigate(dest, { replace: true });
-    }
-  };
 
-  const quickLogin = (demoEmail: string) => {
-    setEmail(demoEmail);
-    setPassword("demo1234");
-    setError("");
+    const result = await login(email.trim(), password);
+    setSubmitting(false);
+
+    if (!result.success) {
+      setError(result.error ?? "Login failed. Please check your credentials.");
+    } else {
+      // useAuth already updated `user` via onAuthStateChange;
+      // navigate based on role returned from the context (via ROLE_HOME).
+      // We read roleHome from the hook — but since state update is async,
+      // we re-derive from the user's role set inside login().
+      // The <Navigate> guard above will fire on next render automatically,
+      // but we also push proactively here for instant UX.
+      navigate(roleHome !== "/login" ? roleHome : ROLE_HOME["patient"], { replace: true });
+    }
   };
 
   return (
@@ -89,7 +75,6 @@ export default function LoginPage() {
         style={{ backgroundColor: "#546B41" }}
       >
         <div>
-          {/* Logo text */}
           <div className="mb-10">
             <Link to="/" className="inline-block hover:opacity-80 transition-opacity" title="Back to Homepage">
               <img src={logoWhite} alt="RRDCH Logo" className="h-[72px] sm:h-[84px] w-auto object-contain drop-shadow-md mb-2" />
@@ -106,32 +91,30 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Role tiles */}
+        {/* Portal tiles — informational only */}
         <div className="space-y-3 mb-4">
-          {DEMO_ACCOUNTS.map((acc) => {
-            const Icon = acc.icon;
+          {PORTAL_INFO.map((p) => {
+            const Icon = p.icon;
             return (
-              <button
-                key={acc.role}
-                onClick={() => quickLogin(acc.email)}
-                className="w-full text-left flex items-center gap-4 p-3.5 rounded-xl bg-white/8 hover:bg-white/15 border border-white/10 hover:border-white/25 transition-all group"
+              <div
+                key={p.role}
+                className="w-full text-left flex items-center gap-4 p-3.5 rounded-xl bg-white/8 border border-white/10"
               >
                 <div
                   className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: `${acc.color}cc` }}
+                  style={{ backgroundColor: `${p.color}cc` }}
                 >
                   <Icon className="w-4 h-4 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-white text-sm font-semibold">{acc.label}</p>
-                  <p className="text-white/50 text-xs leading-tight">{acc.description}</p>
+                  <p className="text-white text-sm font-semibold">{p.label}</p>
+                  <p className="text-white/50 text-xs leading-tight">{p.description}</p>
                 </div>
-                <ArrowRight className="w-4 h-4 text-white/30 group-hover:text-white/70 transition-colors flex-shrink-0" />
-              </button>
+              </div>
             );
           })}
           <p className="text-white/35 text-xs text-center pt-1">
-            Click a role above to auto-fill demo credentials
+            Sign in with your registered credentials
           </p>
         </div>
       </div>
@@ -141,10 +124,7 @@ export default function LoginPage() {
         {/* Mobile header */}
         <div className="md:hidden text-center mb-8">
           <Link to="/" className="inline-block hover:opacity-80 transition-opacity" title="Back to Homepage">
-            <h1
-              className="font-heading text-2xl font-extrabold"
-              style={{ color: "#546B41" }}
-            >
+            <h1 className="font-heading text-2xl font-extrabold" style={{ color: "#546B41" }}>
               RRDCH Portal
             </h1>
           </Link>
@@ -157,7 +137,7 @@ export default function LoginPage() {
             <div className="mb-6">
               <h2 className="font-heading font-bold text-xl text-gray-900">Welcome back</h2>
               <p className="text-gray-500 text-sm mt-1">
-                Sign in to access your portal
+                Sign in with your RRDCH account credentials
               </p>
             </div>
 
@@ -174,7 +154,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="h-11 border-gray-200 focus:border-blue-800 focus:ring-blue-800"
+                  className="h-11 border-gray-200 focus:border-green-700 focus:ring-green-700"
                 />
               </div>
 
@@ -187,23 +167,27 @@ export default function LoginPage() {
                     id="password"
                     type={showPassword ? "text" : "password"}
                     autoComplete="current-password"
-                    placeholder="Any password (demo mode)"
+                    placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="h-11 pr-10 border-gray-200 focus:border-blue-800 focus:ring-blue-800"
+                    required
+                    className="h-11 pr-10 border-gray-200 focus:border-green-700 focus:ring-green-700"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword((v) => !v)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     tabIndex={-1}
+                    aria-label={showPassword ? "Hide password" : "Show password"}
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
-                <p className="text-xs text-gray-400">
-                  Demo mode — any password is accepted
-                </p>
+              <div className="flex items-center justify-end mt-1">
+                <Link to="/forgot-password" className="text-xs font-medium hover:underline" style={{ color: "#546B41" }}>
+                  Forgot password?
+                </Link>
+              </div>
               </div>
 
               {error && (
@@ -214,8 +198,9 @@ export default function LoginPage() {
 
               <Button
                 type="submit"
+                id="login-submit"
                 className="w-full h-11 font-semibold text-sm"
-                disabled={submitting}
+                disabled={submitting || isLoading}
                 style={{ backgroundColor: "#546B41", color: "white" }}
               >
                 {submitting ? (
@@ -228,43 +213,30 @@ export default function LoginPage() {
                   </span>
                 )}
               </Button>
-            </form>
-
-            {/* Mobile quick-login */}
-            <div className="mt-6 md:hidden">
-              <p className="text-xs text-gray-400 text-center mb-3">Quick access (demo)</p>
-              <div className="flex gap-2 justify-center flex-wrap">
-                {DEMO_ACCOUNTS.map((acc) => (
-                  <button
-                    key={acc.role}
-                    onClick={() => quickLogin(acc.email)}
-                    className="px-3 py-1.5 rounded-lg text-xs font-medium text-white transition-opacity hover:opacity-80"
-                    style={{ backgroundColor: acc.color }}
-                  >
-                    {acc.label}
-                  </button>
-                ))}
+              
+              <div className="mt-4 text-center">
+                <p className="text-sm text-gray-600">
+                  Don't have an account?{" "}
+                  <Link to="/signup" className="font-medium hover:underline" style={{ color: "#546B41" }}>
+                    Sign up as a patient
+                  </Link>
+                </p>
               </div>
-            </div>
+            </form>
 
             <div className="mt-6 pt-6 border-t border-gray-100 flex items-center justify-between text-xs text-gray-400">
               <span>RRDCH — Est. 2013</span>
-              <Badge
-                variant="outline"
-                className="text-xs"
-                style={{ borderColor: "#546B4122", color: "#546B41" }}
-              >
-                Demo Mode
-              </Badge>
+              <span className="flex items-center gap-1.5 text-xs font-medium" style={{ color: "#546B41" }}>
+                <LockKeyhole className="w-3.5 h-3.5" />
+                Secure Login
+              </span>
             </div>
           </CardContent>
         </Card>
 
-        <p className="mt-6 text-center text-xs text-gray-400 max-w-xs">
-          Role is automatically detected from your email prefix.
-          Use <span className="font-mono bg-gray-100 px-1 rounded">admin@</span>,{" "}
-          <span className="font-mono bg-gray-100 px-1 rounded">doctor@</span>, or{" "}
-          <span className="font-mono bg-gray-100 px-1 rounded">patient@</span> to test each portal.
+        <p className="mt-5 text-center text-xs text-gray-400 max-w-xs">
+          Access is granted based on your registered role.
+          Contact your administrator if you cannot sign in.
         </p>
       </div>
     </div>

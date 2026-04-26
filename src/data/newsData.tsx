@@ -15,6 +15,32 @@ export interface NewsItem {
 export const newsItems: NewsItem[] = [
   /* ── General / Events ── */
   {
+    slug: "dental-camp-magadi-2026",
+    title: "Dental Screening Camp at Govt Hospital, Magadi",
+    date: "Apr 22, 2026",
+    excerpt:
+      "A Dental screening and treatment camp was organized by the Dept. of Public Health Dentistry at Govt Hospital, Magadi on 22/04/2026.",
+    body: `The Department of Public Health Dentistry at Rajarajeswari Dental College & Hospital conducted a successful dental screening and treatment camp at the Government Hospital in Magadi on April 22, 2026.
+    
+The initiative aimed to bridge the gap in oral healthcare access for the rural population. A team of specialist doctors and post-graduate students provided free consultations, cleanings, and basic restorative treatments to over 120 patients throughout the day. 
+
+Patients were also educated on preventive oral hygiene practices and the importance of early diagnosis in preventing complex dental issues. Those requiring specialized surgical or orthodontic care were referred to the main RRDCH campus in Bengaluru for subsidized treatment.`,
+    category: "General",
+  },
+  {
+    slug: "dental-camp-amruth-distilleries-2026",
+    title: "Dental Screening Camp at Amruth Distilleries",
+    date: "Apr 17, 2026",
+    excerpt:
+      "Dept. of Public Health Dentistry organized a comprehensive dental check-up camp for the employees of Amruth Distilleries on 17/04/2026.",
+    body: `On April 17, 2026, the Department of Public Health Dentistry at RRDCH organized a specialized dental health camp for the industrial workforce at Amruth Distilleries.
+
+The camp was part of RRDCH's corporate social responsibility (CSR) outreach, focusing on occupational oral health. Many industrial workers face unique dental challenges due to their work environments, and this camp provided a convenient way for them to receive professional check-ups.
+
+Our team screened over 150 employees, offering personalized advice on tobacco cessation, oral cancer awareness, and routine maintenance. The management at Amruth Distilleries expressed deep appreciation for the professional conduct and quality of care provided by the RRDCH team.`,
+    category: "General",
+  },
+  {
     slug: "world-health-day-2026",
     title: "World Health Day 2026",
     date: "Apr 10, 2026",

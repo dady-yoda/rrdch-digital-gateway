@@ -43,7 +43,7 @@ const LeadershipSection = () => {
                         We are dedicated to meet the challenges of the new millennium, in the field of medical and technical higher education so as to make 
                         our country a highly industrialized and healthy modern nation."
                       </p>
-                      <Link to="/about-us" className="group/btn relative overflow-hidden inline-flex items-center justify-center px-6 py-2.5 bg-[#FFF8EC] text-[#546B41] rounded-full font-bold text-sm uppercase tracking-[0.2px] w-max shadow-md pointer-events-auto">
+                      <Link to="/about-us" className="group/btn relative overflow-hidden inline-flex items-center justify-center px-6 py-2.5 bg-[#FFF8EC] text-[#546B41] rounded-full font-bold text-sm tracking-[0.2px] w-max shadow-md pointer-events-auto">
                         <span className="absolute left-1/2 -ml-6 -bottom-4 w-12 h-12 bg-[#546B41] rounded-full scale-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:scale-[16]" />
                         <span className="relative flex items-center justify-center h-5 overflow-hidden">
                           <span className="flex items-center transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:-translate-y-[150%]">
@@ -86,7 +86,7 @@ const LeadershipSection = () => {
                         RajaRajeswari Dental College & Hospital is situated at a sprawling 5 acre campus on the Bangalore-Mysore Highway at 19 kms from Vidhana Soudha. The Lush green campus has 4 lakh Sq. feet of modern 
                         building which houses the Dental Institute, its 10 speciality dental clinics, supporting labs and class rooms and residential accommodation for staff and students.
                       </p>
-                      <Link to="/about-us" className="group/btn relative overflow-hidden inline-flex items-center justify-center px-6 py-2.5 bg-[#FFF8EC] text-[#546B41] rounded-full font-bold text-sm uppercase tracking-[0.2px] w-max shadow-md pointer-events-auto">
+                      <Link to="/about-us" className="group/btn relative overflow-hidden inline-flex items-center justify-center px-6 py-2.5 bg-[#FFF8EC] text-[#546B41] rounded-full font-bold text-sm tracking-[0.2px] w-max shadow-md pointer-events-auto">
                         <span className="absolute left-1/2 -ml-6 -bottom-4 w-12 h-12 bg-[#546B41] rounded-full scale-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:scale-[16]" />
                         <span className="relative flex items-center justify-center h-5 overflow-hidden">
                           <span className="flex items-center transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:-translate-y-[150%]">
@@ -124,7 +124,7 @@ const LeadershipSection = () => {
                       <p className="text-white/90 leading-relaxed line-clamp-4 text-sm mb-5 mt-2 drop-shadow-sm">
                         Dental Hospital and Training Dental clinics in all departments have 250 modern dental units / chairs. An average 450 to 500 patients are treated in these clinics daily. Each department is staffed with more than required number of full time and dedicated teachers who are well qualified and experienced in their fields of speciality. Medical College and Hospital and Training RajaRajeswari Medical College and Hospital is a 1000 bedded Medical College Hospital, recognized for undergraduate and postgraduate training by Medical Council of India. All medical subjects are taught at the Medical College for the Dental students and students attend Medical and Surgical clinics at the Medical College & Hospital.
                       </p>
-                      <Link to="/about-us" className="group/btn relative overflow-hidden inline-flex items-center justify-center px-6 py-2.5 bg-[#FFF8EC] text-[#546B41] rounded-full font-bold text-sm uppercase tracking-[0.2px] w-max shadow-md pointer-events-auto">
+                      <Link to="/about-us" className="group/btn relative overflow-hidden inline-flex items-center justify-center px-6 py-2.5 bg-[#FFF8EC] text-[#546B41] rounded-full font-bold text-sm tracking-[0.2px] w-max shadow-md pointer-events-auto">
                         <span className="absolute left-1/2 -ml-6 -bottom-4 w-12 h-12 bg-[#546B41] rounded-full scale-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:scale-[16]" />
                         <span className="relative flex items-center justify-center h-5 overflow-hidden">
                           <span className="flex items-center transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:-translate-y-[150%]">

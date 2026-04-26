@@ -635,3 +635,332 @@
   opacity: 0.35;
   cursor: not-allowed;
 }
+
+/* ══════════════════════════════════════════════════════════════
+   VOICE & AVATAR — New additions
+══════════════════════════════════════════════════════════════ */
+
+/* ── Header variant when chat is active ─────────────────────── */
+.denti-header--chat {
+  padding: 10px 14px;
+}
+
+.denti-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.denti-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.denti-icon-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: rgba(255,255,255,0.65);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+
+.denti-icon-btn:hover,
+.denti-icon-btn.active {
+  background: rgba(84,107,65,0.35);
+  color: #c8e6a0;
+}
+
+/* ── Avatar Orb ──────────────────────────────────────────────── */
+.denti-orb-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Pulse rings — always rendered, visibility driven by state */
+.denti-orb-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(84,107,65,0.45);
+  animation: none;
+  opacity: 0;
+}
+
+/* Idle: gentle single-ring pulse */
+.denti-orb--idle .denti-orb-ring--1 {
+  opacity: 1;
+  animation: orb-pulse-idle 3s ease-in-out infinite;
+}
+
+/* Listening: three fast expanding rings */
+.denti-orb--listening .denti-orb-ring--1 {
+  opacity: 1;
+  animation: orb-expand 1.2s ease-out infinite;
+}
+.denti-orb--listening .denti-orb-ring--2 {
+  opacity: 1;
+  animation: orb-expand 1.2s ease-out 0.4s infinite;
+}
+.denti-orb--listening .denti-orb-ring--3 {
+  opacity: 1;
+  animation: orb-expand 1.2s ease-out 0.8s infinite;
+}
+
+/* Speaking: medium rings */
+.denti-orb--speaking .denti-orb-ring--1 {
+  opacity: 1;
+  border-color: rgba(153,173,122,0.6);
+  animation: orb-expand 1.6s ease-out infinite;
+}
+.denti-orb--speaking .denti-orb-ring--2 {
+  opacity: 1;
+  border-color: rgba(153,173,122,0.4);
+  animation: orb-expand 1.6s ease-out 0.55s infinite;
+}
+
+/* Thinking: slow yellow rings */
+.denti-orb--thinking .denti-orb-ring--1 {
+  opacity: 1;
+  border-color: rgba(251,191,36,0.5);
+  animation: orb-pulse-idle 1s ease-in-out infinite;
+}
+
+@keyframes orb-pulse-idle {
+  0%, 100% { transform: scale(1);    opacity: 0.4; }
+  50%       { transform: scale(1.12); opacity: 0.7; }
+}
+
+@keyframes orb-expand {
+  0%   { transform: scale(0.85); opacity: 0.7; }
+  100% { transform: scale(1.6);  opacity: 0; }
+}
+
+/* Core orb */
+.denti-orb-core {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, rgba(84,107,65,0.25), rgba(61,80,48,0.4));
+  border: 1.5px solid rgba(84,107,65,0.5);
+  box-shadow: 0 0 18px rgba(84,107,65,0.3);
+  transition: box-shadow 0.3s, background 0.3s;
+}
+
+.denti-orb--listening .denti-orb-core {
+  background: linear-gradient(145deg, rgba(248,113,113,0.2), rgba(239,68,68,0.35));
+  border-color: rgba(248,113,113,0.55);
+  box-shadow: 0 0 24px rgba(248,113,113,0.35);
+}
+
+.denti-orb--speaking .denti-orb-core {
+  background: linear-gradient(145deg, rgba(153,173,122,0.2), rgba(84,107,65,0.4));
+  box-shadow: 0 0 24px rgba(153,173,122,0.4);
+}
+
+.denti-orb--thinking .denti-orb-core {
+  background: linear-gradient(145deg, rgba(251,191,36,0.15), rgba(245,158,11,0.3));
+  border-color: rgba(251,191,36,0.45);
+  box-shadow: 0 0 18px rgba(251,191,36,0.25);
+}
+
+.denti-orb-icon {
+  font-size: 42%;
+  line-height: 1;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.2));
+  animation: denti-tooth-wiggle 4s ease-in-out infinite;
+}
+
+/* Sound-wave bars — shown when speaking or listening */
+.denti-orb-waves {
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.denti-orb--speaking .denti-orb-waves,
+.denti-orb--listening .denti-orb-waves {
+  opacity: 1;
+}
+
+.denti-orb-bar {
+  width: 4px;
+  background: rgba(153,173,122,0.75);
+  border-radius: 2px;
+  animation: bar-wave 0.8s ease-in-out infinite alternate;
+  height: 6px;
+}
+
+.denti-orb--listening .denti-orb-bar {
+  background: rgba(248,113,113,0.75);
+}
+
+.denti-orb-bar:nth-child(1) { height: 5px; }
+.denti-orb-bar:nth-child(2) { height: 10px; }
+.denti-orb-bar:nth-child(3) { height: 14px; }
+.denti-orb-bar:nth-child(4) { height: 9px; }
+.denti-orb-bar:nth-child(5) { height: 5px; }
+
+@keyframes bar-wave {
+  from { transform: scaleY(0.4); }
+  to   { transform: scaleY(1.4); }
+}
+
+/* ── Mode Selector Screen ───────────────────────────────────── */
+.denti-mode-select {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 24px 32px;
+  gap: 12px;
+  text-align: center;
+}
+
+.denti-mode-title {
+  margin: 8px 0 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.95);
+  letter-spacing: 0.01em;
+}
+
+.denti-mode-subtitle {
+  font-size: 13px;
+  color: rgba(255,255,255,0.52);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.denti-mode-buttons {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.denti-mode-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 18px 12px;
+  border-radius: 18px;
+  border: 1.5px solid rgba(84,107,65,0.35);
+  background: rgba(84,107,65,0.08);
+  color: rgba(255,255,255,0.88);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
+}
+
+.denti-mode-btn:hover {
+  transform: translateY(-3px);
+  border-color: rgba(84,107,65,0.75);
+  background: rgba(84,107,65,0.2);
+  box-shadow: 0 8px 28px rgba(84,107,65,0.35);
+}
+
+.denti-mode-btn span {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.denti-mode-btn small {
+  font-size: 11px;
+  color: rgba(255,255,255,0.42);
+  line-height: 1.3;
+  text-align: center;
+}
+
+.denti-mode-btn--talk {
+  border-color: rgba(248,113,113,0.35);
+  background: rgba(248,113,113,0.07);
+}
+.denti-mode-btn--talk:hover {
+  border-color: rgba(248,113,113,0.7);
+  background: rgba(248,113,113,0.18);
+  box-shadow: 0 8px 28px rgba(248,113,113,0.25);
+}
+
+/* ── Mic Button ─────────────────────────────────────────────── */
+.denti-mic-btn {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(84,107,65,0.4);
+  background: rgba(84,107,65,0.1);
+  color: rgba(255,255,255,0.72);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  overflow: visible;
+}
+
+.denti-mic-btn:hover {
+  background: rgba(84,107,65,0.25);
+  border-color: rgba(84,107,65,0.7);
+  color: #fff;
+}
+
+.denti-mic-btn--active {
+  background: rgba(248,113,113,0.18);
+  border-color: rgba(248,113,113,0.65);
+  color: #f87171;
+  box-shadow: 0 0 0 3px rgba(248,113,113,0.18);
+  animation: mic-active-glow 1.5s ease-in-out infinite;
+}
+
+.denti-mic-pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(248,113,113,0.55);
+  animation: mic-pulse-ring 1.2s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes mic-active-glow {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(248,113,113,0.18); }
+  50%       { box-shadow: 0 0 0 6px rgba(248,113,113,0.08); }
+}
+
+@keyframes mic-pulse-ring {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* ── Interim speech text ──────────────────────────────────────── */
+.denti-bubble.denti-interim {
+  opacity: 0.6;
+  font-style: italic;
+  border: 1.5px dashed rgba(255,255,255,0.3);
+  background: rgba(84,107,65,0.25);
+}
