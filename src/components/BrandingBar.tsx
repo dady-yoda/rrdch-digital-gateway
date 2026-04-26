@@ -15,16 +15,16 @@ import { useTheme } from "next-themes";
 const quickLinks = [
   { label: "ERP", link: "https://rrdch.eduwizerp.com/", external: true },
   { label: "ESI", link: "/esi", external: false },
-  { label: "Webmail", link: "https://outlook.office365.com/mail/", external: true },
+  { label: "WEBMAIL", link: "https://outlook.office365.com/mail/", external: true },
   { label: "NAAC", link: "/accreditation/naac", external: false },
   { label: "NIRF", link: "/accreditation/nirf", external: false },
-  { label: "Circulars", link: "/circulars", external: false },
-  { label: "E-Content", link: "https://drive.google.com/drive/folders/1t7QoWpaW8v_9I00_kl8bjrlotHI8JC1x?usp=sharing", external: true },
-  { label: "Online Fees", link: "https://rrdch.eduwizerp.com/", external: true },
-  { label: "Fee Terms", link: "/fee-terms", external: false },
-  { label: "Career", link: "/career", external: false },
-  { label: "Feedback", link: "/feedback", external: false },
-  { label: "Contact Us", link: "/#contact", external: false },
+  { label: "CIRCULARS", link: "/circulars", external: false },
+  { label: "E-CONTENT", link: "https://drive.google.com/drive/folders/1t7QoWpaW8v_9I00_kl8bjrlotHI8JC1x?usp=sharing", external: true },
+  { label: "ONLINE FEES", link: "https://rrdch.eduwizerp.com/", external: true },
+  { label: "FEE TERMS", link: "/fee-terms", external: false },
+  { label: "CAREER", link: "/career", external: false },
+  { label: "FEEDBACK", link: "/feedback", external: false },
+  { label: "CONTACT US", link: "/#contact", external: false },
 ];
 
 const accreditations = [

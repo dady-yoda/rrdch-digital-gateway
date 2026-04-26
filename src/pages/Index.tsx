@@ -85,15 +85,13 @@ const navItems = [
 
 const Index = () => {
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative overflow-x-hidden">
       <div className="absolute top-0 left-0 w-full z-[100]">
         <BrandingBar />
       </div>
       
-      {/* Invisible spacer to position PillNav correctly below BrandingBar initially */}
       <div className="w-full h-[120px] md:h-[160px] lg:h-[180px] pointer-events-none shrink-0" />
       
-      {/* Sticky PillNav wrapped in zero-height container so it doesn't add to flow height */}
       <div className="sticky top-5 md:top-10 z-[60] flex justify-center w-full h-0 max-h-0 overflow-visible">
         <div className="pointer-events-auto -mt-4">
           <PillNav
@@ -110,7 +108,6 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Pull main back up by exactly the spacer's height so it starts at Y=0 */}
       <main className="-mt-[120px] md:-mt-[160px] lg:-mt-[180px] relative z-0">
         <HeroSection />
         <LeadershipSection />
