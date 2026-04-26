@@ -1,4 +1,5 @@
 import { useState, useRef, useLayoutEffect, useCallback, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, Menu, X, ChevronDown } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
 import { LanguageToggle } from "./language-toggle";
@@ -30,6 +31,8 @@ const navItems: NavItem[] = [
       { label: "Management", href: "/about-us/management" },
       { label: "Vision & Mission", href: "/about-us/vision" },
       { label: "Governing Council", href: "/about-us/council" },
+      { label: "Recognitions", href: "/recognitions" },
+      { label: "Facilities", href: "/facilities" },
     ],
   },
   {
@@ -78,9 +81,10 @@ const navItems: NavItem[] = [
       { label: "Anti-Ragging", href: "/committee/anti-ragging" },
     ],
   },
+  { label: "News & Events", href: "/news" },
+  { label: "Alumni", href: "https://rrdch.org/alumni/", external: true },
   { label: "ESI", href: "/esi" },
   { label: "DCI", href: "/dci" },
-  { label: "Recognitions", href: "/recognitions" },
 ];
 
 const EASE = "power3.out";
@@ -91,6 +95,14 @@ const NavigationBar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const searchDropdownRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+
+  const handleSearch = useCallback((value: string) => {
+    const q = value.trim();
+    if (!q) return;
+    setSearchOpen(false);
+    navigate(`/search?q=${encodeURIComponent(q)}`);
+  }, [navigate]);
 
   // Pill animation refs
   const circleRefs = useRef<(HTMLSpanElement | null)[]>([]);
@@ -303,6 +315,7 @@ const NavigationBar = () => {
                       aria-label="Search"
                       onKeyDown={(e) => {
                         if (e.key === "Escape") setSearchOpen(false);
+                        if (e.key === "Enter") handleSearch(e.currentTarget.value);
                       }}
                     />
                     <button

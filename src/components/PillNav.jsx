@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { Search, X, Moon, Sun, ChevronDown } from 'lucide-react';
 import { useTheme } from 'next-themes';
@@ -42,6 +42,14 @@ const PillNav = ({
   const actionButtonsRef = useRef(null);
 
   const { setTheme, theme } = useTheme();
+  const navigate = useNavigate();
+
+  const handleSearch = (value) => {
+    const q = (value || '').trim();
+    if (!q) return;
+    setSearchOpen(false);
+    navigate(`/search?q=${encodeURIComponent(q)}`);
+  };
 
   // Pill circle animation layout
   useEffect(() => {
@@ -377,8 +385,9 @@ const PillNav = ({
                     className="pill-search-input"
                     aria-label="Search"
                     onKeyDown={(e) => {
-                      if (e.key === 'Escape') setSearchOpen(false);
-                    }}
+                       if (e.key === 'Escape') setSearchOpen(false);
+                       if (e.key === 'Enter') handleSearch(e.currentTarget.value);
+                     }}
                   />
                   <button
                     className="pill-search-close"
@@ -433,6 +442,9 @@ const PillNav = ({
             type="text"
             placeholder="Search..."
             className="mobile-search-input"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleSearch(e.currentTarget.value);
+            }}
           />
         </div>
         <ul className="mobile-menu-list">

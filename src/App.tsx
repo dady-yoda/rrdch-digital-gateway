@@ -11,6 +11,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import LoadingScreen from "@/components/LoadingScreen";
 import ScrollToTop from "@/components/ScrollToTop";
 import FloatingCTA from "@/components/FloatingCTA";
+import SmoothScroll from "@/components/SmoothScroll";
 
 // Public pages
 import Index from "./pages/Index.tsx";
@@ -45,6 +46,8 @@ import DepartmentsPage from "./pages/DepartmentsPage.tsx";
 import DepartmentDetailPage from "./pages/DepartmentDetailPage.tsx";
 import CourseDetailPage from "./pages/CourseDetailPage.tsx";
 import AboutUsPage from "./pages/AboutUsPage.tsx";
+import FacilitiesPage from "./pages/FacilitiesPage.tsx";
+import SearchPage from "./pages/SearchPage.tsx";
 
 // DMS pages
 import LoginPage from "./pages/LoginPage.tsx";
@@ -72,12 +75,14 @@ const App = () => {
               <Toaster />
               <Sonner />
               <BrowserRouter>
-                <AuthProvider>
-                  <ScrollToTop />
-                  <FloatingCTA />
-                  <Routes>
+                <SmoothScroll>
+                  <AuthProvider>
+                    <ScrollToTop />
+                    <FloatingCTA />
+                    <Routes>
                     {/* ── Public ── */}
                     <Route path="/" element={<Index />} />
+                    <Route path="/search" element={<SearchPage />} />
                     <Route path="/esi" element={<EsiPage />} />
                     <Route path="/accreditation" element={<AccreditationPage />} />
                     <Route path="/accreditation/naac" element={<NaacPage />} />
@@ -91,7 +96,16 @@ const App = () => {
                     <Route path="/schedule/timetable" element={<TimetablePage />} />
                     <Route path="/newsletter" element={<NewsletterPage />} />
                     <Route path="/feedback" element={<FeedbackPage />} />
+                    <Route path="/career" element={<CareerPage />} />
+                    <Route path="/circulars" element={<CircularsPage />} />
+                    <Route path="/fee-terms" element={<FeeTermsPage />} />
+                    <Route path="/brochure" element={<BrochurePage />} />
                     <Route path="/gallery" element={<GalleryPage />} />
+
+                    {/* ── News ── */}
+                    <Route path="/news" element={<NewsPage />} />
+                    <Route path="/news/:id" element={<NewsDetailPage />} />
+
                     <Route path="/implantology-course" element={<ImplantologyCoursePage />} />
                     <Route path="/mfds-course" element={<MfdsCoursePage />} />
                     <Route path="/course/bds" element={<BdsPage />} />
@@ -102,6 +116,7 @@ const App = () => {
                     {/* ── About Us ── */}
                     <Route path="/about-us" element={<AboutUsPage />} />
                     <Route path="/about-us/:tab" element={<AboutUsPage />} />
+                    <Route path="/facilities" element={<FacilitiesPage />} />
 
                     {/* ── Departments ── */}
                     <Route path="/departments" element={<DepartmentsPage />} />
@@ -145,7 +160,8 @@ const App = () => {
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </AuthProvider>
-              </BrowserRouter>
+              </SmoothScroll>
+            </BrowserRouter>
             </TooltipProvider>
           </ThemeProvider>
         </LanguageProvider>

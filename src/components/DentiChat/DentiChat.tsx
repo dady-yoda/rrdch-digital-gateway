@@ -215,7 +215,7 @@ function getVoices(): Promise<SpeechSynthesisVoice[]> {
         resolve(_cachedVoices);
       };
       window.speechSynthesis.onvoiceschanged = handler;
-      setTimeout(() => resolve(_cachedVoices), 3000);
+      setTimeout(() => resolve(_cachedVoices), 500);
     }
   });
 }
@@ -298,6 +298,23 @@ function speakText(text: string, lang: string, onStart?: () => void, onEnd?: () 
   });
 }
 
+// Instant browser TTS — zero network latency, used for welcome greeting
+function speakInstant(text: string, lang: string, onStart?: () => void, onEnd?: () => void) {
+  if (!window.speechSynthesis) { if (onEnd) onEnd(); return; }
+  window.speechSynthesis.cancel();
+  const clean = text.replace(/\*\*/g, "").replace(/\n/g, ". ");
+  const utter = new SpeechSynthesisUtterance(clean);
+  utter.lang = lang;
+  utter.rate = 1.05;
+  utter.pitch = 1.1;
+  const voices = window.speechSynthesis.getVoices();
+  const best = getBestVoice(lang, voices);
+  if (best) utter.voice = best;
+  if (onStart) utter.onstart = onStart;
+  if (onEnd) { utter.onend = onEnd; utter.onerror = onEnd as any; }
+  window.speechSynthesis.speak(utter);
+}
+
 /* ─────────────────────────────────────────────────────────────
    Main Chat Window
 ───────────────────────────────────────────────────────────── */
@@ -345,6 +362,9 @@ export function DentiChatWindow({ open, onClose }: DentiChatWindowProps) {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping, interimText]);
+
+  // ── Pre-warm voices on mount ─────────────────────────────
+  useEffect(() => { getVoices().catch(() => {}); }, []);
 
   // ── Focus input ───────────────────────────────────────────
   useEffect(() => {
@@ -457,9 +477,12 @@ export function DentiChatWindow({ open, onClose }: DentiChatWindowProps) {
     const welcomeMsgs = getWelcomeMessages(chatLangRef.current);
     setMessages(welcomeMsgs);
     if (mode === "talk") {
-      speakText(
-        translateText(welcomeMsgs[0].text, chatLangRef.current),
-        chatLangRef.current,
+      const welcomeText = translateText(welcomeMsgs[0].text, chatLangRef.current);
+      const lang = chatLangRef.current;
+      // Speak instantly via browser SpeechSynthesis — no network wait
+      speakInstant(
+        welcomeText,
+        lang,
         () => setAvatarState("speaking"),
         () => setAvatarState("idle")
       );
