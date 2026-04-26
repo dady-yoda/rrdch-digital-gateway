@@ -25,9 +25,5 @@ dist-ssr
 
 # Environment variables
 .env
-
-# 3D Campus Navigator (Local Only)
-src/components/CampusNavigator.tsx
-src/components/CampusNavigator.css
 .env.local
 .env.production

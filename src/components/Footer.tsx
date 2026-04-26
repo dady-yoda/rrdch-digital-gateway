@@ -1,5 +1,13 @@
-import { Phone, Mail, MapPin, Facebook, Youtube, Linkedin, Instagram, Twitter, ExternalLink, GraduationCap, Lock } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Youtube, Linkedin, Instagram, Twitter, ExternalLink, GraduationCap, Lock, Box } from "lucide-react";
 import { Link } from "react-router-dom";
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogTrigger 
+} from "@/components/ui/dialog";
+import CampusNavigator from "./CampusNavigator";
 
 const sisterConcerns = [
   { label: "RajaRajeswari Medical College & Hospital", href: "http://www.rrmch.org/", external: true },
@@ -77,6 +85,24 @@ const Footer = () => {
                   <ExternalLink className="w-4 h-4 text-accent/70 group-hover:text-accent transition-colors" />
                   Virtual Campus Tour (360°)
                 </a>
+              </li>
+              <li>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button className="flex items-center gap-2 hover:text-accent transition-colors group">
+                      <Box className="w-4 h-4 text-accent/70 group-hover:text-accent transition-colors" />
+                      3D Campus Explorer (Interactive)
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-[95vw] w-full h-[90vh] p-0 overflow-hidden border-none bg-background/95 backdrop-blur-md">
+                    <DialogHeader className="sr-only">
+                      <DialogTitle>3D Campus Explorer</DialogTitle>
+                    </DialogHeader>
+                    <div className="w-full h-full">
+                      <CampusNavigator />
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </li>
               <li>
                 <a href="http://www.rrdch.org/pdf/brochure.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 hover:text-accent transition-colors group">
