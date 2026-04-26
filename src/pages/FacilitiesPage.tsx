@@ -141,7 +141,7 @@ const FacilitiesPage = () => {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <a 
-                href="https://www.rrdch.org/360tour/" 
+                href="https://www.easytourz.com/BT-EmabedTour/all/2e6200684201ca03" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-xl font-heading font-bold hover:scale-105 transition-transform shadow-lg shadow-primary/20"
