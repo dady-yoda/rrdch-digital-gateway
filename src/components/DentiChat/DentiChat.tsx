@@ -243,6 +243,8 @@ function getBestVoice(lang: string, voices: SpeechSynthesisVoice[]): SpeechSynth
 
 let currentAudio: HTMLAudioElement | null = null;
 
+const audioCache: Record<string, string> = {};
+
 function stopSpeaking() {
   window.speechSynthesis?.cancel();
   if (currentAudio) {
@@ -260,7 +262,20 @@ function speakText(text: string, lang: string, onStart?: () => void, onEnd?: () 
   const isKannada = lang === "kn-IN" || /[\u0C80-\u0CFF]/.test(clean);
   const targetLang = isKannada ? "kn-IN" : "en-IN";
 
-  // Optimization: Reduce sample rate and disable preprocessing for faster response
+  // Check cache first for instant playback
+  const cacheKey = `${targetLang}:${clean}`;
+  if (audioCache[cacheKey]) {
+    currentAudio = new Audio("data:audio/wav;base64," + audioCache[cacheKey]);
+    if (onStart) currentAudio.addEventListener("play", onStart);
+    if (onEnd) currentAudio.addEventListener("ended", onEnd);
+    currentAudio.play().catch(e => {
+      console.error("Cached audio playback failed", e);
+      if (onEnd) onEnd();
+    });
+    return;
+  }
+
+  // Optimization: Use bulbul:v2 which is faster
   fetch("https://api.sarvam.ai/text-to-speech", {
     method: "POST",
     headers: {
@@ -271,10 +286,10 @@ function speakText(text: string, lang: string, onStart?: () => void, onEnd?: () 
       inputs: [clean],
       target_language_code: targetLang,
       speaker: "priya",
-      pace: 1.1, // Slightly faster pace
+      pace: 1.25, // Increased pace for even faster talk
       speech_sample_rate: 8000,
-      enable_preprocessing: false, // Disabling preprocessing for speed
-      model: "bulbul:v3"
+      enable_preprocessing: false, 
+      model: "bulbul:v2" // Switching to v2 which is often faster to initialize
     })
   })
   .then(async (res) => {
@@ -286,7 +301,9 @@ function speakText(text: string, lang: string, onStart?: () => void, onEnd?: () 
   })
   .then(data => {
     if (data.audios && data.audios.length > 0) {
-      currentAudio = new Audio("data:audio/wav;base64," + data.audios[0]);
+      const base64 = data.audios[0];
+      audioCache[cacheKey] = base64; // Save to cache
+      currentAudio = new Audio("data:audio/wav;base64," + base64);
       if (onStart) currentAudio.addEventListener("play", onStart);
       if (onEnd) {
         currentAudio.addEventListener("ended", onEnd);
