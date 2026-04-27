@@ -286,27 +286,13 @@ function speakText(text: string, lang: string, onStart?: () => void, onEnd?: () 
   })
   .then(data => {
     if (data.audios && data.audios.length > 0) {
-      // Use Blob instead of Data URI for better performance
-      const audioData = atob(data.audios[0]);
-      const arrayBuffer = new ArrayBuffer(audioData.length);
-      const view = new Uint8Array(arrayBuffer);
-      for (let i = 0; i < audioData.length; i++) {
-        view[i] = audioData.charCodeAt(i);
-      }
-      const blob = new Blob([arrayBuffer], { type: 'audio/wav' });
-      const url = URL.createObjectURL(blob);
-      
-      currentAudio = new Audio(url);
+      currentAudio = new Audio("data:audio/wav;base64," + data.audios[0]);
       if (onStart) currentAudio.addEventListener("play", onStart);
       if (onEnd) {
-        currentAudio.addEventListener("ended", () => {
-          onEnd();
-          URL.revokeObjectURL(url);
-        });
+        currentAudio.addEventListener("ended", onEnd);
         currentAudio.addEventListener("error", (e) => {
           console.error("Audio playback error", e);
           onEnd();
-          URL.revokeObjectURL(url);
         });
       }
       currentAudio.play().catch(e => {
@@ -712,8 +698,8 @@ export function DentiChatWindow({ open, onClose }: DentiChatWindowProps) {
                   const lastMsg = messages.filter(m => m.from === "denti").pop();
                   if (lastMsg) {
                     const translated = translateText(lastMsg.text, "kn-IN");
-                    // Use speakInstant for immediate feedback when switching
-                    speakInstant(translated, "kn-IN", () => setAvatarState("speaking"), () => setAvatarState("idle"));
+                    // Use speakText (Sarvam) but with 0 delay
+                    speakText(translated, "kn-IN", () => setAvatarState("speaking"), () => setAvatarState("idle"));
                   }
                 }
               }}
