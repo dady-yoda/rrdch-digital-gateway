@@ -2,14 +2,42 @@ import React, { useRef, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useGLTF, OrbitControls, Center, Environment, Html } from "@react-three/drei";
 import * as THREE from "three";
+import { useNavigate } from "react-router-dom";
 import teethModelUrl from "@/assets/human_mouth_optimized.glb?url";
+
+const TOOTH_INFO: Record<string, { desc: string, detail: string }> = {
+  "Upper Central Incisors": { desc: "Sharp, chisel-shaped front teeth.", detail: "Used primarily for cutting food." },
+  "Lower Central Incisors": { desc: "Sharp, chisel-shaped front teeth.", detail: "Used primarily for cutting food." },
+  "Upper Lateral Incisors": { desc: "Positioned next to the central incisors.", detail: "Help in cutting and tearing small pieces of food." },
+  "Lower Lateral Incisors": { desc: "Positioned next to the central incisors.", detail: "Help in cutting and tearing small pieces of food." },
+  "Upper Canines": { desc: "Pointed teeth used for tearing food.", detail: "Also known as cuspids, they are the longest teeth." },
+  "Lower Canines": { desc: "Pointed teeth used for tearing food.", detail: "Also known as cuspids, they are the longest teeth." },
+  "Upper Premolars": { desc: "Flat surface with ridges.", detail: "Transitional teeth for crushing and grinding." },
+  "Lower Premolars": { desc: "Flat surface with ridges.", detail: "Transitional teeth for crushing and grinding." },
+  "Upper Molars": { desc: "Large, flat teeth at the back of the mouth.", detail: "Primary function is to vigorously chew and grind." },
+  "Lower Molars": { desc: "Large, flat teeth at the back of the mouth.", detail: "Primary function is to vigorously chew and grind." },
+  "Tongue": { desc: "A strong muscular organ in the mouth.", detail: "Vital for chewing, swallowing, and speech." },
+  "Upper Gums": { desc: "Soft tissue covering the upper jawbone.", detail: "Protects the roots of your upper teeth." },
+  "Lower Gums": { desc: "Soft tissue covering the lower jawbone.", detail: "Protects the roots of your lower teeth." },
+  "Oral Cavity": { desc: "The first section of the digestive tract.", detail: "Includes teeth, gums, tongue, and palate." }
+};
+
+const getToothDepartment = (name: string): { label: string, url: string } => {
+  if (name.includes("Gums")) {
+    return { label: "Periodontics", url: "/departments/periodontics" };
+  } else if (name === "Tongue" || name === "Oral Cavity") {
+    return { label: "Oral Medicine", url: "/departments/oral-medicine" };
+  } else if (name.includes("Incisors") || name.includes("Canines") || name.includes("Premolars") || name.includes("Molars")) {
+    return { label: "Conservative Dentistry", url: "/departments/conservative-dentistry" };
+  }
+  return { label: "Oral Surgery", url: "/departments/oral-surgery" };
+};
 
 /* ── 3D Model — Renders the detailed open mouth ── */
 const TeethModel = ({ setHoveredTooth, setHoverPoint }: { setHoveredTooth: (name: string | null) => void, setHoverPoint: (pt: THREE.Vector3 | null) => void }) => {
   const gltf = useGLTF(teethModelUrl);
   const groupRef = useRef<THREE.Group>(null);
   const [modelLoaded, setModelLoaded] = useState(false);
-  const hoverTimeout = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (!groupRef.current || !gltf.scene) return;
@@ -30,8 +58,6 @@ const TeethModel = ({ setHoveredTooth, setHoverPoint }: { setHoveredTooth: (name
     e.stopPropagation();
     if (e.object.isMesh) {
       document.body.style.cursor = 'pointer';
-      
-      if (hoverTimeout.current) clearTimeout(hoverTimeout.current);
       
       const matName = e.object.material?.name?.toLowerCase() || "";
       let displayName = "Oral Cavity";
@@ -61,8 +87,8 @@ const TeethModel = ({ setHoveredTooth, setHoverPoint }: { setHoveredTooth: (name
         // Gums and Oral Cavity (Object_0 or Object_2)
         // If it's the explicit tongue mesh, it's the tongue.
         // Additionally, as requested: if the cursor is physically between the upper and lower teeth
-        // (Y is in the gap range), we classify the back of the throat/inner tissue as the Tongue!
-        const isInMouthGap = localPoint.y > -0.035 && localPoint.y < 0.015;
+        // (anything below the upper teeth and above the lower teeth), we classify it as the Tongue!
+        const isInMouthGap = localPoint.y > -0.055 && localPoint.y < 0.025;
         
         if (isTongueMesh || isInMouthGap) {
           displayName = "Tongue";
@@ -87,11 +113,8 @@ const TeethModel = ({ setHoveredTooth, setHoverPoint }: { setHoveredTooth: (name
     e.stopPropagation();
     document.body.style.cursor = 'auto';
     
-    // Add a delay so the user can comfortably move their mouse to the button!
-    hoverTimeout.current = setTimeout(() => {
-      setHoveredTooth(null);
-      setHoverPoint(null);
-    }, 400); // 400ms grace period
+    setHoveredTooth(null);
+    setHoverPoint(null);
     
     if (e.object.isMesh && e.object.material && e.object.material.emissive && e.object.userData.prevEmissive) {
       e.object.material.emissive.copy(e.object.userData.prevEmissive);
@@ -153,17 +176,33 @@ const Loader = () => {
 export default function TeethModule() {
   const [hoveredTooth, setHoveredTooth] = useState<string | null>(null);
   const [hoverPoint, setHoverPoint] = useState<THREE.Vector3 | null>(null);
+<<<<<<< Updated upstream
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+=======
+  const [showQuiz, setShowQuiz] = useState(false);
+  
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const navigate = useNavigate();
+>>>>>>> Stashed changes
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setMousePos({ x: e.clientX, y: e.clientY });
+  const handleSetHoveredTooth = (name: string | null) => {
+    if (name) {
+      if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+      setHoveredTooth(name);
+    } else {
+      hoverTimeoutRef.current = setTimeout(() => {
+        setHoveredTooth(null);
+      }, 500); // Increased grace period for longer travel distance
+    }
+  };
+
+  const handleSetHoverPoint = (pt: THREE.Vector3 | null) => {
+    if (pt) setHoverPoint(pt);
+    // Let the timeout above handle clearing
   };
 
   return (
-    <div 
-      style={{ width: "100%", height: "100%", position: "relative", background: "transparent" }}
-      onMouseMove={handleMouseMove}
-    >
+    <div style={{ width: "100%", height: "100%", position: "relative", background: "transparent" }}>
       <Canvas gl={{ alpha: true, antialias: true }} camera={{ position: [0, 0, 7], fov: 45 }} style={{ background: "transparent" }}>
         
         <OrbitControls 
@@ -181,33 +220,95 @@ export default function TeethModule() {
         <Environment preset="studio" />
 
         <React.Suspense fallback={<Loader />}>
-          <TeethModel setHoveredTooth={setHoveredTooth} setHoverPoint={setHoverPoint} />
+          <TeethModel setHoveredTooth={handleSetHoveredTooth} setHoverPoint={handleSetHoverPoint} />
         </React.Suspense>
-      </Canvas>
 
-      {/* Clean, Simple Hover Tooltip */}
-      {hoveredTooth && (
-        <div
-          style={{
-            position: "fixed",
-            left: mousePos.x + 15,
-            top: mousePos.y + 15,
-            background: "rgba(0, 0, 0, 0.85)",
-            color: "#fff",
-            padding: "8px 16px",
-            borderRadius: "12px",
-            fontSize: "15px",
-            fontWeight: "600",
-            pointerEvents: "none",
-            zIndex: 100,
-            boxShadow: "0 8px 32px rgba(0,0,0,0.3)",
-            backdropFilter: "blur(8px)",
-            animation: "fadeIn 0.1s ease"
-          }}
-        >
-          {hoveredTooth}
-        </div>
-      )}
+        {/* Anchored 3D HTML Card */}
+        {hoveredTooth && hoverPoint && (() => {
+          const info = TOOTH_INFO[hoveredTooth] || { desc: "Part of the dental anatomy.", detail: "Important for overall oral health." };
+          const dept = getToothDepartment(hoveredTooth);
+          return (
+            <Html position={hoverPoint} zIndexRange={[100, 0]}>
+              <div
+                onMouseEnter={() => {
+                  if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+                }}
+                onMouseLeave={() => {
+                  hoverTimeoutRef.current = setTimeout(() => {
+                    setHoveredTooth(null);
+                  }, 500);
+                }}
+                style={{
+                  transform: "translate3d(120px, -100px, 0)", // Pushed significantly further from the 3D model
+                  background: "rgba(15, 23, 42, 0.95)",
+                  color: "#fff",
+                  padding: "16px",
+                  borderRadius: "12px",
+                  width: "250px",
+                  pointerEvents: "auto",
+                  boxShadow: "0 10px 40px rgba(0,0,0,0.5)",
+                  backdropFilter: "blur(8px)",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                  animation: "fadeIn 0.15s ease-out"
+                }}
+              >
+                {/* The Arrow pointing left towards the 3D surface point */}
+                <div style={{
+                  position: "absolute",
+                  left: "-8px",
+                  top: "20px",
+                  width: "0",
+                  height: "0",
+                  borderTop: "8px solid transparent",
+                  borderBottom: "8px solid transparent",
+                  borderRight: "8px solid rgba(15, 23, 42, 0.95)",
+                  pointerEvents: "none"
+                }} />
+                
+                <h3 style={{ margin: 0, fontSize: "16px", fontWeight: "700", color: "#a3e635", borderBottom: "1px solid rgba(255,255,255,0.1)", paddingBottom: "8px" }}>
+                  {hoveredTooth}
+                </h3>
+                <div style={{ fontSize: "13px", color: "#f8fafc", lineHeight: "1.5" }}>
+                  <p style={{ margin: "0 0 6px 0", fontWeight: "500" }}>{info.desc}</p>
+                  <p style={{ margin: 0, color: "#cbd5e1" }}>{info.detail}</p>
+                </div>
+                
+                {/* Department Redirect Button */}
+                <button
+                  onClick={() => navigate(dept.url)}
+                  style={{
+                    marginTop: "4px",
+                    background: "rgba(84, 107, 65, 0.8)",
+                    color: "#fff",
+                    border: "1px solid rgba(163, 230, 53, 0.3)",
+                    padding: "8px 12px",
+                    borderRadius: "8px",
+                    fontSize: "12px",
+                    fontWeight: "600",
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "rgba(109, 138, 85, 0.9)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "rgba(84, 107, 65, 0.8)";
+                  }}
+                >
+                  <span>{dept.label} Dept</span>
+                  <span style={{ fontSize: "14px" }}>→</span>
+                </button>
+              </div>
+            </Html>
+          );
+        })()}
+      </Canvas>
 
       {/* Footer Controls & Actions */}
       <div
