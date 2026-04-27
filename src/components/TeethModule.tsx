@@ -176,14 +176,8 @@ const Loader = () => {
 export default function TeethModule() {
   const [hoveredTooth, setHoveredTooth] = useState<string | null>(null);
   const [hoverPoint, setHoverPoint] = useState<THREE.Vector3 | null>(null);
-<<<<<<< Updated upstream
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-=======
-  const [showQuiz, setShowQuiz] = useState(false);
-  
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const navigate = useNavigate();
->>>>>>> Stashed changes
 
   const handleSetHoveredTooth = (name: string | null) => {
     if (name) {
