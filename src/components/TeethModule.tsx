@@ -3,6 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { useGLTF, OrbitControls, Center, Environment, Html } from "@react-three/drei";
 import * as THREE from "three";
 import teethModelUrl from "@/assets/human_mouth_optimized.glb?url";
+import OralHealthQuiz from "./OralHealthQuiz";
 
 /* ── 3D Model — Renders the detailed open mouth ── */
 const TeethModel = ({ setHoveredTooth, setHoverPoint }: { setHoveredTooth: (name: string | null) => void, setHoverPoint: (pt: THREE.Vector3 | null) => void }) => {
@@ -154,6 +155,7 @@ export default function TeethModule() {
   const [hoveredTooth, setHoveredTooth] = useState<string | null>(null);
   const [hoverPoint, setHoverPoint] = useState<THREE.Vector3 | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [showQuiz, setShowQuiz] = useState(false);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     setMousePos({ x: e.clientX, y: e.clientY });
@@ -261,12 +263,14 @@ export default function TeethModule() {
           }}
           onClick={(e) => {
             e.stopPropagation();
-            alert("Quiz feature triggered!");
+            setShowQuiz(true);
           }}
         >
           Take a Quiz
         </button>
       </div>
+      
+      {showQuiz && <OralHealthQuiz onClose={() => setShowQuiz(false)} />}
     </div>
   );
 }
