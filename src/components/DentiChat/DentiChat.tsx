@@ -260,6 +260,7 @@ function speakText(text: string, lang: string, onStart?: () => void, onEnd?: () 
   const isKannada = lang === "kn-IN" || /[\u0C80-\u0CFF]/.test(clean);
   const targetLang = isKannada ? "kn-IN" : "en-IN";
 
+  // Optimization: Reduce sample rate and disable preprocessing for faster response
   fetch("https://api.sarvam.ai/text-to-speech", {
     method: "POST",
     headers: {
@@ -270,9 +271,9 @@ function speakText(text: string, lang: string, onStart?: () => void, onEnd?: () 
       inputs: [clean],
       target_language_code: targetLang,
       speaker: "priya",
-      pace: 1.0,
+      pace: 1.1, // Slightly faster pace
       speech_sample_rate: 8000,
-      enable_preprocessing: true,
+      enable_preprocessing: false, // Disabling preprocessing for speed
       model: "bulbul:v3"
     })
   })
@@ -285,13 +286,27 @@ function speakText(text: string, lang: string, onStart?: () => void, onEnd?: () 
   })
   .then(data => {
     if (data.audios && data.audios.length > 0) {
-      currentAudio = new Audio("data:audio/wav;base64," + data.audios[0]);
+      // Use Blob instead of Data URI for better performance
+      const audioData = atob(data.audios[0]);
+      const arrayBuffer = new ArrayBuffer(audioData.length);
+      const view = new Uint8Array(arrayBuffer);
+      for (let i = 0; i < audioData.length; i++) {
+        view[i] = audioData.charCodeAt(i);
+      }
+      const blob = new Blob([arrayBuffer], { type: 'audio/wav' });
+      const url = URL.createObjectURL(blob);
+      
+      currentAudio = new Audio(url);
       if (onStart) currentAudio.addEventListener("play", onStart);
       if (onEnd) {
-        currentAudio.addEventListener("ended", onEnd);
+        currentAudio.addEventListener("ended", () => {
+          onEnd();
+          URL.revokeObjectURL(url);
+        });
         currentAudio.addEventListener("error", (e) => {
           console.error("Audio playback error", e);
           onEnd();
+          URL.revokeObjectURL(url);
         });
       }
       currentAudio.play().catch(e => {
@@ -308,9 +323,7 @@ function speakText(text: string, lang: string, onStart?: () => void, onEnd?: () 
     if (onEnd) onEnd();
     
     // Fallback to instant browser TTS if Sarvam fails
-    if (lang === "en-IN") {
-      speakInstant(text, lang, onStart, onEnd);
-    }
+    speakInstant(text, lang, onStart, onEnd);
   });
 }
 
@@ -321,7 +334,7 @@ function speakInstant(text: string, lang: string, onStart?: () => void, onEnd?: 
   const clean = text.replace(/\*\*/g, "").replace(/\n/g, ". ");
   const utter = new SpeechSynthesisUtterance(clean);
   utter.lang = lang;
-  utter.rate = 1.05;
+  utter.rate = lang.startsWith("kn") ? 1.15 : 1.05; // Slightly faster for Kannada
   utter.pitch = 1.1;
   const voices = window.speechSynthesis.getVoices();
   const best = getBestVoice(lang, voices);
@@ -698,7 +711,9 @@ export function DentiChatWindow({ open, onClose }: DentiChatWindowProps) {
                 if (ttsEnabled) {
                   const lastMsg = messages.filter(m => m.from === "denti").pop();
                   if (lastMsg) {
-                    setTimeout(() => speakText(translateText(lastMsg.text, "kn-IN"), "kn-IN", () => setAvatarState("speaking"), () => setAvatarState("idle")), 100);
+                    const translated = translateText(lastMsg.text, "kn-IN");
+                    // Use speakInstant for immediate feedback when switching
+                    speakInstant(translated, "kn-IN", () => setAvatarState("speaking"), () => setAvatarState("idle"));
                   }
                 }
               }}
