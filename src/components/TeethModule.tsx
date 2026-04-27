@@ -4,6 +4,7 @@ import { useGLTF, OrbitControls, Center, Environment, Html } from "@react-three/
 import * as THREE from "three";
 import { useNavigate } from "react-router-dom";
 import teethModelUrl from "@/assets/human_mouth_optimized.glb?url";
+import OralHealthQuiz from "./OralHealthQuiz";
 
 const TOOTH_INFO: Record<string, { desc: string, detail: string }> = {
   "Upper Central Incisors": { desc: "Sharp, chisel-shaped front teeth.", detail: "Used primarily for cutting food." },
@@ -356,12 +357,14 @@ export default function TeethModule() {
           }}
           onClick={(e) => {
             e.stopPropagation();
-            alert("Quiz feature triggered!");
+            setShowQuiz(true);
           }}
         >
           Take a Quiz
         </button>
       </div>
+      
+      {showQuiz && <OralHealthQuiz onClose={() => setShowQuiz(false)} />}
     </div>
   );
 }
