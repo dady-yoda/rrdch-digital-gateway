@@ -553,7 +553,8 @@ export function DentiChatWindow({ open, onClose }: DentiChatWindowProps) {
 
           // Send to Sarvam STT
           const formData = new FormData();
-          formData.append('file', audioBlob, 'recording.webm');
+          // Use .wav extension as some backends are sensitive to it even if content is webm
+          formData.append('file', audioBlob, 'recording.wav');
           formData.append(
             'language_code', 
             chatLangRef.current  // 'kn-IN' or 'en-IN'
@@ -562,13 +563,15 @@ export function DentiChatWindow({ open, onClose }: DentiChatWindowProps) {
 
           try {
             setAvatarState('thinking');
+            const apiKey = import.meta.env.VITE_SARVAM_API_KEY ?? "";
+            console.log("STT Request with key starting with:", apiKey.substring(0, 5));
+            
             const res = await fetch(
               'https://api.sarvam.ai/speech-to-text', 
               {
                 method: 'POST',
                 headers: {
-                  'api-subscription-key': 
-                    import.meta.env.VITE_SARVAM_API_KEY ?? ""
+                  'api-subscription-key': apiKey
                 },
                 body: formData
               }
