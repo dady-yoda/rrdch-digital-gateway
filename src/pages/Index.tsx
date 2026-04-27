@@ -1,56 +1,56 @@
+import { useState } from "react";
 import BrandingBar from "@/components/BrandingBar";
 import PillNav from "@/components/PillNav";
 import HeroSection from "@/components/HeroSection";
 import LeadershipSection from "@/components/LeadershipSection";
 import AcademicsSection from "@/components/AcademicsSection";
+import TeethModuleWrapper from "@/components/TeethModuleWrapper";
 import Footer from "@/components/Footer";
 import CampusHighlightsSection from "@/components/CampusHighlightsSection";
 import logo from "@/assets/RRDCH FULL BLACK.png";
 
-
-
 const navItems = [
-  { label: "Home", href: "/" },
+  { label: "HOME", href: "/" },
   {
-    label: "About Us",
+    label: "ABOUT US",
     href: "/about-us",
     children: [
-      { label: "Trust", href: "/about-us/trust" },
-      { label: "Management", href: "/about-us/management" },
-      { label: "Vision & Mission", href: "/about-us/vision" },
-      { label: "Governing Council", href: "/about-us/council" },
+      { label: "TRUST", href: "/about-us/trust" },
+      { label: "MANAGEMENT", href: "/about-us/management" },
+      { label: "VISION & MISSION", href: "/about-us/vision" },
+      { label: "GOVERNING COUNCIL", href: "/about-us/council" },
     ],
   },
   {
-    label: "Courses",
+    label: "COURSES",
     href: "#",
     children: [
       { label: "BDS", href: "/course/bds" },
       { label: "MDS", href: "/course/mds" },
-      { label: "Ph.D", href: "/course/phd" },
-      { label: "Certificate in Implantology", href: "/implantology-course" },
+      { label: "PH.D", href: "/course/phd" },
+      { label: "CERTIFICATE IN IMPLANTOLOGY", href: "/implantology-course" },
     ],
   },
   {
-    label: "Departments",
+    label: "DEPARTMENTS",
     href: "#",
     children: [
-      { label: "Oral Medicine & Radiology", href: "/department/oral-medicine-radiology" },
-      { label: "Prosthetics & Crown & Bridge", href: "/department/prosthetics-crown-bridge" },
-      { label: "Oral & Maxillofacial Surgery", href: "/department/oral-maxillofacial-surgery" },
-      { label: "Periodontology", href: "/department/periodontology" },
-      { label: "Pedodontics & Preventive Dentistry", href: "/department/pedodontics-preventive-dentistry" },
-      { label: "Conservative Dentistry & Endodontics", href: "/department/conservative-dentistry-endodontics" },
-      { label: "Orthodontics & Dentofacial Orthopedics", href: "/department/orthodontics-dento-facial-orthopedics" },
-      { label: "Public Health Dentistry", href: "/department/public-health-dentistry" },
-      { label: "Oral & Maxillofacial Pathology", href: "/department/oral-pathology-microbiology" },
-      { label: "Implantology", href: "/department/implantology" },
-      { label: "Research & Publication", href: "/department/research-publication" },
-      { label: "Orofacial Pain", href: "/department/orofacial-pain" },
+      { label: "ORAL MEDICINE & RADIOLOGY", href: "/department/oral-medicine-radiology" },
+      { label: "PROSTHETICS & CROWN & BRIDGE", href: "/department/prosthetics-crown-bridge" },
+      { label: "ORAL & MAXILLOFACIAL SURGERY", href: "/department/oral-maxillofacial-surgery" },
+      { label: "PERIODONTOLOGY", href: "/department/periodontology" },
+      { label: "PEDODONTICS & PREVENTIVE DENTISTRY", href: "/department/pedodontics-preventive-dentistry" },
+      { label: "CONSERVATIVE DENTISTRY & ENDODONTICS", href: "/department/conservative-dentistry-endodontics" },
+      { label: "ORTHODONTICS & DENTOFACIAL ORTHOPEDICS", href: "/department/orthodontics-dento-facial-orthopedics" },
+      { label: "PUBLIC HEALTH DENTISTRY", href: "/department/public-health-dentistry" },
+      { label: "ORAL & MAXILLOFACIAL PATHOLOGY", href: "/department/oral-pathology-microbiology" },
+      { label: "IMPLANTOLOGY", href: "/department/implantology" },
+      { label: "RESEARCH & PUBLICATION", href: "/department/research-publication" },
+      { label: "OROFACIAL PAIN", href: "/department/orofacial-pain" },
     ],
   },
   {
-    label: "Accreditation",
+    label: "ACCREDITATION",
     href: "#",
     children: [
       { label: "NAAC", href: "/accreditation/naac", external: false },
@@ -64,37 +64,35 @@ const navItems = [
     ],
   },
   {
-    label: "Schedule",
+    label: "SCHEDULE",
     href: "#",
     children: [
-      { label: "Calendar of events", href: "/schedule/calendar", external: false },
-      { label: "Timetable", href: "/schedule/timetable", external: false },
+      { label: "CALENDAR OF EVENTS", href: "/schedule/calendar", external: false },
+      { label: "TIMETABLE", href: "/schedule/timetable", external: false },
     ],
   },
   {
-    label: "Committee",
+    label: "COMMITTEE",
     href: "#",
     children: [
-      { label: "Anti-ragging", href: "/committee/anti-ragging", external: false },
-      { label: "Hostel Issues", href: "/committee/hostel-issues", external: false },
+      { label: "ANTI-RAGGING", href: "/committee/anti-ragging", external: false },
+      { label: "HOSTEL ISSUES", href: "/committee/hostel-issues", external: false },
     ],
   },
   { label: "DCI", href: "/dci", external: false },
-  { label: "Recognitions", href: "/recognitions", external: false },
-  { label: "Contact Us", href: "#contact" },
+  { label: "RECOGNITIONS", href: "/recognitions", external: false },
+  { label: "CONTACT US", href: "#contact" },
 ];
 
 const Index = () => {
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative overflow-x-hidden">
       <div className="absolute top-0 left-0 w-full z-[100]">
         <BrandingBar />
       </div>
       
-      {/* Invisible spacer to position PillNav correctly below BrandingBar initially */}
       <div className="w-full h-[120px] md:h-[160px] lg:h-[180px] pointer-events-none shrink-0" />
       
-      {/* Sticky PillNav wrapped in zero-height container so it doesn't add to flow height */}
       <div className="sticky top-5 md:top-10 z-[60] flex justify-center w-full h-0 max-h-0 overflow-visible">
         <div className="pointer-events-auto -mt-4">
           <PillNav
@@ -111,11 +109,11 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Pull main back up by exactly the spacer's height so it starts at Y=0 */}
       <main className="-mt-[120px] md:-mt-[160px] lg:-mt-[180px] relative z-0">
         <HeroSection />
         <LeadershipSection />
         <AcademicsSection />
+        <TeethModuleWrapper />
         <CampusHighlightsSection />
       </main>
       <Footer />

@@ -74,20 +74,19 @@ const App = () => {
   };
 
   return (
-    <>
-      {!loaded && <LoadingScreen onComplete={handleLoadComplete} />}
-      <QueryClientProvider client={queryClient}>
-        <LanguageProvider>
-          <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme" attribute="class">
-            <TooltipProvider>
-              <Toaster />
-              <Sonner />
-              <BrowserRouter>
-                <SmoothScroll>
-                  <AuthProvider>
-                    <ScrollToTop />
-                    <FloatingCTA />
-                    <Routes>
+    <QueryClientProvider client={queryClient}>
+      <LanguageProvider>
+        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme" attribute="class">
+          <TooltipProvider>
+            {!loaded && <LoadingScreen onComplete={handleLoadComplete} />}
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <SmoothScroll>
+                <AuthProvider>
+                  <ScrollToTop />
+                  <FloatingCTA />
+                  <Routes>
                     {/* ── Public ── */}
                     <Route path="/" element={<Index />} />
                     <Route path="/search" element={<SearchPage />} />
@@ -222,11 +221,10 @@ const App = () => {
                 </AuthProvider>
               </SmoothScroll>
             </BrowserRouter>
-            </TooltipProvider>
-          </ThemeProvider>
-        </LanguageProvider>
-      </QueryClientProvider>
-    </>
+          </TooltipProvider>
+        </ThemeProvider>
+      </LanguageProvider>
+    </QueryClientProvider>
   );
 };
 

@@ -14,64 +14,67 @@ import {
   CheckCircle2,
   ChevronRight
 } from "lucide-react";
-import auditoriumImg from "@/assets/hospital.jpg"; // Placeholder for auditorium
-import classroomImg from "@/assets/college-img.jpg"; // Placeholder for classroom
+
+import campusImg from "@/assets/hero-campus.jpg";
+import hospitalImg from "@/assets/hospital.jpg";
+import collegeImg from "@/assets/college-img.jpg";
+import clinicalImg from "@/assets/hero-clinical.jpg";
 
 const facilities = [
   {
     title: "Centrally Air-conditioned Auditorium",
     icon: Users,
     description: "A state-of-the-art, centrally air-conditioned auditorium with a seating capacity of 500, used for international and national conferences, cultural events, and seminars.",
-    image: auditoriumImg,
+    image: collegeImg,
     highlights: ["Hi-tech Audio-Visual system", "Acoustically designed", "Ideal for Guest Lectures"]
   },
   {
     title: "Digital Library & Information Center",
     icon: Library,
     description: "Equipped with over 10,000 books and numerous international journals, our library provides 24/7 digital access to e-resources through a high-speed campus network.",
-    image: classroomImg,
+    image: clinicalImg,
     highlights: ["E-Journal Subscriptions", "Separate PG Reading Area", "Digital Database"]
   },
   {
     title: "Modern Classrooms (Smart Labs)",
     icon: BookOpen,
     description: "Spacious classrooms equipped with modern teaching aids like LCD projectors and smart boards to facilitate an interactive learning environment.",
-    image: auditoriumImg,
+    image: campusImg,
     highlights: ["Projector-enabled", "Ergonomic Seating", "High-speed Wi-Fi"]
   },
   {
     title: "Separate Hostels for Boys & Girls",
     icon: Home,
     description: "Safe and comfortable residential facilities located within the campus, providing a home-away-from-home experience for outstation students.",
-    image: classroomImg,
+    image: hospitalImg,
     highlights: ["24/7 Security", "In-house Laundry", "Common Room with TV"]
   },
   {
     title: "Gymnasium & Fitness Center",
     icon: Dumbbell,
     description: "A well-equipped gymnasium with modern cardio and strength training equipment to ensure students maintain a healthy lifestyle.",
-    image: auditoriumImg,
+    image: clinicalImg,
     highlights: ["Qualified Trainers", "Yoga Classes", "Open till late"]
   },
   {
     title: "Sports & Recreation",
     icon: Trophy,
     description: "Extensive facilities for both indoor and outdoor sports including basketball, cricket, badminton, and table tennis.",
-    image: classroomImg,
+    image: collegeImg,
     highlights: ["Basketball Court", "Cricket Ground", "Indoor Game Room"]
   },
   {
     title: "Cafeteria & Mess",
     icon: Utensils,
     description: "Hygienic and spacious cafeteria serving a variety of nutritious multi-cuisine food to students, staff, and visitors.",
-    image: auditoriumImg,
+    image: campusImg,
     highlights: ["Hygienic Preparation", "Diverse Menu", "Affordable Prices"]
   },
   {
     title: "Transportation",
     icon: Bus,
     description: "A fleet of buses providing reliable transport services connecting the campus to all major parts of Bangalore city.",
-    image: classroomImg,
+    image: hospitalImg,
     highlights: ["GPS Tracked Buses", "Experienced Drivers", "Punctual Service"]
   }
 ];
@@ -141,7 +144,7 @@ const FacilitiesPage = () => {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <a 
-                href="https://www.rrdch.org/360tour/" 
+                href="https://www.easytourz.com/BT-EmabedTour/all/2e6200684201ca03" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-xl font-heading font-bold hover:scale-105 transition-transform shadow-lg shadow-primary/20"

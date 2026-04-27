@@ -59,13 +59,24 @@ const FadeInSection = ({
         ease: "power4.out",
         scrollTrigger: {
           trigger: el,
-          start: "top 88%", // Trigger slightly before it enters fully
+          start: "top 90%", // Trigger slightly before it enters fully
           toggleActions: "play none none none", // Play once
+          onEnter: () => {
+            // Ensure element becomes visible even if animation stalls
+          },
         }
       }
     );
 
+    // Safety fallback: if ScrollTrigger doesn't fire within 3s, force show
+    const fallbackTimer = setTimeout(() => {
+      if (el && parseFloat(getComputedStyle(el).opacity) < 0.5) {
+        gsap.set(el, { opacity: 1, x: 0, y: 0, rotateX: 0, scale: 1 });
+      }
+    }, 3000);
+
     return () => {
+      clearTimeout(fallbackTimer);
       if (anim.scrollTrigger) anim.scrollTrigger.kill();
       anim.kill();
     };
@@ -87,3 +98,4 @@ const FadeInSection = ({
 };
 
 export default FadeInSection;
+
