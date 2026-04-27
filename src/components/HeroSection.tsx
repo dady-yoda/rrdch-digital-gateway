@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import heroCampus from "@/assets/hero-campus.jpg";
-import heroClinical from "@/assets/hero-clinical.jpg";
-import heroGraduation from "@/assets/hero-graduation.jpg";
+import campusImg from "@/assets/hero-campus.jpg";
+import clinicalImg from "@/assets/hero-clinical.jpg";
+import graduationImg from "@/assets/hero-graduation.jpg";
 
 const slides = [
-  { src: heroCampus, alt: "RRDCH Campus aerial view", caption: "A Premier Dental Institution in Bengaluru" },
-  { src: heroClinical, alt: "Clinical training at RRDCH", caption: "World-Class Clinical Training" },
-  { src: heroGraduation, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
+  { src: campusImg, alt: "RRDCH Campus aerial view", caption: "A Premier Dental Institution in Bengaluru" },
+  { src: clinicalImg, alt: "Clinical training at RRDCH", caption: "World-Class Clinical Training" },
+  { src: graduationImg, alt: "RRDCH Graduation ceremony", caption: "Shaping Future Dental Leaders" },
 ];
 
 const tickerItems = [

@@ -1,16 +1,14 @@
 import { useState, useRef, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import "./CampusHighlightsSection.css";
-import bentoNews from "@/assets/bento-news.png";
-import bentoExperience from "@/assets/bento-experience.png";
-import bentoAwards from "@/assets/bento-awards.png";
-import bentoGallery from "@/assets/bento-gallery.png";
-import bentoFacilities from "@/assets/bento-facilities.png";
-import bentoMaps from "@/assets/bento-maps.png";
-import heroCampus from "@/assets/hero-campus.jpg";
-import heroClinical from "@/assets/hero-clinical.jpg";
-import heroGraduation from "@/assets/hero-graduation.jpg";
 import gsap from "gsap";
+
+import newsImg from "@/assets/bento-news.png";
+import experienceImg from "@/assets/bento-experience.png";
+import awardsImg from "@/assets/bento-awards.png";
+import galleryImg from "@/assets/bento-gallery.png";
+import facilitiesImg from "@/assets/bento-facilities.png";
+import mapsImg from "@/assets/bento-maps.png";
 
 const tabs = [
   { 
@@ -21,7 +19,7 @@ const tabs = [
     desc: "Our faculty members have been recognized for their pioneering research in advanced implantology and oral and maxillofacial surgery, contributing to the global dental community.",
     link: "/news",
     isExternal: false,
-    image: heroClinical,
+    image: newsImg,
     cta: "Read All News",
   },
   { 
@@ -32,7 +30,7 @@ const tabs = [
     desc: "Life at RRDCH is more than just lectures. Students engage in a rich tapestry of sports, cultural galas, and community outreach programs that build character and leadership.",
     link: "/about-us",
     isExternal: false,
-    image: heroCampus,
+    image: experienceImg,
     cta: "Discover Campus Life",
   },
   { 
@@ -43,7 +41,7 @@ const tabs = [
     desc: "Rajarajeswari Dental College once again secures a top-tier position in NIRF rankings, solidifying our status as a premier institution for dental education in India.",
     link: "/recognitions",
     isExternal: false,
-    image: heroGraduation,
+    image: awardsImg,
     cta: "View Recognitions",
   },
   { 
@@ -54,7 +52,7 @@ const tabs = [
     desc: "Walk through our high-tech laboratories, lush green campus, and modern clinical suites where the future of dentistry is being shaped every day by our dedicated students.",
     link: "/gallery",
     isExternal: false,
-    image: bentoGallery,
+    image: galleryImg,
     cta: "Explore Gallery",
   },
   { 
@@ -65,7 +63,7 @@ const tabs = [
     desc: "We have upgraded our facility with the latest 3D digital oral scanners and robotic simulation units, providing our students with hands-on experience in cutting-edge tech.",
     link: "/departments",
     isExternal: false,
-    image: bentoFacilities,
+    image: facilitiesImg,
     cta: "See Our Departments",
   },
   { 
@@ -76,7 +74,7 @@ const tabs = [
     desc: "Use our interactive campus map to find your way through our sprawling campus, from the out-patient departments to our research centers and student lounges.",
     link: "https://maps.google.com/?q=Rajarajeswari+Dental+College+Bangalore", 
     isExternal: true,
-    image: bentoMaps,
+    image: mapsImg,
     cta: "Open in Google Maps",
   },
 ];
@@ -117,7 +115,6 @@ const CampusHighlightsSection = () => {
     return () => ctx.revert();
   }, [activeTab]);
 
-  // Helper to render the image as a Link or <a> depending on internal/external
   const renderImageLink = () => {
     const imgEl = (
       <>
@@ -155,7 +152,6 @@ const CampusHighlightsSection = () => {
     );
   };
 
-  // Helper to render the CTA button
   const renderCTA = () => {
     const label = activeTab.cta || "Explore →";
 
@@ -189,7 +185,6 @@ const CampusHighlightsSection = () => {
     <section className="ch-folder-section">
       <div className="ch-folder-container">
         
-        {/* Folder Tabs */}
         <div className="ch-tabs-wrapper">
           {tabs.map((tab, index) => (
             <button
@@ -202,16 +197,13 @@ const CampusHighlightsSection = () => {
           ))}
         </div>
 
-        {/* Tab Content Panel */}
         <div className="ch-content-panel">
           <div className="ch-panel-inner" ref={contentRef} key={`panel-${activeTab.id}`}>
             
-            {/* Left: Clickable Tilted Image */}
             <div className="ch-image-container">
               {renderImageLink()}
             </div>
 
-            {/* Right: Textual Content */}
             <div className="ch-text-container" ref={textRef}>
               <span className="ch-content-date">{activeTab.date}</span>
               <h3 className="ch-content-title">{activeTab.title}</h3>
