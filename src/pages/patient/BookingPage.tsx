@@ -1,8 +1,6 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/DashboardLayout";
-import { DOCTORS, type Doctor } from "@/data/doctors";
-import { INITIAL_SLOTS, type TimeSlot } from "@/data/slots";
 import { N8N_WEBHOOK_URL } from "@/lib/config";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,6 +24,16 @@ import {
   Home,
 } from "lucide-react";
 import { toast } from "sonner";
+import {
+  fetchDoctors,
+  fetchSlots,
+  insertAppointment,
+  updateSlotStatus,
+  DbDoctor,
+  DbSlot,
+  useRealtimeUpdate
+} from "@/lib/supabase-queries";
+import { useAuth } from "@/lib/auth-context";
 
 // ── Step indicator ────────────────────────────────────────
 const STEPS = ["Select Doctor", "Choose Slot", "Your Details", "Confirm"];
@@ -79,7 +87,7 @@ function DoctorCard({
   selected,
   onSelect,
 }: {
-  doctor: Doctor;
+  doctor: DbDoctor;
   selected: boolean;
   onSelect: () => void;
 }) {
@@ -100,7 +108,7 @@ function DoctorCard({
         <img
           src={doctor.avatarUrl}
           alt={doctor.name}
-          className="w-12 h-12 rounded-full border-2 flex-shrink-0"
+          className="w-12 h-12 rounded-full border-2 flex-shrink-0 object-cover"
           style={{ borderColor: selected ? "#546B41" : "#e5e7eb" }}
         />
         <div className="flex-1 min-w-0">
@@ -117,7 +125,7 @@ function DoctorCard({
               <CheckCircle2 className="w-4 h-4 flex-shrink-0" style={{ color: "#546B41" }} />
             )}
           </div>
-          <p className="text-xs text-gray-500 mt-0.5 leading-tight">{doctor.specialty}</p>
+          <p className="text-xs text-gray-500 mt-0.5 leading-tight">{doctor.specialty || doctor.department}</p>
           <div className="flex items-center gap-3 mt-2">
             <span className="flex items-center gap-1 text-xs text-amber-600 font-medium">
               <Star className="w-3 h-3 fill-current" />
@@ -138,7 +146,7 @@ function SlotButton({
   selected,
   onSelect,
 }: {
-  slot: TimeSlot;
+  slot: DbSlot;
   selected: boolean;
   onSelect: () => void;
 }) {
@@ -158,7 +166,7 @@ function SlotButton({
       }`}
       style={selected && isOpen ? { backgroundColor: "#546B41", borderColor: "#546B41" } : {}}
     >
-      {slot.displayTime}
+      {slot.display_time}
       {!isOpen && (
         <span className="block text-xs opacity-70 font-normal">{slot.status}</span>
       )}
@@ -177,19 +185,27 @@ function generateToken(): string {
 // ── Main page ─────────────────────────────────────────────
 export default function BookingPage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [step, setStep] = useState(0);
   const [search, setSearch] = useState("");
 
+  const [doctors, setDoctors] = useState<DbDoctor[]>([]);
+  const [loadingDoctors, setLoadingDoctors] = useState(true);
+
   // Selections
-  const [selectedDoctor, setSelectedDoctor] = useState<Doctor | null>(null);
-  const [selectedSlot, setSelectedSlot] = useState<TimeSlot | null>(null);
+  const [selectedDoctor, setSelectedDoctor] = useState<DbDoctor | null>(null);
+  const [doctorSlots, setDoctorSlots] = useState<DbSlot[]>([]);
+  const [loadingSlots, setLoadingSlots] = useState(false);
+  const [selectedSlot, setSelectedSlot] = useState<DbSlot | null>(null);
+
+  const todayDateStr = new Date().toLocaleDateString("en-CA");
 
   // Patient form
   const [form, setForm] = useState({
-    name: "",
+    name: user?.name || "",
     dob: "",
     phone: "",
-    email: "",
+    email: user?.email || "",
     complaint: "",
   });
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
@@ -199,22 +215,56 @@ export default function BookingPage() {
   const [success, setSuccess] = useState(false);
   const [tokenId, setTokenId] = useState("");
 
+  const loadDoctors = useCallback(async () => {
+    try {
+      setLoadingDoctors(true);
+      const data = await fetchDoctors();
+      setDoctors(data);
+    } catch (err) {
+      console.error("Failed to load doctors:", err);
+      toast.error("Failed to load doctors list.");
+    } finally {
+      setLoadingDoctors(false);
+    }
+  }, []);
+
+  const loadSlots = useCallback(async () => {
+    if (!selectedDoctor || step !== 1) return;
+    try {
+      setLoadingSlots(true);
+      const data = await fetchSlots(selectedDoctor.id, todayDateStr);
+      setDoctorSlots(data);
+    } catch (err) {
+      console.error("Failed to load slots:", err);
+      toast.error("Failed to load slots.");
+    } finally {
+      setLoadingSlots(false);
+    }
+  }, [selectedDoctor, step, todayDateStr]);
+
+  useEffect(() => {
+    loadDoctors();
+  }, [loadDoctors]);
+
+  useEffect(() => {
+    loadSlots();
+  }, [loadSlots]);
+
+  useRealtimeUpdate(() => {
+    loadDoctors();
+    loadSlots();
+  });
+
   // Filter doctors
   const filteredDoctors = useMemo(() => {
     const q = search.toLowerCase();
-    return DOCTORS.filter(
+    return doctors.filter(
       (d) =>
         d.name.toLowerCase().includes(q) ||
-        d.specialty.toLowerCase().includes(q) ||
-        d.department.toLowerCase().includes(q)
+        (d.specialty || "").toLowerCase().includes(q) ||
+        (d.department || "").toLowerCase().includes(q)
     );
-  }, [search]);
-
-  // Slots for selected doctor
-  const doctorSlots = useMemo(
-    () => INITIAL_SLOTS.filter((s) => s.doctorId === selectedDoctor?.id),
-    [selectedDoctor]
-  );
+  }, [search, doctors]);
 
   // ── Validation ──────────────────────────────────────────
   const validateForm = () => {
@@ -239,33 +289,63 @@ export default function BookingPage() {
 
   // ── Confirm & POST ───────────────────────────────────────
   const confirm = async () => {
+    if (!selectedDoctor || !selectedSlot) return;
     setSubmitting(true);
     const token = generateToken();
-    const payload = {
-      tokenId: token,
-      doctor: selectedDoctor?.name,
-      specialty: selectedDoctor?.specialty,
-      slot: selectedSlot?.displayTime,
-      date: selectedSlot?.date,
-      patient: form,
-    };
-
+    
     try {
-      await fetch(N8N_WEBHOOK_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+      // 1. Insert into appointments
+      await insertAppointment({
+        token_id: token,
+        patient_id: user?.role === 'patient' ? user.id : null,
+        doctor_id: selectedDoctor.id,
+        slot_id: selectedSlot.id,
+        date: todayDateStr,
+        time: selectedSlot.time,
+        display_time: selectedSlot.display_time,
+        complaint: form.complaint,
+        patient_name: form.name,
+        patient_phone: form.phone,
+        patient_dob: form.dob,
+        patient_email: form.email,
+        department: selectedDoctor.department,
       });
-    } catch {
-      // Webhook not configured yet — still show success in demo mode
-    }
 
-    setTokenId(token);
-    setSuccess(true);
-    setSubmitting(false);
-    toast.success("Appointment confirmed!", {
-      description: `Token: ${token}`,
-    });
+      // 2. Update slot status to Booked
+      await updateSlotStatus(selectedSlot.id, "Booked");
+
+      // 3. Webhook call
+      const payload = {
+        tokenId: token,
+        doctor: selectedDoctor.name,
+        specialty: selectedDoctor.specialty,
+        slot: selectedSlot.display_time,
+        date: todayDateStr,
+        patient: form,
+      };
+
+      try {
+        await fetch(N8N_WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+      } catch {
+        // Webhook not configured yet — still show success
+        console.warn("Webhook call failed or not configured.");
+      }
+
+      setTokenId(token);
+      setSuccess(true);
+      toast.success("Appointment confirmed!", {
+        description: `Token: ${token}`,
+      });
+    } catch (err) {
+      console.error("Booking error:", err);
+      toast.error("Failed to book appointment. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   // ── Success screen ────────────────────────────────────────
@@ -320,9 +400,9 @@ export default function BookingPage() {
               <div className="space-y-2 text-sm text-left mb-6">
                 {[
                   { label: "Doctor", value: selectedDoctor?.name },
-                  { label: "Specialty", value: selectedDoctor?.specialty },
-                  { label: "Date", value: selectedSlot?.date },
-                  { label: "Time", value: selectedSlot?.displayTime },
+                  { label: "Specialty", value: selectedDoctor?.specialty || selectedDoctor?.department },
+                  { label: "Date", value: todayDateStr },
+                  { label: "Time", value: selectedSlot?.display_time },
                   { label: "Patient", value: form.name },
                 ].map(({ label, value }) => (
                   <div key={label} className="flex justify-between items-center">
@@ -353,7 +433,7 @@ export default function BookingPage() {
                     setStep(0);
                     setSelectedDoctor(null);
                     setSelectedSlot(null);
-                    setForm({ name: "", dob: "", phone: "", email: "", complaint: "" });
+                    setForm({ name: user?.name || "", dob: "", phone: "", email: user?.email || "", complaint: "" });
                     setSuccess(false);
                     setTokenId("");
                   }}
@@ -405,21 +485,27 @@ export default function BookingPage() {
               )}
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {filteredDoctors.map((doctor) => (
-                <DoctorCard
-                  key={doctor.id}
-                  doctor={doctor}
-                  selected={selectedDoctor?.id === doctor.id}
-                  onSelect={() => {
-                    setSelectedDoctor(doctor);
-                    setSelectedSlot(null);
-                  }}
-                />
-              ))}
-            </div>
+            {loadingDoctors ? (
+              <div className="flex justify-center py-12">
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {filteredDoctors.map((doctor) => (
+                  <DoctorCard
+                    key={doctor.id}
+                    doctor={doctor}
+                    selected={selectedDoctor?.id === doctor.id}
+                    onSelect={() => {
+                      setSelectedDoctor(doctor);
+                      setSelectedSlot(null);
+                    }}
+                  />
+                ))}
+              </div>
+            )}
 
-            {filteredDoctors.length === 0 && (
+            {!loadingDoctors && filteredDoctors.length === 0 && (
               <p className="text-center text-gray-400 py-12 text-sm">
                 No doctors match your search.
               </p>
@@ -442,7 +528,7 @@ export default function BookingPage() {
               />
               <div>
                 <p className="font-bold text-gray-900">{selectedDoctor.name}</p>
-                <p className="text-sm text-gray-500">{selectedDoctor.specialty}</p>
+                <p className="text-sm text-gray-500">{selectedDoctor.specialty || selectedDoctor.department}</p>
               </div>
             </div>
 
@@ -467,43 +553,55 @@ export default function BookingPage() {
               </span>
             </div>
 
-            {/* AM slots */}
-            <div className="mb-5">
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-                Morning
-              </p>
-              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                {doctorSlots
-                  .filter((s) => parseInt(s.time) < 12)
-                  .map((slot) => (
-                    <SlotButton
-                      key={slot.id}
-                      slot={slot}
-                      selected={selectedSlot?.id === slot.id}
-                      onSelect={() => setSelectedSlot(slot)}
-                    />
-                  ))}
+            {loadingSlots ? (
+              <div className="flex justify-center py-12">
+                <Loader2 className="w-8 h-8 animate-spin text-primary" />
               </div>
-            </div>
+            ) : doctorSlots.length === 0 ? (
+              <div className="text-center text-gray-400 py-8 text-sm">
+                No slots configured by this doctor for today.
+              </div>
+            ) : (
+              <>
+                {/* AM slots */}
+                <div className="mb-5">
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                    Morning
+                  </p>
+                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                    {doctorSlots
+                      .filter((s) => parseInt(s.time) < 12)
+                      .map((slot) => (
+                        <SlotButton
+                          key={slot.id}
+                          slot={slot}
+                          selected={selectedSlot?.id === slot.id}
+                          onSelect={() => setSelectedSlot(slot)}
+                        />
+                      ))}
+                  </div>
+                </div>
 
-            {/* PM slots */}
-            <div>
-              <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
-                Afternoon
-              </p>
-              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                {doctorSlots
-                  .filter((s) => parseInt(s.time) >= 12)
-                  .map((slot) => (
-                    <SlotButton
-                      key={slot.id}
-                      slot={slot}
-                      selected={selectedSlot?.id === slot.id}
-                      onSelect={() => setSelectedSlot(slot)}
-                    />
-                  ))}
-              </div>
-            </div>
+                {/* PM slots */}
+                <div>
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+                    Afternoon
+                  </p>
+                  <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                    {doctorSlots
+                      .filter((s) => parseInt(s.time) >= 12)
+                      .map((slot) => (
+                        <SlotButton
+                          key={slot.id}
+                          slot={slot}
+                          selected={selectedSlot?.id === slot.id}
+                          onSelect={() => setSelectedSlot(slot)}
+                        />
+                      ))}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         )}
 
@@ -602,9 +700,9 @@ export default function BookingPage() {
                 <Separator />
                 {[
                   { label: "Doctor", value: selectedDoctor?.name },
-                  { label: "Specialty", value: selectedDoctor?.specialty },
-                  { label: "Date", value: selectedSlot?.date },
-                  { label: "Time", value: selectedSlot?.displayTime },
+                  { label: "Specialty", value: selectedDoctor?.specialty || selectedDoctor?.department },
+                  { label: "Date", value: todayDateStr },
+                  { label: "Time", value: selectedSlot?.display_time },
                   { label: "Patient", value: form.name },
                   { label: "Phone", value: form.phone },
                   { label: "Complaint", value: form.complaint },

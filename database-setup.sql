@@ -52,3 +52,39 @@ CREATE TABLE IF NOT EXISTS public.audit_logs (
 );
 
 ALTER TABLE public.audit_logs DISABLE ROW LEVEL SECURITY;
+
+-- 5. Slots Table (managed by doctors / admin)
+CREATE TABLE IF NOT EXISTS public.slots (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  doctor_id UUID NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
+  date DATE NOT NULL,
+  time TEXT NOT NULL,                    -- "09:00" 24-hr
+  display_time TEXT NOT NULL,            -- "9:00 AM"
+  status TEXT CHECK (status IN ('Open', 'Booked', 'Busy')) DEFAULT 'Open',
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE (doctor_id, date, time)
+);
+
+ALTER TABLE public.slots DISABLE ROW LEVEL SECURITY;
+
+-- 6. Appointments Table (one row per confirmed booking)
+CREATE TABLE IF NOT EXISTS public.appointments (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  token_id TEXT NOT NULL UNIQUE,
+  patient_id UUID REFERENCES public.profiles(id),   -- NULL = walk-in / pre-auth
+  doctor_id UUID NOT NULL REFERENCES public.profiles(id),
+  slot_id UUID REFERENCES public.slots(id),
+  date DATE NOT NULL,
+  time TEXT NOT NULL,
+  display_time TEXT NOT NULL,
+  complaint TEXT,
+  patient_name TEXT,
+  patient_phone TEXT,
+  patient_dob DATE,
+  patient_email TEXT,
+  department TEXT,
+  status TEXT CHECK (status IN ('Confirmed','Completed','Cancelled','No-Show')) DEFAULT 'Confirmed',
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE public.appointments DISABLE ROW LEVEL SECURITY;

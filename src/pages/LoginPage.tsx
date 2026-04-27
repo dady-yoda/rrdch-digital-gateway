@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Navigate, Link } from "react-router-dom";
 import { useAuth } from "@/lib/auth-context";
 import { ROLE_HOME } from "@/lib/config";
@@ -43,6 +43,20 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
+  // Auto-clear ghost locks to fix the "connection timed out" bug
+  useEffect(() => {
+    try {
+      Object.keys(localStorage).forEach(key => {
+        if (key.startsWith("lock:")) {
+          localStorage.removeItem(key);
+          console.log("Cleared stuck Supabase lock:", key);
+        }
+      });
+    } catch (e) {
+      // ignore
+    }
+  }, []);
+
   // Already logged in → redirect to role home
   if (user) return <Navigate to={roleHome} replace />;
 
@@ -57,13 +71,8 @@ export default function LoginPage() {
     if (!result.success) {
       setError(result.error ?? "Login failed. Please check your credentials.");
     } else {
-      // useAuth already updated `user` via onAuthStateChange;
-      // navigate based on role returned from the context (via ROLE_HOME).
-      // We read roleHome from the hook — but since state update is async,
-      // we re-derive from the user's role set inside login().
-      // The <Navigate> guard above will fire on next render automatically,
-      // but we also push proactively here for instant UX.
-      navigate(roleHome !== "/login" ? roleHome : ROLE_HOME["patient"], { replace: true });
+      const targetRoute = result.user ? ROLE_HOME[result.user.role] : ROLE_HOME["patient"];
+      navigate(targetRoute, { replace: true });
     }
   };
 

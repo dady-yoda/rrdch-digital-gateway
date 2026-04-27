@@ -34,7 +34,8 @@ export default function StaffManagementPage() {
       
       if (!token) throw new Error("No active session found.");
 
-      const response = await fetch("https://YOUR_PROJECT_REF.supabase.co/functions/v1/create-staff-user", {
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
+      const response = await fetch(`${supabaseUrl}/functions/v1/create-staff-user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

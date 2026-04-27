@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useAuth } from "@/lib/auth-context";
-import { supabase } from "@/lib/supabase";
+import { fetchMedicalRecords, useRealtimeUpdate, MedicalRecord } from "@/lib/supabase-queries";
 import DashboardLayout from "@/components/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -13,47 +13,34 @@ import {
   DialogTrigger,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { ShieldCheck, Clock, FileText, Lock, Database } from "lucide-react";
+import { ShieldCheck, Clock, FileText, Lock, Database, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
-
-interface MedicalRecord {
-  id: string;
-  patient_id: string;
-  record_name: string;
-  ipfs_hash: string;
-  is_verified: boolean;
-  blockchain_tx?: string;
-  created_at: string;
-}
 
 export default function DashboardPage() {
   const { user } = useAuth();
   const [records, setRecords] = useState<MedicalRecord[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (user) {
-      fetchRecords();
-    }
-  }, [user]);
-
-  const fetchRecords = async () => {
+  const fetchRecords = useCallback(async () => {
+    if (!user?.id) return;
     setLoading(true);
-    const { data, error } = await supabase
-      .from("medical_records")
-      .select("*")
-      .eq("patient_id", user?.id)
-      .order("created_at", { ascending: false });
-
-    if (error) {
+    try {
+      const data = await fetchMedicalRecords(user.id);
+      setRecords(data || []);
+    } catch (error) {
       toast.error("Failed to fetch medical records");
       console.error(error);
-    } else {
-      setRecords(data || []);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  };
+  }, [user?.id]);
+
+  useEffect(() => {
+    fetchRecords();
+  }, [fetchRecords]);
+
+  useRealtimeUpdate(fetchRecords);
 
   return (
     <DashboardLayout title="Secure Health Vault">
@@ -137,7 +124,7 @@ export default function DashboardPage() {
                         </CardDescription>
                       </div>
                       <div className="p-2 bg-slate-50 rounded-lg text-slate-400 group-hover:text-emerald-600 group-hover:bg-emerald-50 transition-colors">
-                        <FileText className="w-5 h-5" />
+                        {record.type === "prescription" ? <FileText className="w-5 h-5 text-emerald-500" /> : <ImageIcon className="w-5 h-5 text-blue-500" />}
                       </div>
                     </div>
                   </CardHeader>
@@ -178,11 +165,17 @@ export default function DashboardPage() {
                         <div className="space-y-4 py-4">
                           <div className="space-y-2">
                             <label className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">
-                              IPFS Hash (Decentralized Storage)
+                              {record.type === "prescription" ? "Prescription Details" : "IPFS Hash (Decentralized Storage)"}
                             </label>
-                            <div className="bg-slate-950 p-3 rounded-md border border-slate-800 font-mono text-sm break-all text-slate-300">
-                              {record.ipfs_hash || "Not assigned"}
-                            </div>
+                            {record.type === "prescription" ? (
+                              <div className="bg-slate-950 p-3 rounded-md border border-slate-800 font-mono text-sm whitespace-pre-wrap text-slate-300">
+                                {record.prescription_text || "No details provided."}
+                              </div>
+                            ) : (
+                              <div className="bg-slate-950 p-3 rounded-md border border-slate-800 font-mono text-sm break-all text-slate-300">
+                                {record.ipfs_hash || "Not assigned"}
+                              </div>
+                            )}
                           </div>
                           
                           <div className="space-y-2">
