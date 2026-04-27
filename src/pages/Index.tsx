@@ -86,14 +86,14 @@ const navItems = [
 
 const Index = () => {
   return (
-    <div className="min-h-screen relative overflow-x-hidden">
+    <div className="min-h-screen relative [overflow-x:clip]">
       <div className="absolute top-0 left-0 w-full z-[100]">
         <BrandingBar />
       </div>
       
       <div className="w-full h-[120px] md:h-[160px] lg:h-[180px] pointer-events-none shrink-0" />
       
-      <div className="sticky top-5 md:top-10 z-[60] flex justify-center w-full h-0 max-h-0 overflow-visible">
+      <div className="sticky top-7 z-[60] flex justify-center w-full h-0 max-h-0 overflow-visible">
         <div className="pointer-events-auto -mt-4">
           <PillNav
             logo={logo}

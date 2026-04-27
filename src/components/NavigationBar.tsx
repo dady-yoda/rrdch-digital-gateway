@@ -200,7 +200,7 @@ const NavigationBar = () => {
   }, []);
 
   return (
-    <nav className="bg-primary sticky top-0 z-50 shadow-lg" aria-label="Main navigation">
+    <nav className="bg-primary w-full z-[200] shadow-lg" aria-label="Main navigation">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-12">
           {/* Desktop nav items with pill animation */}
