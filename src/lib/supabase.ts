@@ -23,6 +23,5 @@ const dummyLock = {
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     storageKey: 'rrdch-auth-token-v3', // Force fresh storage key
-    lock: dummyLock, // Bypass standard locking mechanism which causes the 10s timeouts
   }
 });
