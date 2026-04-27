@@ -69,10 +69,10 @@
   }
   body {
     @apply bg-background text-foreground font-body antialiased;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
   html {
-    overflow-x: hidden;
+    overflow-x: clip;
     /* scroll-behavior intentionally removed — Lenis handles smooth scrolling */
   }
   h1, h2, h3, h4, h5, h6 {
@@ -105,7 +105,7 @@ html, body {
   top: 0px !important;
   margin-top: 0px !important;
   position: static !important;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Hide the main banner */

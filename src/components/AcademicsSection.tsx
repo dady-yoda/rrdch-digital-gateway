@@ -2,6 +2,13 @@ import FadeInSection from "./FadeInSection";
 import SpotlightCard from "./SpotlightCard";
 import { Link } from "react-router-dom";
 import { GraduationCap, BookOpen, FlaskConical, Stethoscope } from "lucide-react";
+import GridMotion from "./GridMotion";
+
+import image1 from "../assets/stock images/image1.jpg";
+import image2 from "../assets/stock images/image2.jpg";
+import image3 from "../assets/stock images/image3.jpg";
+import image4 from "../assets/stock images/image4.jpg";
+import image5 from "../assets/stock images/image5.jpg";
 
 const courses = [
   {
@@ -27,6 +34,13 @@ const courses = [
   },
 ];
 
+const stockImages = [image1, image2, image3, image4, image5];
+
+// Map 28 items cycling through the 5 images.
+// 7 items per row modulo 5 means an automatic stagger offset of 2 per row!
+// This perfectly guarantees no image is ever repeated top/bottom or left/right.
+const gridItems = Array.from({ length: 28 }, (_, i) => stockImages[i % stockImages.length]);
+
 const AcademicsSection = () => {
   return (
     <section className="py-16 bg-muted/30">
@@ -50,7 +64,16 @@ const AcademicsSection = () => {
             </FadeInSection>
           ))}
         </div>
+      </div>
 
+      {/* GridMotion Component Section */}
+      <FadeInSection>
+        <div className="h-[280px] md:h-[350px] w-full overflow-hidden my-12 relative bg-background">
+          <GridMotion items={gridItems} gradientColor="hsl(var(--primary) / 0.15)" />
+        </div>
+      </FadeInSection>
+
+      <div className="container mx-auto px-4">
         {/* Special Courses Banner */}
         <FadeInSection>
           <div className="bg-primary rounded-lg p-8">
