@@ -177,6 +177,7 @@ const Loader = () => {
 export default function TeethModule() {
   const [hoveredTooth, setHoveredTooth] = useState<string | null>(null);
   const [hoverPoint, setHoverPoint] = useState<THREE.Vector3 | null>(null);
+  const [showQuiz, setShowQuiz] = useState(false);
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const navigate = useNavigate();
 
