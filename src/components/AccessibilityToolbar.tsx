@@ -13,6 +13,7 @@ import {
   AlignLeft,
   Droplet,
   MoveVertical,
+  Volume2,
 } from "lucide-react";
 import "./AccessibilityToolbar.css";
 
@@ -114,6 +115,13 @@ const FEATURES: Feature[] = [
     icon: Droplet,
     levelLabels: ["Vivid", "Intense", "Muted"],
   },
+  {
+    id: "screenReader",
+    label: "Screen Reader",
+    icon: Volume2,
+    levelLabels: ["On"],
+    max: 1,
+  },
 ];
 
 // Active level button colours
@@ -159,6 +167,78 @@ export default function AccessibilityToolbar() {
       });
     });
   }, [levels]);
+
+  // Screen Reader on Hover
+  useEffect(() => {
+    let lastSpoken: Element | null = null;
+    let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const handleMouseOver = (e: MouseEvent) => {
+      if (levels["screenReader"] !== 1) return;
+      
+      const target = e.target as HTMLElement;
+      // Match interactive elements, text elements, and elements with ARIA roles
+      const semanticTarget = target.closest('a, button, h1, h2, h3, h4, h5, h6, p, li, img, label, [role="button"], [role="link"], [role="menuitem"], [aria-label], [title]');
+      
+      if (!semanticTarget || semanticTarget === lastSpoken) return;
+      
+      lastSpoken = semanticTarget;
+      
+      if (debounceTimer) clearTimeout(debounceTimer);
+      
+      debounceTimer = setTimeout(() => {
+        let text = semanticTarget.getAttribute("aria-label");
+        
+        if (!text && semanticTarget.tagName === 'IMG') {
+          text = semanticTarget.getAttribute("alt");
+        }
+        
+        if (!text) {
+          const rawText = (semanticTarget as HTMLElement).innerText || (semanticTarget as HTMLElement).textContent || "";
+          text = rawText.replace(/\n+/g, ' ').trim();
+        }
+        
+        if (!text) {
+          text = semanticTarget.getAttribute("title");
+        }
+        
+        if (text && text.trim().length > 0) {
+          const cleanText = text.trim().substring(0, 200); // Prevent reading huge text blocks
+          window.speechSynthesis.cancel();
+          
+          const utter = new SpeechSynthesisUtterance(cleanText);
+          utter.rate = 1.0;
+          
+          // Try to match the best voice (same logic as DentiChat browser TTS)
+          const voices = window.speechSynthesis.getVoices();
+          const enVoices = voices.filter(v => v.lang.toLowerCase().startsWith('en'));
+          const females = enVoices.filter(v => !/male|man|david|mark|guy/i.test(v.name));
+          const pool = females.length > 0 ? females : enVoices;
+          const best = pool.find(v => /zira|samantha|female|woman/i.test(v.name)) || pool.find(v => /google/i.test(v.name)) || pool[0];
+          if (best) utter.voice = best;
+          
+          window.speechSynthesis.speak(utter);
+        }
+      }, 150); // Small debounce for smoother reading when moving fast
+    };
+
+    if (levels["screenReader"] === 1) {
+      document.addEventListener('mouseover', handleMouseOver);
+    } else {
+      window.speechSynthesis?.cancel();
+    }
+
+    return () => {
+      document.removeEventListener('mouseover', handleMouseOver);
+      if (debounceTimer) clearTimeout(debounceTimer);
+      window.speechSynthesis?.cancel();
+    };
+  }, [levels]);
+
+  // Pre-load voices on mount
+  useEffect(() => {
+    window.speechSynthesis?.getVoices();
+  }, []);
 
   // Close panel when clicking outside the toolbar container
   useEffect(() => {
@@ -218,7 +298,8 @@ export default function AccessibilityToolbar() {
                 <button
                   key={feature.id}
                   onClick={() => bump(feature.id)}
-                  title={isActive ? `Level ${lv}: ${feature.levelLabels[lv - 1]}` : `Click to enable`}
+                  title={isActive ? `${feature.label}, Level ${lv}: ${feature.levelLabels[lv - 1]}` : `${feature.label}, click to enable`}
+                  aria-label={isActive ? `${feature.label}, Level ${lv}: ${feature.levelLabels[lv - 1]}` : `${feature.label}, click to enable`}
                   className={`flex flex-col items-center justify-center p-2.5 rounded-xl border transition-all duration-200 ${levelBg(lv)}`}
                 >
                   <Icon
@@ -235,7 +316,7 @@ export default function AccessibilityToolbar() {
                       {feature.levelLabels[lv - 1]}
                     </span>
                   )}
-                  <LevelDots level={lv} />
+                  {feature.max !== 1 && <LevelDots level={lv} max={feature.max} />}
                 </button>
               );
             })}
